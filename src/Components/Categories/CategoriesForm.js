@@ -1,32 +1,81 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 import '../FormStyles.css';
 
 const CategoriesForm = () => {
-    const [initialValues, setInitialValues] = useState({
+
+    const initialValues = {
         name: '',
-        description: ''
+        description: '',
+        image: ''
+    }
+
+    const validationSchema = () =>
+        Yup.object().shape({
+            name: Yup.string().required(),
+            description: Yup.string().required(),
+            image: Yup.string().required()
+        })
+
+    const onSubmit = () => {
+        console.log(values);
+    }
+
+    const formik = useFormik({
+        initialValues,
+        validationSchema,
+        onSubmit
     })
 
-    const handleChange = (e) => {
-        if(e.target.name === 'name'){
-            setInitialValues({...initialValues, name: e.target.value})
-        } if(e.target.name === 'description'){
-            setInitialValues({...initialValues, description: e.target.value})
-        }
-    }
+    const {
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        touched,
+        values,
+        values: { name, description, image },
+        errors: { name: errorName, description: errorDescription, image: errorImage }
+    } = formik;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(initialValues);
-    }
 
     return (
         <form className="form-container" onSubmit={handleSubmit}>
-            <input className="input-field" type="text" name="name" value={initialValues.name} onChange={handleChange} placeholder="Title"></input>
-            <input className="input-field" type="text" name="description" value={initialValues.description} onChange={handleChange} placeholder="Write some description"></input>
+            <input
+                className="input-field"
+                type="text"
+                name="name"
+                value={name}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                placeholder="Title"
+            />
+            {errorName && touched && <span>{errorName}</span>}
+            <input
+                className="input-field"
+                type="text"
+                name="description"
+                value={description}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                placeholder="Write some description"
+            />
+            {errorDescription && touched && <span>{errorDescription}</span>}
+            <input
+                className="input-field"
+                type="text"
+                name="image"
+                value={image}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                placeholder="Add an image"
+            />
+            {errorImage && touched && <span>{errorImage}</span>}
             <button className="submit-btn" type="submit">Send</button>
         </form>
     );
 }
- 
+
 export default CategoriesForm;

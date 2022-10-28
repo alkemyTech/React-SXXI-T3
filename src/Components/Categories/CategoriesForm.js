@@ -1,4 +1,5 @@
 import React from 'react';
+// import axios from 'axios';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,15 +10,32 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '../FormStyles.css';
 import './categoriesForm.css';
 
+// let myCategory = {
+//     name: 'una Categoría',
+//     description: '<p>Una Descripcion muy interesante',
+//     image: 'myImage.jpg'
+// }
+
+let myCategory = null;
+
 const CategoriesForm = () => {
 
-    const initialValues = {
+    const newCategory = {
         name: '',
         description: '',
         image: ''
     }
 
-    const jpgRegExp = /\.(jpe?g)$/i;
+    const createdCategory = {
+        name: myCategory?.name,
+        description: myCategory?.description,
+        image: ''
+    }
+
+    
+    const initialValues = myCategory ? createdCategory : newCategory;
+
+    const jpgRegExp = /\.(jpe?g|png)$/i;
 
     const validationSchema = () =>
         Yup.object().shape({
@@ -27,6 +45,18 @@ const CategoriesForm = () => {
         })
 
     const onSubmit = () => {
+        // if (category) {
+        //     axios
+        //         .put(`https://ongapi.alkemy.org/api/categories/${category.id}`, values)
+        //         .then(() => { })
+        //         .catch(() => { })
+        // } else {
+        //     axios
+        //         .post('https://ongapi.alkemy.org/api/categories', values)
+        //         .then(() => { })
+        //         .catch(() => { })
+        // }
+
         console.log(values);
     }
 

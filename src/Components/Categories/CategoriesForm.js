@@ -1,5 +1,6 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -24,8 +25,7 @@ const CategoriesForm = ({ category }) => {
         image: ''
     }
 
-
-    const initialValues = category ? existentCategory : newCategory;
+    let initialValues = category ? existentCategory : newCategory;
 
     const jpgRegExp = /\.(jpe?g|png)$/i;
 
@@ -34,22 +34,66 @@ const CategoriesForm = ({ category }) => {
             name: Yup.string().min(4).required(),
             description: Yup.string().required(),
             image: Yup.string().matches(jpgRegExp, { message: 'image must be .jpg or .png file', excludeEmptyString: true }).required()
-        })
+        });
 
     const onSubmit = () => {
-        // if (category) {
-        //     axios
-        //         .put(`https://ongapi.alkemy.org/api/categories/${category.id}`, values)
-        //         .then(() => { })
-        //         .catch(() => { })
-        // } else {
-        //     axios
-        //         .post('https://ongapi.alkemy.org/api/categories', values)
-        //         .then(() => { })
-        //         .catch(() => { })
-        // }
+        if (category) {
+            axios
+                .put(`https://ongapi.alkemy.org/api/categories/${category.id}`, {
+                    name: values.name,
+                    description: values.description
+                })
+                .then((response) => {
+                    const { data: { message } } = response;
+                    return Swal.fire({
+                        title: message,
+                        icon: 'success',
+                        timer: 3000
+                    })
+                })
+                .catch((error) => {
+                    const errorMessage = (
+                        error.response
+                        && error.response.data
+                        && error.response.data.message
+                    ) || error.message
+    
+                    Swal.fire({
+                        title: errorMessage,
+                        icon: 'error'
+                    })
+                });
 
-        console.log(values);
+        } else {
+            axios
+                .post('https://ongapi.alkemy.org/api/categories', {
+                    name: values.name,
+                    description: values.description
+                })
+                .then((response) => {
+                    const { data: { message } } = response;
+                    Swal.fire({
+                        title: message,
+                        icon: 'success',
+                        timer: 3000
+                    })
+                    return resetForm();
+                })
+                .catch((error) => {
+                    const errorMessage = (
+                        error.response
+                        && error.response.data
+                        && error.response.data.message 
+                        && `Category'name alredy exists`
+                    ) || error.message
+    
+                    Swal.fire({
+                        title: errorMessage,
+                        icon: 'error',
+                        timer:5000
+                    })
+                })
+        }
     }
 
     const formik = useFormik({
@@ -64,12 +108,12 @@ const CategoriesForm = ({ category }) => {
         handleBlur,
         setFieldValue,
         setFieldTouched,
+        resetForm,
         values,
         values: { name, description, image },
         touched: { name: touchedName, description: touchedDescription, image: touchedImage },
         errors: { name: errorName, description: errorDescription, image: errorImage }
     } = formik;
-
 
     return (
         <div>

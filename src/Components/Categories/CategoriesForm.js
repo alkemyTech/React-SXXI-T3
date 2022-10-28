@@ -10,15 +10,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '../FormStyles.css';
 import './categoriesForm.css';
 
-// let myCategory = {
-//     name: 'una Categoría',
-//     description: '<p>Una Descripcion muy interesante',
-//     image: 'myImage.jpg'
-// }
-
-let myCategory = null;
-
-const CategoriesForm = () => {
+const CategoriesForm = ({ category }) => {
 
     const newCategory = {
         name: '',
@@ -26,14 +18,14 @@ const CategoriesForm = () => {
         image: ''
     }
 
-    const createdCategory = {
-        name: myCategory?.name,
-        description: myCategory?.description,
+    const existentCategory = {
+        name: category?.name,
+        description: category?.description,
         image: ''
     }
 
-    
-    const initialValues = myCategory ? createdCategory : newCategory;
+
+    const initialValues = category ? existentCategory : newCategory;
 
     const jpgRegExp = /\.(jpe?g|png)$/i;
 
@@ -41,7 +33,7 @@ const CategoriesForm = () => {
         Yup.object().shape({
             name: Yup.string().min(4).required(),
             description: Yup.string().required(),
-            image: Yup.string().matches(jpgRegExp, { message: 'image must be .jpg file', excludeEmptyString: true }).required()
+            image: Yup.string().matches(jpgRegExp, { message: 'image must be .jpg or .png file', excludeEmptyString: true }).required()
         })
 
     const onSubmit = () => {

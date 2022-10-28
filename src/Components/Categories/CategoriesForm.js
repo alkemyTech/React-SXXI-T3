@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 
 import { useFormik } from 'formik';
@@ -7,6 +6,8 @@ import * as Yup from 'yup';
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+import { apiBaseURL } from '../../Services/apiONG';
 
 import '../FormStyles.css';
 import './categoriesForm.css';
@@ -38,8 +39,9 @@ const CategoriesForm = ({ category }) => {
 
     const onSubmit = () => {
         if (category) {
-            axios
-                .put(`https://ongapi.alkemy.org/api/categories/${category.id}`, {
+
+            apiBaseURL
+                .put(`/categories/${category.id}`, {
                     name: values.name,
                     description: values.description
                 })
@@ -57,7 +59,7 @@ const CategoriesForm = ({ category }) => {
                         && error.response.data
                         && error.response.data.message
                     ) || error.message
-    
+
                     Swal.fire({
                         title: errorMessage,
                         icon: 'error'
@@ -65,8 +67,9 @@ const CategoriesForm = ({ category }) => {
                 });
 
         } else {
-            axios
-                .post('https://ongapi.alkemy.org/api/categories', {
+
+            apiBaseURL
+                .post(`/categories`, {
                     name: values.name,
                     description: values.description
                 })
@@ -83,14 +86,14 @@ const CategoriesForm = ({ category }) => {
                     const errorMessage = (
                         error.response
                         && error.response.data
-                        && error.response.data.message 
-                        && `Category'name alredy exists`
+                        && error.response.data.message
+                        && `Category's name alredy exists`
                     ) || error.message
-    
+
                     Swal.fire({
                         title: errorMessage,
                         icon: 'error',
-                        timer:5000
+                        timer: 5000
                     })
                 })
         }

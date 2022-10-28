@@ -9,6 +9,7 @@
 .input-field{
     padding: 15px 30px;
     border: 1px solid #c1c1c1;
+    border-radius: 5px;
 }
 
 .select-field{
@@ -20,6 +21,7 @@
     background-color: #2E86C1;
     padding: 10px 15px;
     border: none;
+    border-radius: 5px;
     color: #fff;
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import Swal from 'sweetalert2';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,7 +6,7 @@ import * as Yup from 'yup';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import { apiONG } from '../../Services/apiONG';
+import { onSubmitService } from '../../Services/categoryFormServices';
 
 import '../FormStyles.css';
 import './categoriesForm.css';
@@ -36,71 +35,17 @@ const CategoriesForm = ({ category }) => {
             description: Yup.string().required(),
             image: Yup.string().matches(
                 jpgRegExp, {
-                    message: 'image must be .jpg or .png file', excludeEmptyString: true
+                message: 'image must be .jpg or .png file', excludeEmptyString: true
             }).required()
         });
 
     const onSubmit = () => {
-        if (category) {
-
-            apiONG
-                .put(`/categories/${category.id}`, {
-                    name,
-                    description
-                })
-                .then((response) => {
-                    const { data: { message } } = response;
-                    return Swal.fire({
-                        title: message,
-                        icon: 'success',
-                        timer: 3000
-                    })
-                })
-                .catch((error) => {
-                    const errorMessage = (
-                        error.response
-                        && error.response.data
-                        && error.response.data.message
-                    ) || error.message;
-
-                    Swal.fire({
-                        title: errorMessage,
-                        icon: 'error',
-                        timer: 5000
-                    })
-                });
-
-        } else {
-
-            apiONG
-                .post(`/categories`, {
-                    name,
-                    description
-                })
-                .then((response) => {
-                    const { data: { message } } = response;
-                    Swal.fire({
-                        title: message,
-                        icon: 'success',
-                        timer: 3000
-                    })
-                    return resetForm();
-                })
-                .catch((error) => {
-                    const errorMessage = (
-                        error.response
-                        && error.response.data
-                        && error.response.data.message
-                        && `Category's name alredy exists`
-                    ) || error.message;
-
-                    Swal.fire({
-                        title: errorMessage,
-                        icon: 'error',
-                        timer: 5000
-                    })
-                })
-        }
+        onSubmitService(
+            category,
+            name,
+            description,
+            resetForm
+        );
     }
 
     const formik = useFormik({

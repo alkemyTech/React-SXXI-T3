@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const apiBaseURL = axios.create({
+export const apiONG = axios.create({
     baseURL: `https://ongapi.alkemy.org/api`
 })

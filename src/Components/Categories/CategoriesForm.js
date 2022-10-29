@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import { apiBaseURL } from '../../Services/apiONG';
+import { apiONG } from '../../Services/apiONG';
 
 import '../FormStyles.css';
 import './categoriesForm.css';
@@ -26,7 +26,7 @@ const CategoriesForm = ({ category }) => {
         image: ''
     }
 
-    let initialValues = category ? existentCategory : newCategory;
+    const initialValues = category ? existentCategory : newCategory;
 
     const jpgRegExp = /\.(jpe?g|png)$/i;
 
@@ -34,16 +34,19 @@ const CategoriesForm = ({ category }) => {
         Yup.object().shape({
             name: Yup.string().min(4).required(),
             description: Yup.string().required(),
-            image: Yup.string().matches(jpgRegExp, { message: 'image must be .jpg or .png file', excludeEmptyString: true }).required()
+            image: Yup.string().matches(
+                jpgRegExp, {
+                    message: 'image must be .jpg or .png file', excludeEmptyString: true
+            }).required()
         });
 
     const onSubmit = () => {
         if (category) {
 
-            apiBaseURL
+            apiONG
                 .put(`/categories/${category.id}`, {
-                    name: values.name,
-                    description: values.description
+                    name,
+                    description
                 })
                 .then((response) => {
                     const { data: { message } } = response;
@@ -58,20 +61,21 @@ const CategoriesForm = ({ category }) => {
                         error.response
                         && error.response.data
                         && error.response.data.message
-                    ) || error.message
+                    ) || error.message;
 
                     Swal.fire({
                         title: errorMessage,
-                        icon: 'error'
+                        icon: 'error',
+                        timer: 5000
                     })
                 });
 
         } else {
 
-            apiBaseURL
+            apiONG
                 .post(`/categories`, {
-                    name: values.name,
-                    description: values.description
+                    name,
+                    description
                 })
                 .then((response) => {
                     const { data: { message } } = response;
@@ -88,7 +92,7 @@ const CategoriesForm = ({ category }) => {
                         && error.response.data
                         && error.response.data.message
                         && `Category's name alredy exists`
-                    ) || error.message
+                    ) || error.message;
 
                     Swal.fire({
                         title: errorMessage,
@@ -112,7 +116,6 @@ const CategoriesForm = ({ category }) => {
         setFieldValue,
         setFieldTouched,
         resetForm,
-        values,
         values: { name, description, image },
         touched: { name: touchedName, description: touchedDescription, image: touchedImage },
         errors: { name: errorName, description: errorDescription, image: errorImage }

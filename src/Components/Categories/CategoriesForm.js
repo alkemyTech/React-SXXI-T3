@@ -29,14 +29,19 @@ const CategoriesForm = ({ category }) => {
 
     const jpgRegExp = /\.(jpe?g|png)$/i;
 
+    const requiredMessage = `es un campo requerido`
+
     const validationSchema = () =>
         Yup.object().shape({
-            name: Yup.string().min(4).required(),
-            description: Yup.string().required(),
+            name: Yup
+            .string()
+            .min(4, 'El nombre debe tener 4 caracteres como mínimo').required(`Titulo ${requiredMessage}`),
+            description: Yup.string().required(requiredMessage),
             image: Yup.string().matches(
                 jpgRegExp, {
-                message: 'image must be .jpg or .png file', excludeEmptyString: true
-            }).required()
+                message: 'La imagen debe se un archivo .jpg o .png',
+                excludeEmptyString: true
+            }).required(requiredMessage)
         });
 
     const onSubmit = () => {
@@ -68,7 +73,7 @@ const CategoriesForm = ({ category }) => {
 
     return (
         <div>
-            <h1 className='categoriesForm-Title'>Categories Form</h1>
+            <h1 className='categoriesForm-Title'>Formulario de Categorias</h1>
             <form className="form-container" onSubmit={handleSubmit}>
                 <input
                     className="input-field"
@@ -77,7 +82,7 @@ const CategoriesForm = ({ category }) => {
                     value={name}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Title"
+                    placeholder="Titulo"
                 />
                 <div className='categoriesForm-errorContainer'>
                     {errorName && touchedName && <span>{errorName}</span>}
@@ -105,12 +110,12 @@ const CategoriesForm = ({ category }) => {
                     value={image}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Add an image"
+                    placeholder="Agregar una imagen"
                 />
                 <div className='categoriesForm-errorContainer'>
                     {errorImage && touchedImage && <span>{errorImage}</span>}
                 </div>
-                <button className="submit-btn" type="submit">Send</button>
+                <button className="submit-btn" type="submit">Enviar</button>
             </form>
         </div>
     );

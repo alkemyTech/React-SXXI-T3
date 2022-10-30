@@ -18,11 +18,9 @@ export const onSubmitService = (category, name, description, resetForm) => {
                 })
             })
             .catch((error) => {
-                const errorMessage = (
-                    error.response
-                    && error.response.data
-                    && error.response.data.message
-                ) || error.message;
+                const errorMessage = 
+                error?.response?.data?.message
+                || error.message;
 
                 Swal.fire({
                     title: errorMessage,
@@ -48,12 +46,10 @@ export const onSubmitService = (category, name, description, resetForm) => {
                 return resetForm();
             })
             .catch((error) => {
-                const errorMessage = (
-                    error.response
-                    && error.response.data
-                    && error.response.data.message
-                    && `Category's name alredy exists`
-                ) || error.message;
+                const errorMessage = 
+                    error?.response?.data?.message 
+                    ? `Category's name alredy exists`
+                    : error.message;
 
                 Swal.fire({
                     title: errorMessage,

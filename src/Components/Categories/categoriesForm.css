@@ -35,7 +35,7 @@
 
 .ck {
     height: 200px;
-    /* border-radius: 5px !important; */
+    border-radius: 5px !important;
 }
 
 .categoriesForm-errorContainer {

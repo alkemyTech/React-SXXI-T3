@@ -72,8 +72,8 @@ const CategoriesForm = ({ category }) => {
 
     return (
         <div className='categoriesContainer'>
-            <h1 className='categoriesForm-Title'>Formulario de Categorias</h1>
             <form className="form-container" onSubmit={handleSubmit}>
+            <h1 className='categoriesForm-Title'>Formulario de Categorias</h1>
                 <div className='input-label-contariner'>
                     <label
                         htmlFor='inputTitle'

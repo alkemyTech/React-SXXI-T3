@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -34,13 +32,19 @@ const CategoriesForm = ({ category }) => {
         Yup.object().shape({
             name: Yup
                 .string()
-                .min(4, 'El nombre debe tener 4 caracteres como mínimo').required(`Titulo ${requiredMessage}`),
-            description: Yup.string().required(`La Descripción ${requiredMessage}`),
-            image: Yup.string().matches(
-                jpgRegExp, {
-                message: 'La imagen debe se un archivo .jpg o .png',
-                excludeEmptyString: true
-            }).required(`La imagen ${requiredMessage}`)
+                .min(4, 'El título debe tener 4 caracteres como mínimo')
+                .required(`El título ${requiredMessage}`),
+            description: Yup
+                .string()
+                .required(`La Descripción ${requiredMessage}`),
+            image: Yup
+                .string()
+                .matches(
+                    jpgRegExp, {
+                    message: 'La imagen debe se un archivo .jpg o .png',
+                    excludeEmptyString: true
+                })
+                .required(`La imagen ${requiredMessage}`)
         });
 
     const onSubmit = () => {
@@ -48,7 +52,8 @@ const CategoriesForm = ({ category }) => {
             category,
             name,
             description,
-            resetForm
+            resetForm,
+            setSubmitting
         );
     }
 
@@ -64,6 +69,8 @@ const CategoriesForm = ({ category }) => {
         handleBlur,
         setFieldValue,
         setFieldTouched,
+        isSubmitting,
+        setSubmitting,
         resetForm,
         values: { name, description, image },
         touched: { name: touchedName, description: touchedDescription, image: touchedImage },
@@ -71,14 +78,16 @@ const CategoriesForm = ({ category }) => {
     } = formik;
 
     return (
-        <div className='categoriesContainer'>
+        <div className={
+            isSubmitting ? 'categoriesContainer pulse' : 'categoriesContainer'
+        }>
             <form className="form-container" onSubmit={handleSubmit}>
-            <h1 className='categoriesForm-Title'>Formulario de Categorias</h1>
+                <h1 className='categoriesForm-Title'>Formulario de Categorías</h1>
                 <div className='input-label-contariner'>
                     <label
                         htmlFor='inputTitle'
                     >
-                        Titulo
+                        Título
                     </label>
                     <input
                         id='inputTitle'
@@ -96,18 +105,24 @@ const CategoriesForm = ({ category }) => {
                 </div>
                 <div className='input-label-contariner'>
                     <label>
-                        Descripcion
+                        Descripción
                     </label>
                     <CKEditor
-                    className='border-rounded'
                         editor={ClassicEditor}
-                        data={description}
+                        data={description ? description : '<p>Describa la categoría</p>'}
+                        onFocus={(event, editor) => {
+                            editor.setData(description)
+                        }}
                         onChange={(event, editor) => {
                             const data = editor.getData();
-                            setFieldValue('description', data)
+                            if (data !== '<p>Describa la categoría</p>') {
+                                setFieldValue('description', data)
+                            }
                         }}
-                        onBlur={() => {
+                        onBlur={(event, editor) => {
                             setFieldTouched('description')
+                            const data = editor.getData();
+                            !data && editor.setData('<p>Describa la categoría</p>')
                         }}
                     />
                     <div className='categoriesForm-errorContainer'>
@@ -118,17 +133,17 @@ const CategoriesForm = ({ category }) => {
                     <label
                         htmlFor='inputImage'
                     >
-                        Imagen
+                        Agregar una imagen
                     </label>
+
                     <input
-                        id='inputImage'
-                        className="input-field"
                         type="file"
                         name="image"
+                        id='inputImage'
+                        className="input-field"
                         value={image}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder="Agregar una imagen"
                     />
                     <div className='categoriesForm-errorContainer'>
                         {errorImage && touchedImage && <span>{errorImage}</span>}

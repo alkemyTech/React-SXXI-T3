@@ -1,7 +1,7 @@
 import { apiONG } from '../apiONG';
 import Swal from 'sweetalert2';
 
-export const onSubmitService = (category, name, description, resetForm) => {
+export const onSubmitService = (category, name, description, resetForm, setSubmitting) => {
     if (category) {
 
         apiONG
@@ -11,6 +11,7 @@ export const onSubmitService = (category, name, description, resetForm) => {
             })
             .then((response) => {
                 const { data: { message } } = response;
+
                 return Swal.fire({
                     title: message,
                     icon: 'success',
@@ -18,16 +19,19 @@ export const onSubmitService = (category, name, description, resetForm) => {
                 })
             })
             .catch((error) => {
-                const errorMessage = 
-                error?.response?.data?.message
-                || error.message;
+                const errorMessage =
+                    error?.response?.data?.message
+                    || error.message;
 
                 Swal.fire({
                     title: errorMessage,
                     icon: 'error',
                     timer: 5000
                 })
-            });
+            })
+            .finally(() => {
+                setSubmitting(false)
+            })
 
     } else {
 
@@ -38,6 +42,7 @@ export const onSubmitService = (category, name, description, resetForm) => {
             })
             .then((response) => {
                 const { data: { message } } = response;
+
                 Swal.fire({
                     title: message,
                     icon: 'success',
@@ -46,16 +51,19 @@ export const onSubmitService = (category, name, description, resetForm) => {
                 return resetForm();
             })
             .catch((error) => {
-                const errorMessage = 
-                    error?.response?.data?.message 
-                    ? `Category's name alredy exists`
-                    : error.message;
+                const errorMessage =
+                    error?.response?.data?.message
+                        ? `Ya existe una categoría con ese nombre`
+                        : error.message;
 
                 Swal.fire({
                     title: errorMessage,
                     icon: 'error',
                     timer: 5000
                 })
+            })
+            .finally(() => {
+                setSubmitting(false)
             })
     }
 }

@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../FormStyles.css";
 import "./Auth.css";
 
-const LoginForm = ({desktop}) => {
+const LoginForm = ({ desktop }) => {
   const initialValues = {
     email: "",
     password: "",
@@ -43,10 +43,12 @@ const LoginForm = ({desktop}) => {
   return (
     <>
       <form className="form-container" onSubmit={handleSubmit}>
-        {desktop && <>
-        <div className="title">Bienvenido</div>
-        <div className="subtitle">Inicia sesión en tu cuenta!</div>
-        </>}
+        {desktop && (
+          <>
+            <div className="title">Bienvenido</div>
+            <div className="subtitle">Inicia sesión en tu cuenta!</div>
+          </>
+        )}
         <input
           className="input-field"
           type="email"

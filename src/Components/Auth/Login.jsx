@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import "../FormStyles.css";
 import "./Auth.css";
-import img from "./login.jpg";
+import img from "../../assets/images/login.jpg";
 import LoginForm from "./LoginForm";
-import logo from "./logo.png";
+import logo from "../../assets/images/logo.png";
 
 const Login = () => {
   const [isMobile, setIsMobile] = useState(false);

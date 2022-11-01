@@ -1,15 +1,16 @@
+
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-
+import Login from './Components/Auth/Login';
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
-
 import './App.css';
 
 function App() {
   return (
       <Routes>
         <Route path="backoffice/*" element={<BackofficeRoutes/>}/>
-        <Route path="login" element={<></>}/>
+
+        <Route path="login" element={<Login/>}/>
         <Route path="register" element={<></>}/>
         <Route path="actividades">
           <Route index element={<></>}/>

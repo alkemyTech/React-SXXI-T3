@@ -1,0 +1,56 @@
+.button {
+	width: 100%;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
+	font-size: 1.1rem;
+	padding: .25rem;
+	border-radius: 10px;
+	border-style: outset;
+	border-width: 1px;
+	cursor: pointer;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: white;
+	color: var(--text-color);
+}
+
+
+.button.text{
+	background-color:transparent;
+	border:none;
+	box-shadow: unset;
+}
+
+.button.text:hover{
+	background-color: rgba(114, 114, 114, 0.1);
+}
+
+
+.button.primary {
+	background-color: var(--color-primary);
+	border-color: var(--color-primary-strong);
+	color: var(--text-color-inverted);
+}
+
+.button.primary:hover {
+	background-color: var(--color-primary-strong);
+}
+
+
+.button.secondary {
+	background-color: var(--color-secondary);
+	border-color: var(--color-secondary-strong);
+}
+
+.button.secondary:hover {
+	background-color: var(--color-secondary-strong);
+}
+
+
+.button.tertiary {
+	background-color: var(--color-tertiary);
+	border-color: var(--color-tertiary-strong);
+}
+
+.button.tertiary:hover {
+	background-color: var(--color-tertiary-strong);
+}

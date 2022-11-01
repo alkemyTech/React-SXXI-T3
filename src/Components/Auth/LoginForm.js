@@ -60,7 +60,7 @@ const LoginForm = ({ desktop }) => {
           autoComplete="off"
         ></input>
         {errors.email && touched.email && (
-          <div className="error-msg">{errors.email}</div>
+          <div className="form-error">{errors.email}</div>
         )}
         <input
           className="input-field"
@@ -73,7 +73,7 @@ const LoginForm = ({ desktop }) => {
           autoComplete="off"
         ></input>
         {errors.password && touched.password && (
-          <div className="error-msg">{errors.password}</div>
+          <div className="form-error">{errors.password}</div>
         )}
         <button className="submit-btn" type="submit">
           Inicia sesión

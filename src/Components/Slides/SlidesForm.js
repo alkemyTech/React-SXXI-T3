@@ -13,13 +13,15 @@ const SlidesForm = ({ slide }) => {
     const newSlide = {
         name: '',
         description: '',
-        image: ''
+        image: '',
+        order: ''
     }
 
     const existentSlide = {
         name: slide?.name,
         description: slide?.description,
-        image: ''
+        image: '',
+        order: slide?.order
     }
 
     const initialValues = slide ? existentSlide : newSlide;
@@ -44,7 +46,13 @@ const SlidesForm = ({ slide }) => {
                     message: 'La imagen debe se un archivo .jpg o .png',
                     excludeEmptyString: true
                 })
-                .required(`La imagen ${requiredMessage}`)
+                .required(`La imagen ${requiredMessage}`),
+            order: Yup
+                .string()
+                .trim()
+                .required(`El orden ${requiredMessage}`)
+                .matches(/^[0-9]+$/ , 'El Orden debe ser un numero')
+                
         });
 
     const onSubmit = () => {
@@ -52,6 +60,7 @@ const SlidesForm = ({ slide }) => {
             slide,
             name,
             description,
+            order,
             resetForm,
             setSubmitting
         );
@@ -72,9 +81,9 @@ const SlidesForm = ({ slide }) => {
         isSubmitting,
         setSubmitting,
         resetForm,
-        values: { name, description, image },
-        touched: { name: touchedName, description: touchedDescription, image: touchedImage },
-        errors: { name: errorName, description: errorDescription, image: errorImage }
+        values: { name, description, image, order },
+        touched: { name: touchedName, description: touchedDescription, image: touchedImage, order: touchedOrder },
+        errors: { name: errorName, description: errorDescription, image: errorImage, order: errorOrder }
     } = formik;
 
     return (
@@ -147,6 +156,26 @@ const SlidesForm = ({ slide }) => {
                     />
                     <div className='form-error'>
                         {errorImage && touchedImage && <span>{errorImage}</span>}
+                    </div>
+                </div>
+                <div className='input-label-container'>
+                    <label
+                        htmlFor='inputOrder'
+                    >
+                        Orden
+                    </label>
+                    <input
+                        id='inputOrder'
+                        className="input-field"
+                        type="text"
+                        name="order"
+                        value={order}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder="Escriba el Orden de la Slide"
+                    />
+                    <div className='form-error'>
+                        {errorOrder && touchedOrder && <span>{errorOrder}</span>}
                     </div>
                 </div>
                 <button className="submit-btn" type="submit">Enviar</button>

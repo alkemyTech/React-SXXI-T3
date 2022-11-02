@@ -1,13 +1,14 @@
 import { apiONG } from '../apiONG';
 import Swal from 'sweetalert2';
 
-export const onSubmitService = (slide, name, description, resetForm, setSubmitting) => {
+export const onSubmitService = (slide, name, description, order, resetForm, setSubmitting) => {
     if (slide) {
 
         apiONG
             .put(`/slides/${slide.id}`, {
                 name,
-                description
+                description,
+                order
             })
             .then((response) => {
                 const { data: { message } } = response;
@@ -38,11 +39,11 @@ export const onSubmitService = (slide, name, description, resetForm, setSubmitti
         apiONG
             .post(`/slides`, {
                 name,
-                description
+                description,
+                order
             })
             .then((response) => {
                 const { data: { message } } = response;
-
                 Swal.fire({
                     title: message,
                     icon: 'success',

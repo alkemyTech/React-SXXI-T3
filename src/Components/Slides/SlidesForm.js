@@ -7,7 +7,6 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { onSubmitService } from '../../Services/slideFormServices';
 
 import '../FormStyles.css';
-import './SlidesForm.css';
 
 const SlidesForm = ({ slide }) => {
 
@@ -80,11 +79,11 @@ const SlidesForm = ({ slide }) => {
 
     return (
         <div className={
-            isSubmitting ? 'slidesContainer pulse' : 'slidesContainer'
+            isSubmitting ? 'main-container pulse' : 'main-container'
         }>
             <form className="form-container" onSubmit={handleSubmit}>
-                <h1 className='slidesForm-Title'>Formulario de Slides</h1>
-                <div className='input-label-contariner'>
+                <h1 className='form-title'>Formulario de Slides</h1>
+                <div className='input-label-container'>
                     <label
                         htmlFor='inputTitle'
                     >
@@ -100,11 +99,11 @@ const SlidesForm = ({ slide }) => {
                         onChange={handleChange}
                         placeholder="Escriba el título de la Slide"
                     />
-                    <div className='slidesForm-errorContainer'>
+                    <div className='form-error'>
                         {errorName && touchedName && <span>{errorName}</span>}
                     </div>
                 </div>
-                <div className='input-label-contariner'>
+                <div className='input-label-container'>
                     <label>
                         Descripción
                     </label>
@@ -126,11 +125,11 @@ const SlidesForm = ({ slide }) => {
                             !data && editor.setData('<p>Describa la Slide</p>')
                         }}
                     />
-                    <div className='slidesForm-errorContainer'>
+                    <div className='form-error'>
                         {errorDescription && touchedDescription && <span>{errorDescription}</span>}
                     </div>
                 </div>
-                <div className='input-label-contariner'>
+                <div className='input-label-container'>
                     <label
                         htmlFor='inputImage'
                     >
@@ -146,7 +145,7 @@ const SlidesForm = ({ slide }) => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                     />
-                    <div className='slidesForm-errorContainer'>
+                    <div className='form-error'>
                         {errorImage && touchedImage && <span>{errorImage}</span>}
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import Login from './Components/Auth/Login';
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
 import './App.css';
 import Register from './Components/Auth/Register';
+import Slider from "./Components/Slides/Slider/Slider";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         </Route>
         <Route path="contacto" element={<></>}/>
         <Route path="nosotros" element={<></>}/>
-        <Route path="/" element={<></>}/>
+        <Route path="/" element={<Slider/>}/>
         <Route path="*" element={<></>}/>
       </Routes>
   );

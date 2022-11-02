@@ -7,13 +7,16 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { onSubmitService } from '../../Services/slideFormServices';
 
 import '../FormStyles.css';
+import { useEffect, useState } from 'react';
 
 const SlidesForm = ({ slide }) => {
+
 
     const newSlide = {
         name: '',
         description: '',
         image: '',
+        imageBase64: '',
         order: ''
     }
 
@@ -21,6 +24,7 @@ const SlidesForm = ({ slide }) => {
         name: slide?.name,
         description: slide?.description,
         image: '',
+        imageBase64: '',
         order: slide?.order
     }
 
@@ -60,6 +64,8 @@ const SlidesForm = ({ slide }) => {
             slide,
             name,
             description,
+            image,
+            imageBase64,
             order,
             resetForm,
             setSubmitting
@@ -81,10 +87,20 @@ const SlidesForm = ({ slide }) => {
         isSubmitting,
         setSubmitting,
         resetForm,
-        values: { name, description, image, order },
+        values: { name, description, image, imageBase64, order },
         touched: { name: touchedName, description: touchedDescription, image: touchedImage, order: touchedOrder },
         errors: { name: errorName, description: errorDescription, image: errorImage, order: errorOrder }
     } = formik;
+
+    const handleFileChange = (e) => {
+        const fileReader = new FileReader();
+        fileReader.onloadend = function () {
+            setFieldValue('imageBase64', fileReader.result); 
+        };
+        fileReader.readAsDataURL(e.target.files[0]);
+        //setFieldValue('image', e.target.files[0].name);
+        
+    };
 
     return (
         <div className={
@@ -152,7 +168,7 @@ const SlidesForm = ({ slide }) => {
                         className="input-field"
                         value={image}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleFileChange}
                     />
                     <div className='form-error'>
                         {errorImage && touchedImage && <span>{errorImage}</span>}

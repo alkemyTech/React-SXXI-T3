@@ -1,9 +1,8 @@
 import { apiONG } from '../apiONG';
 import Swal from 'sweetalert2';
 
-export const onSubmitService = (slide, name, description, order, resetForm, setSubmitting) => {
+export const onSubmitService = (slide, name, description, image, imageBase64, order, resetForm, setSubmitting) => {
     if (slide) {
-
         apiONG
             .put(`/slides/${slide.id}`, {
                 name,
@@ -35,15 +34,18 @@ export const onSubmitService = (slide, name, description, order, resetForm, setS
             })
 
     } else {
-
+        const body = {
+            name: name,
+            description: description,
+            image: image,
+            order: order
+        };
+        console.log(body);
         apiONG
-            .post(`/slides`, {
-                name,
-                description,
-                order
-            })
+            .post(`/slides`, body)
             .then((response) => {
                 const { data: { message } } = response;
+                console.log(response);
                 Swal.fire({
                     title: message,
                     icon: 'success',

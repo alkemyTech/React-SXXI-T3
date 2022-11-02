@@ -1,5 +1,6 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
+import SlidesForm from "../Components/Slides/SlidesForm";
 
 const BackofficeRoutes = () => {
     return (
@@ -9,8 +10,8 @@ const BackofficeRoutes = () => {
                 <Route path="editar" element={<></>}/>
             </Route>
             <Route path="slides">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<SlidesForm/>}/>
+                <Route path="editar/:id" element={<SlidesForm/>}/>
             </Route>
             <Route path="proyectos">
                 <Route path="crear" element={<></>}/>

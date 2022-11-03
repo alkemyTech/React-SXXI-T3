@@ -20,6 +20,7 @@ const MembersForm = () => {
 
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const initialValues = {
     name: '',
@@ -136,6 +137,10 @@ const MembersForm = () => {
   } = formik;
 
   useEffect(() => {
+    setIsLoading(() => (isSubmitting))
+  }, [isSubmitting])
+
+  useEffect(() => {
     if (id) {
       apiONG
         .get(`/members/${id}`)
@@ -156,11 +161,13 @@ const MembersForm = () => {
         })
     }
 
-  }, [id, setValues, setSubmitting])
+  }, [id, setValues])
+
+  console.log('re-render')
 
   return (
     <div className={
-      isSubmitting ? 'categoriesContainer pulse' : 'categoriesContainer'
+      isLoading ? 'categoriesContainer pulse' : 'categoriesContainer'
     }>
 
       <form className="form-container" onSubmit={handleSubmit}>

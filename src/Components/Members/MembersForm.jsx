@@ -20,7 +20,7 @@ const MembersForm = () => {
 
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const initialValues = {
     name: '',
@@ -137,22 +137,20 @@ const MembersForm = () => {
   } = formik;
 
   useEffect(() => {
-    setIsLoading(() => (isSubmitting))
-  }, [isSubmitting])
-
-  useEffect(() => {
     if (id) {
+      setIsFetching(() => (true))
       apiONG
         .get(`/members/${id}`)
         .then(({ data: { data } }) => {
           setValues(() => ({ ...data, image: '' }))
           setImagePreview(() => (data.image))
+          setIsFetching(() => (false))
         })
         .catch((error) => {
           const errorMessage =
             error?.response?.data?.message
             || error.message;
-
+          setIsFetching(() => (false))
           Swal.fire({
             title: errorMessage,
             icon: 'error',
@@ -162,6 +160,8 @@ const MembersForm = () => {
     }
 
   }, [id, setValues])
+
+  const isLoading = isFetching || isSubmitting;
 
   return (
     <div className={
@@ -194,9 +194,9 @@ const MembersForm = () => {
           </div>
           {
             id
-            ? (<div className='preview-container' style={{ backgroundImage: `url(${imagePreview})` }}>
-            </div>)
-            : null
+              ? (<div className='preview-container' style={{ backgroundImage: `url(${imagePreview})` }}>
+              </div>)
+              : null
           }
         </div>
         <div className='input-label-container'>

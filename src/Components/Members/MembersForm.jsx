@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
@@ -17,6 +18,7 @@ import './membersForm.css'
 const MembersForm = () => {
 
   const { id } = useParams();
+  
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -61,13 +63,12 @@ const MembersForm = () => {
     })
   );
 
-  const getBase64 = file => (
+  const getBase64 = (file) => (
     new Promise(resolve => {
       let baseURL = "";
       let reader = new FileReader();
 
       reader.readAsDataURL(file);
-      // onloadend
       reader.onload = () => {
         baseURL = reader.result;
         resolve(baseURL);
@@ -79,20 +80,17 @@ const MembersForm = () => {
     const file = imageRef.current.files[0];
     // Simulación de llamada a la api
     setTimeout(() => {
+
       getBase64(file)
         .then(result => {
           setImagePreview(() => (result))
-          file["base64"] = result;
           Swal.fire({
             title: "Miembro creado correctamente",
             text: "Imagen procesada satisafactoriamente",
             icon: 'success',
             timer: 5000
           })
-          console.log({
-            ...values,
-            image: result
-          })
+          console.log({ ...values, image: result })
           setSubmitting(false)
         })
         .catch(() => {
@@ -159,9 +157,6 @@ const MembersForm = () => {
             icon: 'error',
             timer: 5000
           })
-        })
-        .finally(() => {
-          setSubmitting(false)
         })
     }
 

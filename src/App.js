@@ -6,6 +6,7 @@ import BackofficeRoutes from "./Routes/BackofficeRoutes";
 import Register from './Components/Auth/Register';
 import ActivitiesDetail from "./Components/Activities/Detail/ActivitiesDetail";
 import './App.css';
+import NewsDetail from './Components/News/Detail/NewsDetail';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         </Route>
         <Route path="novedades">
           <Route index element={<></>}/>
-          <Route path=":id" element={<></>}/>
+          <Route path=":id" element={<NewsDetail title="Novedad"/>}/>
         </Route>
         <Route path="contacto" element={<></>}/>
         <Route path="nosotros" element={<></>}/>

@@ -267,7 +267,7 @@ const MembersForm = () => {
           <label
             htmlFor='inputImage'
           >
-            Agregar una imagen
+            {id ? 'Modificar imagen actual' : 'Agregar una imagen'}
           </label>
           <input
             ref={imageRef}

@@ -2,8 +2,16 @@ import { apiONG } from '../apiONG';
 import Swal from 'sweetalert2';
 
 export const onSubmitService = (
-    id, name, description, facebookUrl, linkedinUrl, image, resetForm, setSubmitting
+    id,
+    name,
+    description,
+    facebookUrl,
+    linkedinUrl,
+    image,
+    resetForm,
+    setSubmitting
 ) => {
+
     if (id) {
 
         apiONG
@@ -49,6 +57,7 @@ export const onSubmitService = (
             })
             .then((response) => {
                 const { data: { message } } = response;
+                setSubmitting(false)
                 Swal.fire({
                     title: message,
                     icon: 'success',
@@ -62,14 +71,12 @@ export const onSubmitService = (
                         ? `Ya existe una categoría con ese nombre`
                         : error.message;
 
+                setSubmitting(false)
                 Swal.fire({
                     title: errorMessage,
                     icon: 'error',
                     timer: 5000
                 })
-            })
-            .finally(() => {
-                setSubmitting(false)
             })
     }
 }

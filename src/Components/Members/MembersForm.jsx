@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { apiONG } from '../../Services/apiONG';
 import { onSubmitService } from '../../Services/membersFromServices';
-import { getBase64 } from '../../utlis/getBase64';
+import { getBase64 } from '../../utils/getBase64';
 
 import '../FormStyles.css';
 import './membersForm.css'
@@ -153,7 +153,7 @@ const MembersForm = () => {
 
   return (
     <div className={
-      isLoading ? 'categoriesContainer pulse' : 'categoriesContainer'
+      isLoading ? 'main-container pulse' : 'main-container'
     }>
 
       <form className="form-container" onSubmit={handleSubmit}>

@@ -163,8 +163,6 @@ const MembersForm = () => {
 
   }, [id, setValues])
 
-  console.log('re-render')
-
   return (
     <div className={
       isLoading ? 'categoriesContainer pulse' : 'categoriesContainer'

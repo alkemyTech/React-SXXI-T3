@@ -1,0 +1,29 @@
+.ck.ck-editor__editable > .ck-placeholder::before {
+    content: 'Realiza una descripción de este miembro' !important;
+    color: rgba(0, 0, 0, 0.47);
+}
+
+.input-preview-image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-label-container {
+    flex-grow: 1;
+}
+
+.preview-container {
+    border: 2px solid rgba(0, 0, 0, 0.196);
+    height: 200px;
+    width: 200px;
+    border-radius: 999px;
+    margin-left: 30px;
+    background-position: center;
+    background-size: cover;
+}
+
+.preview-container img {
+    width: 100%;
+}
+

@@ -1,11 +1,16 @@
 import { apiONG } from './apiONG';
 import Swal from 'sweetalert2';
 
-export const onSubmitService = (testimonial, name, description, resetForm, setSubmitting) => {
-    if (testimonial) {
-
+export const onSubmitService = (id, name, description, imageBase64, resetForm, setSubmitting) => {
+    const body = {
+        name:name,
+        description:description,
+        image:imageBase64
+    };
+    console.log(body);
+    if (id) {
         apiONG
-            .put(`/categories/${testimonial.id}`, {
+            .put(`/categories/${id}`, {
                 name,
                 description
             })
@@ -34,12 +39,8 @@ export const onSubmitService = (testimonial, name, description, resetForm, setSu
             })
 
     } else {
-
         apiONG
-            .post(`/testimonial`, {
-                name,
-                description
-            })
+            .post(`/testimonial`, body)
             .then((response) => {
                 const { data: { message } } = response;
 

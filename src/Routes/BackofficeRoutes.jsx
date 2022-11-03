@@ -1,5 +1,7 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
+import ActivitiesForm from "../Components/Activities/ActivitiesForm";
+import NewsForm from "../Components/News/NewsForm";
 
 const BackofficeRoutes = () => {
     return (
@@ -37,8 +39,8 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="actividades">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<ActivitiesForm/>}/>
+                <Route path="editar/:id" element={<ActivitiesForm/>}/>
             </Route>
             <Route path="*" element={<Navigate to=""/>}/>
         </Routes>

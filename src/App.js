@@ -2,7 +2,7 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Login from './Components/Auth/Login';
-import BackofficeRoutes from "./Routes/BackofficeRoutes";
+import BackofficeRoutes from "./Routes/BackofficeRoutes.jsx";
 import './App.css';
 import Register from './Components/Auth/Register';
 

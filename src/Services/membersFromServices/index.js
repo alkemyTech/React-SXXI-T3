@@ -1,17 +1,23 @@
 import { apiONG } from '../apiONG';
 import Swal from 'sweetalert2';
 
-export const onSubmitService = (id, name, description, resetForm, setSubmitting) => {
+export const onSubmitService = (
+    id, name, description, facebookUrl, linkedinUrl, image, resetForm, setSubmitting
+) => {
     if (id) {
 
         apiONG
             .put(`/members/${id}`, {
                 name,
-                description
+                facebookUrl,
+                linkedinUrl,
+                description,
+                image
             })
             .then((response) => {
                 const { data: { message } } = response;
 
+                setSubmitting(false)
                 return Swal.fire({
                     title: message,
                     icon: 'success',
@@ -23,14 +29,12 @@ export const onSubmitService = (id, name, description, resetForm, setSubmitting)
                     error?.response?.data?.message
                     || error.message;
 
+                setSubmitting(false)
                 Swal.fire({
                     title: errorMessage,
                     icon: 'error',
                     timer: 5000
                 })
-            })
-            .finally(() => {
-                setSubmitting(false)
             })
 
     } else {
@@ -38,11 +42,13 @@ export const onSubmitService = (id, name, description, resetForm, setSubmitting)
         apiONG
             .post(`/members`, {
                 name,
-                description
+                facebookUrl,
+                linkedinUrl,
+                description,
+                image
             })
             .then((response) => {
                 const { data: { message } } = response;
-
                 Swal.fire({
                     title: message,
                     icon: 'success',

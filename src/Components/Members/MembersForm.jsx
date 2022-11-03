@@ -9,16 +9,15 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
 import { apiONG } from '../../Services/apiONG';
+import { onSubmitService } from '../../Services/membersFromServices';
 
 import '../FormStyles.css';
 import './membersForm.css'
 
-// ID de miembro existente 875
-
 const MembersForm = () => {
 
   const { id } = useParams();
-  
+
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -78,32 +77,28 @@ const MembersForm = () => {
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-    // Simulación de llamada a la api
-    setTimeout(() => {
-
-      getBase64(file)
-        .then(result => {
-          setImagePreview(() => (result))
-          Swal.fire({
-            title: "Miembro creado correctamente",
-            text: "Imagen procesada satisafactoriamente",
-            icon: 'success',
-            timer: 5000
-          })
-          console.log({ ...values, image: result })
-          setSubmitting(false)
+    getBase64(file)
+      .then(result => {
+        setImagePreview(() => (result))
+        onSubmitService(
+          id,
+          name,
+          description,
+          facebookUrl,
+          linkedinUrl,
+          result,
+          resetForm,
+          setSubmitting
+        )
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Tuvimos problemas con la carga de la imagen",
+          icon: 'error',
+          timer: 5000
         })
-        .catch(() => {
-          Swal.fire({
-            title: "Tuvimos problemas con la carga de la imagen",
-            icon: 'error',
-            timer: 5000
-          })
-          setSubmitting(false)
-        });
-
-    }, 2000)
-
+        setSubmitting(false)
+      });
   }
 
   const formik = useFormik({
@@ -117,12 +112,12 @@ const MembersForm = () => {
     handleSubmit,
     isSubmitting,
     handleChange,
+    resetForm,
     setValues,
     handleBlur,
     setSubmitting,
     setFieldValue,
     setFieldTouched,
-    values,
     values: { name, description, image, facebookUrl, linkedinUrl },
     touched: {
       name: touchedName,
@@ -146,6 +141,7 @@ const MembersForm = () => {
         .get(`/members/${id}`)
         .then(({ data: { data } }) => {
           setValues(() => ({ ...data, image: '' }))
+          setImagePreview(() => (data.image))
         })
         .catch((error) => {
           const errorMessage =
@@ -191,8 +187,12 @@ const MembersForm = () => {
             </div>
 
           </div>
-          <div className='preview-container' style={{ backgroundImage: `url(${imagePreview})` }}>
-          </div>
+          {
+            id
+            ? (<div className='preview-container' style={{ backgroundImage: `url(${imagePreview})` }}>
+            </div>)
+            : null
+          }
         </div>
         <div className='input-label-container'>
           <label

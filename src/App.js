@@ -3,8 +3,9 @@ import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Login from './Components/Auth/Login';
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
-import './App.css';
 import Register from './Components/Auth/Register';
+import ActivitiesDetail from "./Components/Activities/Detail/ActivitiesDetail";
+import './App.css';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="register" element={<Register />}/>
         <Route path="actividades">
           <Route index element={<></>}/>
-          <Route path=":id" element={<></>}/>
+          <Route path=":id" element={<ActivitiesDetail/>}/>
         </Route>
         <Route path="novedades">
           <Route index element={<></>}/>

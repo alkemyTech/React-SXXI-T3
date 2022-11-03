@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { apiONG } from '../../Services/apiONG';
 import { onSubmitService } from '../../Services/membersFromServices';
+import { getBase64 } from '../../utlis/getBase64';
 
 import '../FormStyles.css';
 import './membersForm.css'
@@ -63,22 +64,6 @@ const MembersForm = () => {
     })
   );
 
-  const getBase64 = (file) => (
-    new Promise((resolve, reject) => {
-      let baseURL = "";
-      let reader = new FileReader();
-
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        baseURL = reader.result;
-        resolve(baseURL);
-      };
-      reader.onerror = () => {
-        reject({ message: 'Ocurrió un error mientras se procesaba la imgen' })
-      }
-    })
-  );
-
   const onSubmit = () => {
     const file = imageRef.current.files[0];
     getBase64(file)
@@ -96,12 +81,12 @@ const MembersForm = () => {
         )
       })
       .catch(({ message }) => {
+        setSubmitting(false)
         Swal.fire({
           title: message,
           icon: 'error',
           timer: 5000
         })
-        setSubmitting(false)
       });
   }
 

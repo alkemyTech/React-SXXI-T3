@@ -5,23 +5,23 @@ import * as Yup from 'yup';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+import { useParams } from 'react-router-dom';
+
 import { onSubmitService } from '../../Services/testimonialFormServices.js';
 
-const TestimonialsForm = ({ testimonial }) => {
+import { useEffect, useState, useRef } from 'react';
 
+const TestimonialsForm = () => {
+    const { id } = useParams();
+    const imageRef = useRef();
     const newTestimonial = {
         name: '',
         description: '',
-        image: ''
-    }
+        image: '',
+        imageBase64: ''
+    };
 
-    const existentTestimonial = {
-        name: testimonial?.name,
-        description: testimonial?.description,
-        image: ''
-    }
-
-    const initialValues = testimonial ? existentTestimonial : newTestimonial;
+    const initialValues = newTestimonial;
 
     const jpgRegExp = /\.(jpe?g|png)$/i;
 
@@ -47,10 +47,19 @@ const TestimonialsForm = ({ testimonial }) => {
         });
 
     const onSubmit = () => {
+        const file = imageRef.current.files[0];
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = function () {
+            setFieldValue('imageBase64', fileReader.result); 
+        };
+        fileReader.readAsDataURL(file);
+
         onSubmitService(
-            testimonial,
+            id,
             name,
             description,
+            imageBase64,
             resetForm,
             setSubmitting
         );
@@ -71,7 +80,7 @@ const TestimonialsForm = ({ testimonial }) => {
         isSubmitting,
         setSubmitting,
         resetForm,
-        values: { name, description, image },
+        values: { name, description, image, imageBase64 },
         touched: { name: touchedName, description: touchedDescription, image: touchedImage },
         errors: { name: errorName, description: errorDescription, image: errorImage }
     } = formik;
@@ -136,6 +145,7 @@ const TestimonialsForm = ({ testimonial }) => {
                     </label>
 
                     <input
+                        ref={imageRef}
                         type="file"
                         name="image"
                         id='inputImage'

@@ -68,8 +68,7 @@ export const onSubmitService = (
             .catch((error) => {
                 const errorMessage =
                     error?.response?.data?.message
-                        ? `Ya existe una categoría con ese nombre`
-                        : error.message;
+                    || error.message;
 
                 setSubmitting(false)
                 Swal.fire({

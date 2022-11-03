@@ -1,7 +1,6 @@
 .image {
 	width: 100%;
-	height: 40vh;
-	object-fit: fill;
+	object-fit: cover;
 	display: block;
 }
 

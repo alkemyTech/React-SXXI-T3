@@ -64,7 +64,7 @@ const MembersForm = () => {
   );
 
   const getBase64 = (file) => (
-    new Promise(resolve => {
+    new Promise((resolve, reject) => {
       let baseURL = "";
       let reader = new FileReader();
 
@@ -73,6 +73,9 @@ const MembersForm = () => {
         baseURL = reader.result;
         resolve(baseURL);
       };
+      reader.onerror = () => {
+        reject({ message: 'Ocurrió un error mientras se procesaba la imgen' })
+      }
     })
   );
 
@@ -92,9 +95,9 @@ const MembersForm = () => {
           setSubmitting
         )
       })
-      .catch(() => {
+      .catch(({ message }) => {
         Swal.fire({
-          title: "Tuvimos problemas con la carga de la imagen",
+          title: message,
           icon: 'error',
           timer: 5000
         })

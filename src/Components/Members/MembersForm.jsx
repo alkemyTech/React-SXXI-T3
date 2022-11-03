@@ -173,7 +173,7 @@ const MembersForm = () => {
     }>
 
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className='categoriesForm-Title'>Formulario de Miembros</h1>
+        <h1 className='form-title'>Formulario de Miembros</h1>
         <div className='input-preview-image'>
           <div className='input-label-container'>
             <label
@@ -182,6 +182,7 @@ const MembersForm = () => {
               Nombre
             </label>
             <input
+              id='inputTitle'
               className="input-field"
               type="text"
               name="name"
@@ -190,7 +191,7 @@ const MembersForm = () => {
               onBlur={handleBlur}
               placeholder="Ingrese el nombre del miembro"
             />
-            <div className='categoriesForm-errorContainer'>
+            <div className='form-error'>
               {errorName && touchedName && <span>{errorName}</span>}
             </div>
 
@@ -200,39 +201,41 @@ const MembersForm = () => {
         </div>
         <div className='input-label-container'>
           <label
-            htmlFor='inputTitle'
+            htmlFor='inputFacebook'
           >
             Facebook
           </label>
           <input
+            id='inputFacebook'
             className="input-field"
             type="text"
             name="facebookUrl"
             value={facebookUrl}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="Ingrese Linkedin del miembro"
+            placeholder="Ingrese Facebook del miembro"
           />
-          <div className='categoriesForm-errorContainer'>
+          <div className='form-error'>
             {errorFacebook && touchedFacebook && <span>{errorFacebook}</span>}
           </div>
         </div>
         <div className='input-label-container'>
           <label
-            htmlFor='inputTitle'
+            htmlFor='inputLinkedin'
           >
             Linkedin
           </label>
           <input
+            id='inputLinkedin'
             className="input-field"
             type="text"
             name="linkedinUrl"
             value={linkedinUrl}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="Ingrese facebook del miembro"
+            placeholder="Ingrese Linkedin del miembro"
           />
-          <div className='categoriesForm-errorContainer'>
+          <div className='form-error'>
             {errorLinkedin && touchedLinkedin && <span>{errorLinkedin}</span>}
           </div>
         </div>
@@ -261,17 +264,16 @@ const MembersForm = () => {
               })
             }}
           />
-          <div className='categoriesForm-errorContainer'>
+          <div className='form-error'>
             {errorDescription && touchedDescription && <span>{errorDescription}</span>}
           </div>
         </div>
-        <div className='input-label-contariner'>
+        <div className='input-label-container'>
           <label
             htmlFor='inputImage'
           >
             Agregar una imagen
           </label>
-
           <input
             ref={imageRef}
             type="file"
@@ -282,7 +284,7 @@ const MembersForm = () => {
             onBlur={handleBlur}
             onChange={handleChange}
           />
-          <div className='categoriesForm-errorContainer'>
+          <div className='form-error'>
             {errorImage && touchedImage && <span>{errorImage}</span>}
           </div>
         </div>

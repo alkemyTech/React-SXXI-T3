@@ -4,7 +4,7 @@
 	font-weight: 500;
 	font-size: 1.1rem;
 	padding: .25rem;
-	border-radius: 10px;
+	border-radius: var(--border);
 	border-style: outset;
 	border-width: 1px;
 	cursor: pointer;
@@ -53,4 +53,10 @@
 
 .button.tertiary:hover {
 	background-color: var(--color-tertiary-strong);
+}
+
+form .button{
+	margin: auto;
+	margin-top: 1rem;
+	width: 80%;
 }

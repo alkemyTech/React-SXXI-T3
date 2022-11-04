@@ -2,6 +2,11 @@ import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import UsersForm from "../Components/Users/UsersForm";
 
+import CategoriesForm from "../Components/Categories/CategoriesForm";
+import MembersForm from "../Components/Members/MembersForm.jsx";
+import ActivitiesForm from "../Components/Activities/ActivitiesForm";
+import NewsForm from "../Components/News/NewsForm";
+
 const BackofficeRoutes = () => {
     return (
         <Routes>
@@ -26,20 +31,20 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<UsersForm/>}/>
             </Route>
             <Route path="miembros">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<MembersForm />}/>
+                <Route path="editar/:id" element={<MembersForm />}/>
             </Route>
             <Route path="categorias">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<CategoriesForm />}/>
+                <Route path="editar/:id" element={<CategoriesForm />}/>
             </Route>
             <Route path="novedades">
                 <Route path="crear" element={<></>}/>
                 <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="actividades">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<ActivitiesForm/>}/>
+                <Route path="editar/:id" element={<ActivitiesForm/>}/>
             </Route>
             <Route path="*" element={<Navigate to=""/>}/>
         </Routes>

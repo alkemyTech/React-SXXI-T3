@@ -1,3 +1,6 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -5,25 +8,26 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import { onSubmitService } from '../../Services/categoryFormServices';
+import Swal from 'sweetalert2';
 
-import './categoriesForm.css';
+import { apiONG } from '../../Services/apiONG';
+import { getBase64 } from '../utils/getBase64';
+
 import '../FormStyles.css'
+import './categoriesForm.css';
 
-const CategoriesForm = ({ category }) => {
+const CategoriesForm = () => {
 
-    const newCategory = {
+    const { id } = useParams();
+    const imageRef = useRef();
+    const [imagePreview, setImagePreview] = useState(null);
+    const [isFetching, setIsFetching] = useState(false);
+
+    const initialValues = {
         name: '',
         description: '',
         image: ''
     }
-
-    const existentCategory = {
-        name: category?.name,
-        description: category?.description,
-        image: ''
-    }
-
-    const initialValues = category ? existentCategory : newCategory;
 
     const jpgRegExp = /\.(jpe?g|png)$/i;
 
@@ -49,13 +53,27 @@ const CategoriesForm = ({ category }) => {
         });
 
     const onSubmit = () => {
-        onSubmitService(
-            category,
-            name,
-            description,
-            resetForm,
-            setSubmitting
-        );
+        const file = imageRef.current.files[0];
+        getBase64(file)
+            .then((result) => {
+                setImagePreview(() => (result))
+                onSubmitService(
+                    id,
+                    name,
+                    description,
+                    result,
+                    resetForm,
+                    setSubmitting
+                );
+            })
+            .catch(({ message }) => {
+                setSubmitting(false)
+                Swal.fire({
+                    title: message,
+                    icon: 'error',
+                    timer: 5000
+                })
+            });
     }
 
     const formik = useFormik({
@@ -68,6 +86,7 @@ const CategoriesForm = ({ category }) => {
         handleSubmit,
         handleChange,
         handleBlur,
+        setValues,
         setFieldValue,
         setFieldTouched,
         isSubmitting,
@@ -78,31 +97,70 @@ const CategoriesForm = ({ category }) => {
         errors: { name: errorName, description: errorDescription, image: errorImage }
     } = formik;
 
+    useEffect(() => {
+        if (id) {
+            setIsFetching(() => (true));
+            apiONG
+                .get(`/categories/${id}`)
+                .then(({ data: { data } }) => {
+                    setValues(() => ({ ...data, image: '' }))
+                    setImagePreview(() => (data.image))
+                    setIsFetching(() => (false))
+                })
+                .catch((error) => {
+                    const errorMessage =
+                        error?.response?.data?.message
+                        || error.message;
+                    setIsFetching(() => (false))
+                    Swal.fire({
+                        title: errorMessage,
+                        icon: 'error',
+                        timer: 5000
+                    })
+                })
+        }
+    }, [id, setValues])
+
+    const isLoading = isFetching || isSubmitting;
+
     return (
         <div className={
-            isSubmitting ? 'main-container pulse' : 'main-container'
+            isLoading ? 'main-container pulse' : 'main-container'
         }>
             <form className="form-container" onSubmit={handleSubmit}>
                 <h1 className='form-title'>Formulario de Categorías</h1>
-                <div className='input-label-container'>
-                    <label
-                        htmlFor='inputTitle'
-                    >
-                        Título
-                    </label>
-                    <input
-                        id='inputTitle'
-                        className="input-field"
-                        type="text"
-                        name="name"
-                        value={name}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder="Escriba el título de la categoría"
-                    />
-                    <div className='form-error'>
-                        {errorName && touchedName && <span>{errorName}</span>}
+                <div className='input-preview-image'>
+                    <div className='input-label-container'>
+                        <label
+                            htmlFor='inputTitle'
+                        >
+                            Título
+                        </label>
+                        <input
+                            id='inputTitle'
+                            className="input-field"
+                            type="text"
+                            name="name"
+                            value={name}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            placeholder="Escriba el título de la categoría"
+                        />
+                        <div className='form-error'>
+                            {errorName && touchedName && <span>{errorName}</span>}
+                        </div>
                     </div>
+                    {
+                        id
+                            ? (
+                                <div
+                                    className='preview-container'
+                                    style={{ backgroundImage: `url(${imagePreview})` }}
+                                >
+                                </div>
+                            )
+                            : null
+                    }
                 </div>
                 <div className='input-label-container'>
                     <label>
@@ -135,6 +193,7 @@ const CategoriesForm = ({ category }) => {
                     </label>
 
                     <input
+                        ref={imageRef}
                         type="file"
                         name="image"
                         id='inputImage'

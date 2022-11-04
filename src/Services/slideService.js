@@ -8,7 +8,7 @@ export const onSubmitService = (id, name, description, imageBase64, order, reset
         image: imageBase64,
         order: order
     };
-    console.log(body);
+
     if (id) {
         apiONG
             .put(`/slides/${id}`, body)
@@ -41,7 +41,6 @@ export const onSubmitService = (id, name, description, imageBase64, order, reset
             .post(`/slides`, body)
             .then((response) => {
                 const { data: { message } } = response;
-                console.log(response);
                 Swal.fire({
                     title: message,
                     icon: 'success',

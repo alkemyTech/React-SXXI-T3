@@ -1,5 +1,6 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
+import CategoriesForm from "../Components/Categories/CategoriesForm";
 
 const BackofficeRoutes = () => {
     return (
@@ -29,8 +30,8 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="categorias">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<CategoriesForm />}/>
+                <Route path="editar/:id" element={<CategoriesForm />}/>
             </Route>
             <Route path="novedades">
                 <Route path="crear" element={<></>}/>

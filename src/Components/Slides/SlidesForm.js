@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import { onSubmitService } from '../../Services/slideFormServices';
+import { onSubmitService } from '../../Services/slideService';
 
 import { useParams } from 'react-router-dom';
 
@@ -52,8 +52,7 @@ const SlidesForm = () => {
                 .string()
                 .trim()
                 .required(`El orden ${requiredMessage}`)
-                .matches(/^[0-9]+$/ , 'El Orden debe ser un numero')
-                
+                .matches(/^[0-9]+$/, 'El Orden debe ser un numero')
         });
 
     const onSubmit = () => {
@@ -78,7 +77,7 @@ const SlidesForm = () => {
                 title: 'Error al procesar la imagen',
                 icon: 'error',
                 timer: 5000
-              });
+            });
         };
 
         fileReader.readAsDataURL(file);

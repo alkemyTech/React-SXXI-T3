@@ -1,4 +1,4 @@
-import { apiONG } from '../apiONG';
+import { apiONG } from './apiONG';
 import Swal from 'sweetalert2';
 
 export const onSubmitService = (id, name, description, imageBase64, order, resetForm, setSubmitting) => {

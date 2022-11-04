@@ -100,7 +100,7 @@ const CategoriesForm = ({ category }) => {
                         onChange={handleChange}
                         placeholder="Escriba el título de la categoría"
                     />
-                    <div className='categoriesForm-errorContainer'>
+                    <div className='form-error'>
                         {errorName && touchedName && <span>{errorName}</span>}
                     </div>
                 </div>
@@ -110,23 +110,20 @@ const CategoriesForm = ({ category }) => {
                     </label>
                     <CKEditor
                         editor={ClassicEditor}
-                        data={description ? description : '<p>Describa la categoría</p>'}
+                        data={description}
+                        config={{ placeholder: 'true' }}
                         onFocus={(event, editor) => {
                             editor.setData(description)
                         }}
                         onChange={(event, editor) => {
                             const data = editor.getData();
-                            if (data !== '<p>Describa la categoría</p>') {
-                                setFieldValue('description', data)
-                            }
+                            setFieldValue('description', data)
                         }}
                         onBlur={(event, editor) => {
                             setFieldTouched('description')
-                            const data = editor.getData();
-                            !data && editor.setData('<p>Describa la categoría</p>')
                         }}
                     />
-                    <div className='categoriesForm-errorContainer'>
+                    <div className='form-error'>
                         {errorDescription && touchedDescription && <span>{errorDescription}</span>}
                     </div>
                 </div>

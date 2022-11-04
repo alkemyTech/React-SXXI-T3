@@ -55,6 +55,11 @@ input[type="file"]::-webkit-file-upload-button {
     border-radius: 5px !important;
 }
 
+.ck.ck-editor__editable > .ck-placeholder::before {
+    content: 'Realiza una descripción de esta categoría' !important;
+    color: rgba(0, 0, 0, 0.47);
+}
+
 .categoriesForm-errorContainer {
     height: 20px;
     margin-bottom: 10px;

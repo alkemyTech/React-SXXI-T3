@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
-import { onSubmitService } from '../../Services/userService';
+import {put, post} from '../../Services/userService' ;
 import { useState, useEffect, useRef } from 'react';
 import { apiONG } from '../../Services/apiONG';
 import '../FormStyles.css';
@@ -24,6 +24,7 @@ const UsersForm = () => {
 
     const [imagePreview, setImagePreview] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
+    const [previousEmail, setPreviousEmail] = useState("")
 
     const validationSchema = () =>
         Yup.object().shape({
@@ -54,25 +55,32 @@ const UsersForm = () => {
         const fileReader = new FileReader();
 
         fileReader.onload = function () {
-            console.log(
-                id,
+            setImagePreview(fileReader.result);
+
+            if (id) {
+                put(
+                    id,
+                    values.name,
+                    previousEmail,
+                    values.email,
+                    values.password,
+                    fileReader.result,
+                    values.role,
+                    resetForm,
+                    setSubmitting
+                );
+            }
+            else {
+                post(
                     values.name,
                     values.email,
                     values.password,
                     fileReader.result,
-                    values.role
-            )
-            setImagePreview(fileReader.result)
-            onSubmitService(
-                id,
-                values.name,
-                values.email,
-                values.password,
-                fileReader.result,
-                values.role,
-                resetForm,
-                setSubmitting
-            );
+                    values.role,
+                    resetForm,
+                    setSubmitting
+                );
+            }
         };
 
         fileReader.onerror = () => {
@@ -113,9 +121,10 @@ const UsersForm = () => {
                 .get(`/users/${id}`)
                 .then(({ data: { data } }) => {
                     console.log(data);
-                    setValues(() => ({ ...data, image: '', }))
-                    setImagePreview(() => (data.image))
-                    setIsFetching(() => (false))
+                    setValues(() => ({ ...data, image: '', role: data.role_id}));
+                    setImagePreview(() => (data.profile_image));
+                    setIsFetching(() => (false));
+                    setPreviousEmail(data.email);
                 })
                 .catch((error) => {
                     const errorMessage =
@@ -197,7 +206,7 @@ const UsersForm = () => {
                         placeholder="Escriba la contraseña del Usuario"
                     />
                     <div className='form-error'>
-                        {errors.password && touched.password && <span>{errors.email}</span>}
+                        {errors.password && touched.password && <span>{errors.password}</span>}
                     </div>
                 </div>
                 <div className='input-label-container'>

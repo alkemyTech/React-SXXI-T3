@@ -3,15 +3,14 @@ import Swal from 'sweetalert2';
 
 export const onSubmitService = (id, name, email, password, profilePhoto, role, resetForm, setSubmitting) => {
     if (id) {
-
-
+        console.log(profilePhoto)
         apiONG
             .put(`/users/${id}`, {
-                name, 
-                email, 
-                password, 
-                profilePhoto, 
-                role
+                name : name, 
+                email : email, 
+                password : password, 
+                profile_image : profilePhoto, 
+                role_id : role
             })
             .then((response) => {
                 const { data: { message } } = response;
@@ -41,15 +40,15 @@ export const onSubmitService = (id, name, email, password, profilePhoto, role, r
 
         apiONG
             .post(`/users`, {
-                name,
-                email,
-                password,
-                profilePhoto,
-                role,
+                name : name, 
+                email : email, 
+                password : password, 
+                profile_image : profilePhoto, 
+                role_id : role
             })
             .then((response) => {
                 const { data: { message } } = response;
-
+                console.log(response.data)
                 Swal.fire({
                     title: message,
                     icon: 'success',
@@ -60,7 +59,7 @@ export const onSubmitService = (id, name, email, password, profilePhoto, role, r
             .catch((error) => {
                 const errorMessage =
                     error?.response?.data?.message
-                        ? `Ya existe una categoría con ese nombre`
+                        ? `Ya existe un usuario con ese nombre`
                         : error.message;
 
                 Swal.fire({

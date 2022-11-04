@@ -119,3 +119,23 @@ input[type="file"]::-webkit-file-upload-button {
     animation: pulse-animation 1s ease-out alternate;
     animation-iteration-count: infinite;
 }
+
+.input-preview-image {
+    display: flex;
+    flex-direction: column-reverse;
+    align-content: flex-start;
+}
+
+.preview-container {
+    align-self: center;
+    border: 2px solid rgba(0, 0, 0, 0.196);
+    height: 200px;
+    width: 200px;
+    border-radius: 10%;
+    background-position: center;
+    background-size: cover;
+}
+
+.preview-container img {
+    width: 100%;
+}

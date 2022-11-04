@@ -1,11 +1,7 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
-import CategoriesForm from "../Components/Categories/CategoriesForm";
-
-import CategoriesForm from "../Components/Categories/CategoriesForm";
-import MembersForm from "../Components/Members/MembersForm.jsx";
-import ActivitiesForm from "../Components/Activities/ActivitiesForm";
-import NewsForm from "../Components/News/NewsForm";
+import TestimonialsForm from "../Components/Testimonials/TestimonialsForm";
+import SlidesForm from "../Components/Slides/SlidesForm";
 
 const BackofficeRoutes = () => {
     return (
@@ -15,36 +11,36 @@ const BackofficeRoutes = () => {
                 <Route path="editar" element={<></>}/>
             </Route>
             <Route path="slides">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<SlidesForm/>}/>
+                <Route path="editar/:id" element={<SlidesForm/>}/>
             </Route>
             <Route path="proyectos">
                 <Route path="crear" element={<></>}/>
                 <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="testimonios">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<TestimonialsForm/>}/>
+                <Route path="editar/:id" element={<TestimonialsForm/>}/>
             </Route>
             <Route path="usuarios">
                 <Route path="crear" element={<></>}/>
                 <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="miembros">
-                <Route path="crear" element={<MembersForm />}/>
-                <Route path="editar/:id" element={<MembersForm />}/>
+                <Route path="crear" element={<></>}/>
+                <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="categorias">
-                <Route path="crear" element={<CategoriesForm />}/>
-                <Route path="editar/:id" element={<CategoriesForm />}/>
+                <Route path="crear" element={<></>}/>
+                <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="novedades">
                 <Route path="crear" element={<></>}/>
                 <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="actividades">
-                <Route path="crear" element={<ActivitiesForm/>}/>
-                <Route path="editar/:id" element={<ActivitiesForm/>}/>
+                <Route path="crear" element={<></>}/>
+                <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="*" element={<Navigate to=""/>}/>
         </Routes>

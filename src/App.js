@@ -7,6 +7,7 @@ import Register from './Components/Auth/Register';
 import Slider from "./Components/Slides/Slider/Slider";
 import ActivitiesDetail from "./Components/Activities/Detail/ActivitiesDetail";
 import './App.css';
+import NewsDetail from './Components/News/Detail/NewsDetail';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
         </Route>
         <Route path="novedades">
           <Route index element={<></>}/>
-          <Route path=":id" element={<></>}/>
+          <Route path=":id" element={<NewsDetail title="Novedad"/>}/>
         </Route>
         <Route path="contacto" element={<></>}/>
         <Route path="nosotros" element={<></>}/>

@@ -1,5 +1,6 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
+import UsersForm from "../Components/Users/UsersForm";
 
 const BackofficeRoutes = () => {
     return (
@@ -21,8 +22,8 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<></>}/>
             </Route>
             <Route path="usuarios">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<UsersForm/>}/>
+                <Route path="editar/:id" element={<UsersForm/>}/>
             </Route>
             <Route path="miembros">
                 <Route path="crear" element={<></>}/>

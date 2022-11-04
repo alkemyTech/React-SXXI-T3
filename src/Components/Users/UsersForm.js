@@ -24,7 +24,6 @@ const UsersForm = () => {
 
     const [imagePreview, setImagePreview] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
-    const [previousEmail, setPreviousEmail] = useState("")
 
     const validationSchema = () =>
         Yup.object().shape({
@@ -61,7 +60,6 @@ const UsersForm = () => {
                 put(
                     id,
                     values.name,
-                    previousEmail,
                     values.email,
                     values.password,
                     fileReader.result,
@@ -123,7 +121,6 @@ const UsersForm = () => {
                     setValues(() => ({ ...data, image: '', role: data.role_id}));
                     setImagePreview(() => (data.profile_image));
                     setIsFetching(() => (false));
-                    setPreviousEmail(data.email);
                 })
                 .catch((error) => {
                     const errorMessage =

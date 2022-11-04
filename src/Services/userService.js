@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 export const put = (
     id,
     name,
-    previousEmail,
     email,
     password,
     profilePhoto,

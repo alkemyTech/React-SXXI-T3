@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 
 import { useParams } from 'react-router-dom';
 
-import { onSubmitService } from '../../Services/testimonialFormServices.js';
+import { onSubmitService } from '../../Services/testimonialService.js';
 
 import { useRef } from 'react';
 

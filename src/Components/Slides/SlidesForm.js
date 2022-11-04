@@ -1,17 +1,14 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import Swal from 'sweetalert2';
 
 import { onSubmitService } from '../../Services/slideService';
-
-import { useParams } from 'react-router-dom';
-
+import { apiONG } from '../../Services/apiONG';
 import '../FormStyles.css';
-import { useEffect, useState, useRef } from 'react';
-
-import Swal from 'sweetalert2';
 
 const SlidesForm = () => {
 
@@ -30,6 +27,9 @@ const SlidesForm = () => {
     const jpgRegExp = /\.(jpe?g|png)$/i;
 
     const requiredMessage = `es un campo requerido`
+
+    const [imagePreview, setImagePreview] = useState(null);
+    const [isFetching, setIsFetching] = useState(false);
 
     const validationSchema = () =>
         Yup.object().shape({
@@ -60,6 +60,7 @@ const SlidesForm = () => {
         const fileReader = new FileReader();
 
         fileReader.onload = function () {
+            setImagePreview(fileReader.result)
             onSubmitService(
                 id,
                 values.name,
@@ -95,6 +96,7 @@ const SlidesForm = () => {
         handleBlur,
         setFieldValue,
         setFieldTouched,
+        setValues,
         isSubmitting,
         setSubmitting,
         resetForm,
@@ -103,9 +105,36 @@ const SlidesForm = () => {
         errors
     } = formik;
 
+    useEffect(() => {
+        if (id) {
+            setIsFetching(() => (true))
+            apiONG
+                .get(`/slides/${id}`)
+                .then(({ data: { data } }) => {
+                    setValues(() => ({ ...data, image: '' }))
+                    setImagePreview(() => (data.image))
+                    setIsFetching(() => (false))
+                })
+                .catch((error) => {
+                    const errorMessage =
+                        error?.response?.data?.message
+                        || error.message;
+                    setIsFetching(() => (false))
+                    Swal.fire({
+                        title: errorMessage,
+                        icon: 'error',
+                        timer: 5000
+                    })
+                })
+        }
+
+    }, [id, setValues])
+
+    const isLoading = isSubmitting || isFetching;
+
     return (
         <div className={
-            isSubmitting ? 'main-container pulse' : 'main-container'
+            isLoading ? 'main-container pulse' : 'main-container'
         }>
             <form className="form-container" onSubmit={handleSubmit}>
                 <h1 className='form-title'>Formulario de {id ? "Edición" : "Creación"} de Slides</h1>
@@ -133,20 +162,17 @@ const SlidesForm = () => {
                     </label>
                     <CKEditor
                         editor={ClassicEditor}
-                        data={values.description ? values.description : '<p>Describa la Slide</p>'}
+                        data={values.description}
+                        config={{ placeholder: 'Escriba la descripción' }}
                         onFocus={(event, editor) => {
-                            editor.setData(values.description)
+                            editor.setData(values.description);
                         }}
                         onChange={(event, editor) => {
                             const data = editor.getData();
-                            if (data !== '<p>Describa la Slide</p>') {
-                                setFieldValue('description', data)
-                            }
+                            setFieldValue('description', data);
                         }}
                         onBlur={(event, editor) => {
-                            setFieldTouched('description')
-                            const data = editor.getData();
-                            !data && editor.setData('<p>Describa la Slide</p>')
+                            setFieldTouched('description');
                         }}
                     />
                     <div className='form-error'>
@@ -173,6 +199,14 @@ const SlidesForm = () => {
                     <div className='form-error'>
                         {errors.image && touched.image && <span>{errors.image}</span>}
                     </div>
+                </div>
+                <div className='input-preview-image'>
+                    {
+                        id ?
+                            (<div className='preview-container' style={{ backgroundImage: `url(${imagePreview})` }}>
+                            </div>)
+                            : null
+                    }
                 </div>
                 <div className='input-label-container'>
                     <label

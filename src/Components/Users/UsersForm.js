@@ -120,7 +120,6 @@ const UsersForm = () => {
             apiONG
                 .get(`/users/${id}`)
                 .then(({ data: { data } }) => {
-                    console.log(data);
                     setValues(() => ({ ...data, image: '', role: data.role_id}));
                     setImagePreview(() => (data.profile_image));
                     setIsFetching(() => (false));

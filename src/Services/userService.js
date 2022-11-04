@@ -20,12 +20,10 @@ export const put = (
         profile_image: profilePhoto,
         role_id: role
     }
-    console.log(body);
     apiONG
         .put(`/users/${id}`, body)
         .then((response) => {
             const { data: { message } } = response;
-            console.log(response);
             return Swal.fire({
                 title: message,
                 icon: 'success',
@@ -33,7 +31,6 @@ export const put = (
             });
         })
         .catch((error) => {
-            console.log(error)
             const errorMessage =
                 error?.response?.data?.message
                 || error.message;
@@ -57,7 +54,6 @@ export const post = (
     role, resetForm,
     setSubmitting
 ) => {
-    console.log(profilePhoto);
     apiONG
         .post(`/users`, {
             name: name,
@@ -68,7 +64,6 @@ export const post = (
         })
         .then((response) => {
             const { data: { message } } = response;
-            console.log(response.data)
             Swal.fire({
                 title: message,
                 icon: 'success',

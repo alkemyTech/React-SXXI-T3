@@ -9,10 +9,7 @@ export const onSubmitService = (id, name, description, imageBase64, resetForm, s
     };
     if (id) {
         apiONG
-            .put(`/testimonials/${id}`, {
-                name,
-                description
-            })
+            .put(`/testimonials/${id}`, body)
             .then((response) => {
                 const { data: { message } } = response;
                 return Swal.fire({

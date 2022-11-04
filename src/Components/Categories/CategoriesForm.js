@@ -7,6 +7,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { onSubmitService } from '../../Services/categoryFormServices';
 
 import './categoriesForm.css';
+import '../FormStyles.css'
 
 const CategoriesForm = ({ category }) => {
 
@@ -79,11 +80,11 @@ const CategoriesForm = ({ category }) => {
 
     return (
         <div className={
-            isSubmitting ? 'categoriesContainer pulse' : 'categoriesContainer'
+            isSubmitting ? 'main-container pulse' : 'main-container'
         }>
             <form className="form-container" onSubmit={handleSubmit}>
-                <h1 className='categoriesForm-Title'>Formulario de Categorías</h1>
-                <div className='input-label-contariner'>
+                <h1 className='form-title'>Formulario de Categorías</h1>
+                <div className='input-label-container'>
                     <label
                         htmlFor='inputTitle'
                     >
@@ -103,7 +104,7 @@ const CategoriesForm = ({ category }) => {
                         {errorName && touchedName && <span>{errorName}</span>}
                     </div>
                 </div>
-                <div className='input-label-contariner'>
+                <div className='input-label-container'>
                     <label>
                         Descripción
                     </label>
@@ -129,7 +130,7 @@ const CategoriesForm = ({ category }) => {
                         {errorDescription && touchedDescription && <span>{errorDescription}</span>}
                     </div>
                 </div>
-                <div className='input-label-contariner'>
+                <div className='input-label-container'>
                     <label
                         htmlFor='inputImage'
                     >
@@ -145,7 +146,7 @@ const CategoriesForm = ({ category }) => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                     />
-                    <div className='categoriesForm-errorContainer'>
+                    <div className='form-error'>
                         {errorImage && touchedImage && <span>{errorImage}</span>}
                     </div>
                 </div>

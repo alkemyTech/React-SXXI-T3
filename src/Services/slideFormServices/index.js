@@ -2,15 +2,16 @@ import { apiONG } from '../apiONG';
 import Swal from 'sweetalert2';
 
 export const onSubmitService = (id, name, description, imageBase64, order, resetForm, setSubmitting) => {
-    console.log(id);
+    const body = {
+        name: name,
+        description: description,
+        image: imageBase64,
+        order: order
+    };
+    console.log(body);
     if (id) {
-        console.log(imageBase64);
         apiONG
-            .put(`/slides/${id}`, {
-                name,
-                description,
-                order
-            })
+            .put(`/slides/${id}`, body)
             .then((response) => {
                 const { data: { message } } = response;
 
@@ -36,13 +37,6 @@ export const onSubmitService = (id, name, description, imageBase64, order, reset
             })
 
     } else {
-        const body = {
-            name: name,
-            description: description,
-            image: imageBase64,
-            order: order
-        };
-        console.log(body);
         apiONG
             .post(`/slides`, body)
             .then((response) => {

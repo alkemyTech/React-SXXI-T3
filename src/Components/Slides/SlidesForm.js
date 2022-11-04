@@ -11,6 +11,8 @@ import { useParams } from 'react-router-dom';
 import '../FormStyles.css';
 import { useEffect, useState, useRef } from 'react';
 
+import Swal from 'sweetalert2';
+
 const SlidesForm = () => {
 
     const { id } = useParams();
@@ -20,7 +22,6 @@ const SlidesForm = () => {
         name: '',
         description: '',
         image: '',
-        imageBase64: '',
         order: ''
     }
 
@@ -59,20 +60,28 @@ const SlidesForm = () => {
         const file = imageRef.current.files[0];
         const fileReader = new FileReader();
 
-        fileReader.onloadend = function () {
-            setFieldValue('imageBase64', fileReader.result); 
+        fileReader.onload = function () {
+            onSubmitService(
+                id,
+                values.name,
+                values.description,
+                fileReader.result,
+                values.order,
+                resetForm,
+                setSubmitting
+            );
         };
-        fileReader.readAsDataURL(file);
 
-        onSubmitService(
-            id,
-            name,
-            description,
-            imageBase64,
-            order,
-            resetForm,
-            setSubmitting
-        );
+        fileReader.onerror = () => {
+            setSubmitting(false);
+            Swal.fire({
+                title: 'Error al procesar la imagen',
+                icon: 'error',
+                timer: 5000
+              });
+        };
+
+        fileReader.readAsDataURL(file);
     }
 
     const formik = useFormik({
@@ -90,9 +99,9 @@ const SlidesForm = () => {
         isSubmitting,
         setSubmitting,
         resetForm,
-        values: { name, description, image, imageBase64, order },
-        touched: { name: touchedName, description: touchedDescription, image: touchedImage, order: touchedOrder },
-        errors: { name: errorName, description: errorDescription, image: errorImage, order: errorOrder }
+        values,
+        touched,
+        errors
     } = formik;
 
     return (
@@ -100,7 +109,7 @@ const SlidesForm = () => {
             isSubmitting ? 'main-container pulse' : 'main-container'
         }>
             <form className="form-container" onSubmit={handleSubmit}>
-                <h1 className='form-title'>Formulario de Slides</h1>
+                <h1 className='form-title'>Formulario de {id ? "Edición" : "Creación"} de Slides</h1>
                 <div className='input-label-container'>
                     <label
                         htmlFor='inputTitle'
@@ -112,13 +121,11 @@ const SlidesForm = () => {
                         className="input-field"
                         type="text"
                         name="name"
-                        value={name}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
                         placeholder="Escriba el título de la Slide"
+                        {...formik.getFieldProps('name')}
                     />
                     <div className='form-error'>
-                        {errorName && touchedName && <span>{errorName}</span>}
+                        {errors.name && touched.name && <span>{errors.name}</span>}
                     </div>
                 </div>
                 <div className='input-label-container'>
@@ -127,9 +134,9 @@ const SlidesForm = () => {
                     </label>
                     <CKEditor
                         editor={ClassicEditor}
-                        data={description ? description : '<p>Describa la Slide</p>'}
+                        data={values.description ? values.description : '<p>Describa la Slide</p>'}
                         onFocus={(event, editor) => {
-                            editor.setData(description)
+                            editor.setData(values.description)
                         }}
                         onChange={(event, editor) => {
                             const data = editor.getData();
@@ -144,7 +151,7 @@ const SlidesForm = () => {
                         }}
                     />
                     <div className='form-error'>
-                        {errorDescription && touchedDescription && <span>{errorDescription}</span>}
+                        {errors.description && touched.description && <span>{errors.description}</span>}
                     </div>
                 </div>
                 <div className='input-label-container'>
@@ -160,12 +167,12 @@ const SlidesForm = () => {
                         name="image"
                         id='inputImage'
                         className="input-field"
-                        value={image}
+                        value={values.image}
                         onBlur={handleBlur}
                         onChange={handleChange}
                     />
                     <div className='form-error'>
-                        {errorImage && touchedImage && <span>{errorImage}</span>}
+                        {errors.image && touched.image && <span>{errors.image}</span>}
                     </div>
                 </div>
                 <div className='input-label-container'>
@@ -179,13 +186,13 @@ const SlidesForm = () => {
                         className="input-field"
                         type="text"
                         name="order"
-                        value={order}
+                        value={values.order}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         placeholder="Escriba el Orden de la Slide"
                     />
                     <div className='form-error'>
-                        {errorOrder && touchedOrder && <span>{errorOrder}</span>}
+                        {errors.order && touched.order && <span>{errors.order}</span>}
                     </div>
                 </div>
                 <button className="submit-btn" type="submit">Enviar</button>

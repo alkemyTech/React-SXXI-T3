@@ -7,16 +7,14 @@ export const onSubmitService = (id, name, description, imageBase64, resetForm, s
         description:description,
         image:imageBase64
     };
-    console.log(body);
     if (id) {
         apiONG
-            .put(`/categories/${id}`, {
+            .put(`/testimonials/${id}`, {
                 name,
                 description
             })
             .then((response) => {
                 const { data: { message } } = response;
-
                 return Swal.fire({
                     title: message,
                     icon: 'success',
@@ -40,10 +38,9 @@ export const onSubmitService = (id, name, description, imageBase64, resetForm, s
 
     } else {
         apiONG
-            .post(`/testimonial`, body)
+            .post(`/testimonials`, body)
             .then((response) => {
                 const { data: { message } } = response;
-
                 Swal.fire({
                     title: message,
                     icon: 'success',

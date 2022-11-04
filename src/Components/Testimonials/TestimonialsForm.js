@@ -5,11 +5,13 @@ import * as Yup from 'yup';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+import Swal from 'sweetalert2';
+
 import { useParams } from 'react-router-dom';
 
 import { onSubmitService } from '../../Services/testimonialFormServices.js';
 
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 
 const TestimonialsForm = () => {
     const { id } = useParams();
@@ -18,7 +20,6 @@ const TestimonialsForm = () => {
         name: '',
         description: '',
         image: '',
-        imageBase64: ''
     };
 
     const initialValues = newTestimonial;
@@ -50,19 +51,27 @@ const TestimonialsForm = () => {
         const file = imageRef.current.files[0];
         const fileReader = new FileReader();
 
-        fileReader.onloadend = function () {
-            setFieldValue('imageBase64', fileReader.result); 
+        fileReader.onload = function () {
+            onSubmitService(
+                id,
+                values.name,
+                values.description,
+                fileReader.result,
+                resetForm,
+                setSubmitting
+            );
         };
-        fileReader.readAsDataURL(file);
 
-        onSubmitService(
-            id,
-            name,
-            description,
-            imageBase64,
-            resetForm,
-            setSubmitting
-        );
+        fileReader.onerror = () => {
+            setSubmitting(false);
+            Swal.fire({
+                title: 'Error al procesar la imagen',
+                icon: 'error',
+                timer: 5000
+            });
+        };
+
+        fileReader.readAsDataURL(file);
     }
 
     const formik = useFormik({
@@ -80,9 +89,9 @@ const TestimonialsForm = () => {
         isSubmitting,
         setSubmitting,
         resetForm,
-        values: { name, description, image, imageBase64 },
-        touched: { name: touchedName, description: touchedDescription, image: touchedImage },
-        errors: { name: errorName, description: errorDescription, image: errorImage }
+        values,
+        touched,
+        errors
     } = formik;
 
     return (
@@ -90,7 +99,7 @@ const TestimonialsForm = () => {
             isSubmitting ? 'main-container pulse' : 'main-container'
         }>
             <form className="form-container" onSubmit={handleSubmit}>
-                <h1 className='form-title'>Formulario de Testimonio</h1>
+                <h1 className='form-title'>Formulario de {id ? "Edición" : "Creación"} de Testimonio</h1>
                 <div className='input-label-container'>
                     <label
                         htmlFor='inputTitle'
@@ -102,13 +111,13 @@ const TestimonialsForm = () => {
                         className="input-field"
                         type="text"
                         name="name"
-                        value={name}
+                        value={values.name}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         placeholder="Escriba el título del Testimonio"
                     />
                     <div className='form-error'>
-                        {errorName && touchedName && <span>{errorName}</span>}
+                        {errors.name && touched.name && <span>{errors.name}</span>}
                     </div>
                 </div>
                 <div className='input-label-contariner'>
@@ -117,9 +126,9 @@ const TestimonialsForm = () => {
                     </label>
                     <CKEditor
                         editor={ClassicEditor}
-                        data={description ? description : '<p>Describa el Testimonio</p>'}
+                        data={values.description ? values.description : '<p>Describa el Testimonio</p>'}
                         onFocus={(event, editor) => {
-                            editor.setData(description)
+                            editor.setData(values.description)
                         }}
                         onChange={(event, editor) => {
                             const data = editor.getData();
@@ -134,7 +143,7 @@ const TestimonialsForm = () => {
                         }}
                     />
                     <div className='form-error'>
-                        {errorDescription && touchedDescription && <span>{errorDescription}</span>}
+                        {errors.description && touched.description && <span>{errors.description}</span>}
                     </div>
                 </div>
                 <div className='input-label-container'>
@@ -150,12 +159,12 @@ const TestimonialsForm = () => {
                         name="image"
                         id='inputImage'
                         className="input-field"
-                        value={image}
+                        value={values.image}
                         onBlur={handleBlur}
                         onChange={handleChange}
                     />
                     <div className='form-error'>
-                        {errorImage && touchedImage && <span>{errorImage}</span>}
+                        {errors.image && touched.image && <span>{errors.image}</span>}
                     </div>
                 </div>
                 <button className="submit-btn" type="submit">Enviar</button>

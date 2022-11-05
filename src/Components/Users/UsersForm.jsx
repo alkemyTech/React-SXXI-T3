@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { apiONG } from '../../Services/apiONG';
 import '../FormStyles.css';
 import { InputField } from '../Form/InputField';
+import Button from '../Button/Button';
 
 const UsersForm = () => {
     const { id } = useParams();
@@ -220,7 +221,7 @@ const UsersForm = () => {
                         {errors.role && touched.role && <span>{errors.role}</span>}
                     </div>
                 </div>
-                <button className="submit-btn" type="submit">Enviar</button>
+                <Button label="Enviar" type="submit" disabled={isSubmitting}/>
             </form>
         </div>
     );

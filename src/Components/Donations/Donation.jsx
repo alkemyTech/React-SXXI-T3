@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Button from "../Button/Button";
 
 import "./styles.css";
-import Thanks from "./Thanks";
 
 const Donation = ({message = "¿Querés contribuir?"}) => {
 

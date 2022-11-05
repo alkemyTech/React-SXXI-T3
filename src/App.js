@@ -29,7 +29,7 @@ function App() {
         </Route>
         <Route path="contacto" element={<></>}/>
         <Route path="nosotros" element={<></>}/>
-        <Route path="donacion" element={<Donation message='¿Querés contribuir?'/>}/>
+        <Route path="donacion" element={<Donation/>}/>
         <Route path="gracias" element={<Thanks/>}/>
         <Route path="/" element={<Slider/>}/>
         <Route path="*" element={<></>}/>

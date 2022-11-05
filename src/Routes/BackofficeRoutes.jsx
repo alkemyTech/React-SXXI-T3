@@ -38,8 +38,8 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<CategoriesForm />}/>
             </Route>
             <Route path="novedades">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<NewsForm/>}/>
+                <Route path="editar/:id" element={<NewsForm/>}/>
             </Route>
             <Route path="actividades">
                 <Route path="crear" element={<ActivitiesForm/>}/>

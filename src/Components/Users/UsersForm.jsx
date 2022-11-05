@@ -6,6 +6,7 @@ import {put, post} from '../../Services/userService' ;
 import { useState, useEffect, useRef } from 'react';
 import { apiONG } from '../../Services/apiONG';
 import '../FormStyles.css';
+import { InputField } from '../Form/InputField';
 
 const UsersForm = () => {
     const { id } = useParams();
@@ -145,94 +146,57 @@ const UsersForm = () => {
         }>
             <form className="form-container" onSubmit={handleSubmit}>
                 <h1 className='form-title'>Formulario de {id ? "Edición" : "Creación"} de Usuario</h1>
-                <div className='input-label-container'>
-                    <label
-                        htmlFor='inputTitle'
-                    >
-                        Nombre
-                    </label>
-                    <input
-                        id='inputTitle'
-                        className="input-field"
-                        type="text"
-                        name="name"
-                        value={values.name}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder="Escriba el nombre del usuario"
-                    />
-                    <div className='form-error'>
-                        {errors.name && touched.name && <span>{errors.name}</span>}
-                    </div>
-                </div>
-                <div className='input-label-container'>
-                    <label
-                        htmlFor='inputEmail'
-                    >
-                        Email
-                    </label>
-                    <input
-                        id='inputEmail'
-                        className="input-field"
-                        type="text"
-                        name="email"
-                        value={values.email}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder="Escriba el email del Usuario"
-                    />
-                    <div className='form-error'>
-                        {errors.email && touched.email && <span>{errors.email}</span>}
-                    </div>
-                </div>
-                <div className='input-label-container'>
-                    <label
-                        htmlFor='inputPassword'
-                    >
-                        Contraseña
-                    </label>
-                    <input
-                        id='inputPassword'
-                        className="input-field"
-                        type="password"
-                        name="password"
-                        value={values.password}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder="Escriba la contraseña del Usuario"
-                    />
-                    <div className='form-error'>
-                        {errors.password && touched.password && <span>{errors.password}</span>}
-                    </div>
-                </div>
-                <div className='input-label-container'>
-                    <label
-                        htmlFor='inputImage'
-                    >
-                        Agregar una imagen
-                    </label>
-
-                    <input
-                        ref={imageRef}
-                        type="file"
-                        name="image"
-                        id='inputImage'
-                        className="input-field"
-                        value={values.image}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                    />
-                    <div className='form-error'>
-                        {errors.image && touched.image && <span>{errors.image}</span>}
-                    </div>
-                    <div className='input-preview-image'>
-                        {
-                            id ?
-                                (<div className='preview-container' style={{ backgroundImage: `url(${imagePreview})` }}>
-                                </div>)
-                                : null
-                        }
-                    </div>
+                <InputField
+                    label="Nombre"
+                    value={values.name}
+                    name="name"
+                    onChange={handleChange("name")}
+                    onBlur={handleBlur("name")}
+                    errors={errors.name}
+                    touched={touched.name}
+                    type="text"
+                    placeholder="Escriba el nombre del usuario"
+                />
+                <InputField
+                    label="Email"
+                    value={values.email}
+                    name="email"
+                    onChange={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    errors={errors.email}
+                    touched={touched.email}
+                    type="text"
+                    placeholder="Escriba el email del usuario"
+                />
+                <InputField
+                    label="Contraseña"
+                    value={values.password}
+                    name="password"
+                    onChange={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    errors={errors.password}
+                    touched={touched.password}
+                    type="password"
+                    placeholder="Escriba la password del usuario"
+                />
+                <InputField
+                    label="Agregar una imagen"
+                    value={values.image}
+                    name="image"
+                    ref={imageRef}
+                    onChange={handleChange("image")}
+                    onBlur={handleBlur("image")}
+                    errors={errors.image}
+                    touched={touched.image}
+                    type="file"
+                />
+                <div className='input-preview-image'>
+                    {
+                        id ?
+                            (<div className='preview-container' style={{ backgroundImage: `url(${imagePreview})` }}>
+                            </div>)
+                            : null
+                    }
                 </div>
                 <div className='input-label-container'>
                     <label htmlFor='inputRole'>
@@ -245,17 +209,17 @@ const UsersForm = () => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                     >
-                        <option value="2">Regular
+                        <option value="2">
+                            Regular
                         </option>
-                        <option value="1">Administrador
+                        <option value="1">
+                            Administrador
                         </option>
-                        
                     </select>
                     <div className='form-error'>
                         {errors.role && touched.role && <span>{errors.role}</span>}
                     </div>
                 </div>
-
                 <button className="submit-btn" type="submit">Enviar</button>
             </form>
         </div>

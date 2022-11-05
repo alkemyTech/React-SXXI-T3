@@ -1,9 +1,9 @@
 import './styles.css';
 
-const Thanks = () => {
+const Thanks = ({message="Muchas gracias! 💓"}) => {
     return(
         <div className='overlay'>
-            <div className='text'>Gracias!</div>
+            <div className='text'>{message}</div>
         </div>
     );
 }

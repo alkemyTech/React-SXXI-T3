@@ -2,7 +2,9 @@ import './styles.css';
 
 const Thanks = () => {
     return(
-        <div></div>
+        <div className='overlay'>
+            <div className='text'>Gracias!</div>
+        </div>
     );
 }
 

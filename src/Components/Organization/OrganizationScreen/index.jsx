@@ -25,6 +25,7 @@ const OrganizationScreen = () => {
                 setOrganizationInfo(() => (data))
             })
             .catch((error) => {
+                setIsLoading(() => false)
                 const errorMessage =
                     error?.response?.data?.message
                     || error.message;

@@ -1,0 +1,102 @@
+.homeform-container {
+	margin: auto;
+	gap: 10px;
+	font-size: 14px;
+}
+
+.homeform-title{
+	text-align: center;
+	line-height: 1;
+}
+
+.homeform-container h3 {
+	font-size: 1.17em;
+	margin-bottom: .5em;
+}
+
+.textarea-container{
+	width: 100%;
+	max-width: 768px;
+	margin: auto;
+}
+
+.select-preview {
+	height: 200px;
+	border-radius: var(--container-border);
+}
+
+.select-preview + div{
+	border-radius: var(--container-border);
+}
+
+.button.select-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30px;
+	height: 30px;
+}
+
+.slider-container{
+	width: 100%;
+	max-width: 768px;
+	margin: 1.5rem auto 2rem;
+}
+
+.slider-container .errors-container{
+	height: 20px;
+	margin-bottom: 10px;
+	color: var(--color-primary);
+}
+
+.homeform-container .button-container{
+	margin-bottom: 1rem;
+}
+
+.carousel-slider-select{
+	max-width: 768px;
+	margin: auto;
+}
+
+@media (min-width: 576px) {
+	.homeform-container{
+		font-size: 16px;
+	}
+	
+	.homeform-container textarea{
+		font-size: 16px;
+	}
+	
+	.select-preview{
+		height:300px;
+	}
+	
+	.button.select-button{
+		font-size: 22px;
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (min-width: 768px) {
+	.homeform-container{
+		width: 80%;
+		max-width: 1000px;
+		font-size: 18px;
+	}
+	
+	.homeform-container textarea{
+		font-size: 18px;
+	}
+	
+	.select-preview{
+		height:350px;
+	}
+	
+	.button.select-button{
+		font-size: 30px;
+		width: 50px;
+		height: 50px;
+	 }
+}
+

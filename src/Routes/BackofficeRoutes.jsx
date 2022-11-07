@@ -4,13 +4,15 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import CategoriesForm from "../Components/Categories/CategoriesForm";
 import MembersForm from "../Components/Members/MembersForm.jsx";
 import ActivitiesForm from "../Components/Activities/ActivitiesForm";
-import NewsForm from "../Components/News/NewsForm";
+// import NewsForm from "../Components/News/NewsForm";
+import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 
 const BackofficeRoutes = () => {
     return (
         <Routes>
             <Route index element={<></>}/>
             <Route path="organizacion">
+                <Route index element={<OrganizationScreen />} />
                 <Route path="editar" element={<></>}/>
             </Route>
             <Route path="slides">

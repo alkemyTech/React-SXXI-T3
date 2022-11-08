@@ -1,5 +1,6 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
+import CategoriesForm from "../Components/Categories/CategoriesForm";
 
 import CategoriesForm from "../Components/Categories/CategoriesForm";
 import MembersForm from "../Components/Members/MembersForm.jsx";

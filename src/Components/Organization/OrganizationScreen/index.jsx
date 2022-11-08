@@ -70,7 +70,7 @@ const OrganizationScreen = () => {
                                 </div>
                             </div>
                             <Link to={`editar`} >
-                                <Button label="Editar" />
+                                <Button label="Editar" variant="primary" />
                             </Link>
                         </div>
                     )

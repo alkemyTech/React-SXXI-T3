@@ -1,29 +1,12 @@
-/* main-container */
+/* form-container */
 
-
-.main_container h5 {
+.title_label {
     color: var(--color-tertiary-strong)
-}
-
-.main_container img {
-    width: 40%;
-    min-width: 150px;
-}
-
-.main_container a {
-    width: 100%;
-    margin-top: 20px;
-}
-
-.main_container a button:hover {
-    background-color: var(--color-tertiary);
-    border-color: transparent
 }
 
 /* name container */
 
 .name_container {
-    /* border: 2px solid black; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -34,7 +17,6 @@
 /* Logo container */
 
 .logo_container {
-    /* border: 2px solid black; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -42,10 +24,15 @@
     align-items: flex-start;
 }
 
+.logo_container img {
+    width: 40%;
+    min-width: 150px;
+}
+
 /* Descrption */
 
 .description_container {
-    margin-bottom: 20px;
+    margin: 20px 0;
     width: 100%;
     display: flex;
     flex-direction: column;

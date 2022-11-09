@@ -48,15 +48,15 @@ const OrganizationScreen = () => {
                             <div className="form-container">
                                 <h1 className="form-title">Información de la organización</h1>
                                 <div className={styles.name_container}>
-                                    <h5>Nombre</h5>
+                                    <h5 className={styles.title_label}>Nombre</h5>
                                     <h2>{organizationInfo.name}</h2>
                                 </div>
                                 <div className={styles.logo_container}>
-                                    <h5>Logo</h5>
+                                    <h5 className={styles.title_label}>Logo</h5>
                                     <img src={organizationInfo.logo} alt="logo" />
                                 </div>
                                 <div className={styles.description_container}>
-                                    <h5>Descripción</h5>
+                                    <h5 className={styles.title_label}>Descripción</h5>
                                     <div className={styles.editorStyles}>
                                         <CKEditor
                                             className={styles.ck}

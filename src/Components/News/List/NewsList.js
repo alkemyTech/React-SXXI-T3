@@ -2,7 +2,6 @@ import React from "react";
 import Title from "../../Title/Title";
 import { NewsCard } from "../Card/NewsCard";
 import "../../CardListStyles.css";
-import "./NewsList.css";
 
 const NewsList = () => {
   const newsMock = [];
@@ -12,7 +11,7 @@ const NewsList = () => {
       <div className="row">
         <Title title="Novedades" />
       </div>
-      <ul className="list-container news-container row ">
+      <ul className="list-container mt-3 row ">
         {newsMock.length > 0 ? (
           newsMock.map((element) => {
             return (
@@ -25,8 +24,8 @@ const NewsList = () => {
             );
           })
         ) : (
-          <div className="noNews">
-          <p>No hay novedades para mostrar...</p>
+          <div className="container m-5">
+          <p className="text-center fs-3">No hay novedades para mostrar...</p>
           </div>
         )}
       </ul>

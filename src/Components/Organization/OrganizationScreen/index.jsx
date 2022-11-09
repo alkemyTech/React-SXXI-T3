@@ -44,7 +44,7 @@ const OrganizationScreen = () => {
                 isLoading
                     ? null
                     : (
-                        <div className={styles.main_container}>
+                        <div className="main-container">
                             <div className="form-container">
                                 <h1 className="form-title">Información de la organización</h1>
                                 <div className={styles.name_container}>

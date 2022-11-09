@@ -7,7 +7,7 @@ const Nosotros = () => {
 
     return (
         <>
-            <Title title="Nostros" />
+            <Title title="Nosotros" />
             <p className={Styles.sobre_nosotros}>{textoParaMostrar}</p>
         </>
     )

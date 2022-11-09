@@ -31,8 +31,8 @@
 
 .button.select-button {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 5px;
+	right: 15px;
 	width: 30px;
 	height: 30px;
 }
@@ -50,13 +50,28 @@
 }
 
 .homeform-container .button-container{
-	margin-bottom: 1rem;
+	margin: auto auto 1rem;
+	max-width: 768px;
+	width: 100%;
 }
 
 .carousel-slider-select{
 	max-width: 768px;
 	margin: auto;
 }
+
+.add{
+	filter: invert(46%) sepia(90%) saturate(1915%) hue-rotate(86deg) brightness(114%) contrast(121%);
+}
+
+.delete{
+	filter: invert(12%) sepia(98%) saturate(7475%) hue-rotate(1deg) brightness(103%) contrast(105%);
+}
+
+.icon{
+	height: inherit;
+}
+
 
 @media (min-width: 576px) {
 	.homeform-container{
@@ -72,7 +87,6 @@
 	}
 	
 	.button.select-button{
-		font-size: 22px;
 		width: 40px;
 		height: 40px;
 	}
@@ -92,11 +106,6 @@
 	.select-preview{
 		height:350px;
 	}
-	
-	.button.select-button{
-		font-size: 30px;
-		width: 50px;
-		height: 50px;
-	 }
+
 }
 

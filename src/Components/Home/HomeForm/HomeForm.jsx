@@ -8,12 +8,15 @@ import {TextAreaField} from "../../Form/TextAreaField";
 import SliderTemplate from "../../Slides/Slider/Template/SliderTemplate";
 import Carousel from "../../Carousel/Carousel";
 import Button from "../../Button/Button";
+import {ReactComponent as RemoveSvg } from "../../../assets/svg/home/xmark-solid.svg";
+import {ReactComponent as AddSvg } from "../../../assets/svg/home/check-solid.svg";
 
 import './HomeForm.css'
 
 const HomeForm = () => {
     const [slides, setSlides] = useState([]);
     const initialValues = {welcomeText: "", slides: []}
+    const [isFetching, setIsFetching] = useState(false);
 
     const validationSchema = Yup.object({
         welcomeText: Yup.string()
@@ -25,20 +28,8 @@ const HomeForm = () => {
             .required('El slide es un campo requerido')
     })
 
-    useEffect(() => {
-        getOrganizationInfo().then((response) => {
-            setFieldValue("welcomeText", response);
-        })
-        getSlides().then((response) => {
-            const actualSlides = response.sort((a, b) => a.order < b.order).slice(0, 3);
-            setSlides(response.slice(0,7));
-            setFieldValue("slides", actualSlides);
-        })
-
-    },[])
-
     const onSubmit = () => {
-        console.log(values)
+        setSubmitting(false)
     }
 
     const formik = useFormik({
@@ -51,13 +42,35 @@ const HomeForm = () => {
         handleSubmit,
         isSubmitting,
         handleChange,
-        setValues,
         handleBlur,
         setSubmitting,
         setFieldValue,
         setFieldTouched,
         values
     } = formik
+
+
+    useEffect(() => {
+        setIsFetching(true);
+        getOrganizationInfo().then((response) => {
+            setFieldValue("welcomeText", response);
+        }).catch((error) => {
+
+        }).finally(() => {
+            setIsFetching(false)
+        })
+        getSlides().then((response) => {
+            const actualSlides = response.sort((a, b) => a.order < b.order).slice(0, 3);
+            setSlides(response.slice(0,7));
+            setFieldValue("slides", actualSlides);
+        }).catch((error) => {
+
+        }).finally(() => {
+            setIsFetching(false)
+        })
+
+    },[setFieldValue])
+
 
     const isSelected = (id) => {
         return values.slides.some((slide) => slide.id === id);
@@ -76,7 +89,7 @@ const HomeForm = () => {
         return (
             <SliderTemplate {...props} imageClassName="select-preview">
                 <Button
-                    label={isSelected(props.id) ? "❌" : "✔"}
+                    label={isSelected(props.id) ? <RemoveSvg/> : <AddSvg/>}
                     onClick={() => handleSelectSlide(props)}
                     type='button'
                     variant='text'
@@ -86,8 +99,12 @@ const HomeForm = () => {
         )
     }
 
+    const isLoading = isFetching || isSubmitting;
+
     return (
-        <div className={'main-container'}>
+        <div className={
+            isLoading ? 'main-container pulse' : 'main-container'
+        }>
             <form onSubmit={handleSubmit} className="form-container homeform-container">
                 <h1 className="homeform-title">Actualizar datos de inicio</h1>
                 <div className="textarea-container">

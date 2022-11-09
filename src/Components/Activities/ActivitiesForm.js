@@ -8,14 +8,25 @@ import * as yup from "yup";
 import { apiONG } from "../../Services/apiONG";
 import "../FormStyles.css";
 
-const saveActivity = (activity) => {
+const updateActivity = (activity) => {
   apiONG
-    .post("/activities", activity)
+    .put(`/activities/${activity.id}`, activity)
     .then((response) => {
       Swal.fire("OK", "Actividad guardada correctamente!", "success");
     })
     .catch((err) => {
-      Swal.fire("Oops!", err.response?.data, "error");
+      Swal.fire("Oops!", err.response?.data?.message, "error");
+    });
+};
+
+const createActivity = (activity) => {
+  apiONG
+    .post("/activities", activity)
+    .then((response) => {
+      Swal.fire("OK", "Actividad creada correctamente!", "success");
+    })
+    .catch((err) => {
+      Swal.fire("Oops!", err.response?.data?.message, "error");
     });
 };
 
@@ -23,7 +34,6 @@ const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     let baseURL = "";
     let reader = new FileReader();
-    reader.readAsDataURL(file);
     reader.onload = () => {
       baseURL = reader.result;
       resolve(baseURL);
@@ -33,17 +43,19 @@ const getBase64 = (file) =>
         message: "Ocurrió un error mientras se procesaba la imagen",
       });
     };
+    reader.readAsDataURL(file);
   });
 
 const ActivitiesForm = () => {
   const [activity, setActivity] = useState();
   const [isFetching, setIsFetching] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const imageRef = useRef();
   const initialValues = {
     name: "",
     image: "",
-    description: "Ingresa un texto...",
+    description: "Ingresa un texto... (opcional)",
   };
 
   const validationSchema = yup.object().shape({
@@ -58,7 +70,7 @@ const ActivitiesForm = () => {
     description: yup.string(),
   });
 
-  const onSubmit = async ({ name, image, description }) => {
+  const onSubmit = ({ name, image, description }) => {
     const file = imageRef.current.files[0];
     getBase64(file)
       .then((result) => {
@@ -68,7 +80,8 @@ const ActivitiesForm = () => {
           description,
           image: result,
         };
-        saveActivity(activityToSave);
+        if(isEdit) updateActivity(activityToSave)
+        else createActivity(activityToSave);
       })
       .catch(() => {
         Swal.fire({
@@ -76,8 +89,8 @@ const ActivitiesForm = () => {
           icon: "error",
           timer: 5000,
         });
-        setSubmitting(false);
       });
+      setSubmitting(false);
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -114,6 +127,7 @@ const ActivitiesForm = () => {
           });
         });
       setIsFetching(false);
+      setIsEdit(true);
     }
   }, [id, setValues]);
 

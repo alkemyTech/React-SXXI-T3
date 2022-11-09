@@ -52,7 +52,6 @@ const RegisterForm = ({ desktop }) => {
     errors,
     touched,
     values,
-    isSubmitting,
   } = formik;
 
   return (

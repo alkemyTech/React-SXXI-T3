@@ -7,6 +7,7 @@ import ActivitiesForm from "../Components/Activities/ActivitiesForm";
 import NewsForm from "../Components/News/NewsForm";
 import TestimonialsForm from "../Components/Testimonials/TestimonialsForm";
 import SlidesForm from "../Components/Slides/SlidesForm";
+import ProjectsForm from "../Components/Projects/ProjectsForm";
 
 
 const BackofficeRoutes = () => {
@@ -21,8 +22,8 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<SlidesForm/>}/>
             </Route>
             <Route path="proyectos">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<ProjectsForm/>}/>
+                <Route path="editar/:id" element={<ProjectsForm/>}/>
             </Route>
             <Route path="testimonios">
                 <Route path="crear" element={<TestimonialsForm/>}/>

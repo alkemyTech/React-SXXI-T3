@@ -5,12 +5,13 @@ import Login from './Components/Auth/Login';
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
 import Register from './Components/Auth/Register';
 import Slider from "./Components/Slides/Slider/Slider";
-import ActivitiesDetail from "./Components/Activities/Detail/ActivitiesDetail";
+import ActivitiesDetail from "./Components/Activities/ActivitiesDetail";
 import './App.css';
-import NewsDetail from './Components/News/Detail/NewsDetail';
+import NewsDetail from './Components/News/NewsDetail';
 import Donation from './Components/Donations/Donation';
 import Thanks from './Components/Donations/Thanks';
 import Nosotros from './Components/About/Nosotros';
+import ActivitiesList from './Components/Activities/ActivitiesList';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <Route path="login" element={<Login/>}/>
         <Route path="register" element={<Register />}/>
         <Route path="actividades">
-          <Route index element={<></>}/>
+          <Route index element={<ActivitiesList/>}/>
           <Route path=":id" element={<ActivitiesDetail/>}/>
         </Route>
         <Route path="novedades">

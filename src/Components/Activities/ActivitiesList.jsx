@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { apiONG } from '../../Services/apiONG';
 import '../CardListStyles.css';
-import { NewsCard } from '../News/Card/NewsCard';
+import { ActivityCard } from './ActivityCard';
 import Title from '../Title/Title';
 
 const ActivitiesList = () => {
@@ -22,12 +22,13 @@ const ActivitiesList = () => {
           <ul className="list-container mt-3 row">
               {activities?.map((element) => {
                 return (
-                  <NewsCard
+                  <ActivityCard
                     id={element.id}
                     name={element.name}
                     content={element.description}
                     image={element.image}
                     buttonLabel='Ver actividad'
+                    onClick={() => {document.location.href='/actividades/' + element.id}}
                   />
                 );
             })}

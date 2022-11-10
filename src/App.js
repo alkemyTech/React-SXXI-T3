@@ -10,7 +10,9 @@ import './App.css';
 import NewsDetail from './Components/News/Detail/NewsDetail';
 import Donation from './Components/Donations/Donation';
 import Thanks from './Components/Donations/Thanks';
+import NewsList from './Components/News/List/NewsList';
 import Nosotros from './Components/About/Nosotros';
+
 
 
 function App() {
@@ -25,7 +27,7 @@ function App() {
           <Route path=":id" element={<ActivitiesDetail/>}/>
         </Route>
         <Route path="novedades">
-          <Route index element={<></>}/>
+          <Route index element={<NewsList/>}/>
           <Route path=":id" element={<NewsDetail title="Novedad"/>}/>
         </Route>
         <Route path="contacto" element={<></>}/>

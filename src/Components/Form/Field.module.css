@@ -1,7 +1,7 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	width: 80%;
+	width: 100%;
 	margin: auto;
 }
 
@@ -23,4 +23,23 @@
 	height: 20px;
 	margin-bottom: 10px;
 	color: var(--color-primary);
+}
+
+form .button{
+	margin: 1rem auto auto;
+	width: 80%;
+}
+
+textarea{
+	font-family: Poppins, sans-serif;
+}
+
+@media (min-width: 576px) {
+	.input {
+		padding: 15px 30px;
+	}
+	
+	.ck{
+		height: 150px;
+	}
 }

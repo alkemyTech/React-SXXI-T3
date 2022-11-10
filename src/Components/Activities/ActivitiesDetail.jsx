@@ -11,14 +11,14 @@ const ActivitiesDetail = () => {
     const [activity, setActivity] = useState({});
 
     useEffect(() => {
-        apiONG.get('/activities/'+{id})
+        apiONG.get('/activities/' + id)
         .then((response) => {
             setActivity(response.data.data);
         });
     }, [id]);
 
     return (
-        <>
+        <div>
             <Title title={activity.name}/>
             <DetailCard
                 content={activity.description}
@@ -29,7 +29,7 @@ const ActivitiesDetail = () => {
                 imageUrl={activity.image}
                 imageAlt={activity.name}
             />
-        </>
+        </div>
     );
 
 }

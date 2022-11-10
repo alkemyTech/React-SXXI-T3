@@ -25,9 +25,9 @@ const ActivitiesDetail = () => {
                 date={activity.created_at}
                 color="primary"
                 buttonLabel="Volver a actividades"
-                onClick={() => {}}
                 imageUrl={activity.image}
                 imageAlt={activity.name}
+                onClick={() => {document.location.href='/actividades'}}
                 />
         </div>
     );

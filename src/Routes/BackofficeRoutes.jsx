@@ -5,24 +5,31 @@ import CategoriesForm from "../Components/Categories/CategoriesForm";
 import MembersForm from "../Components/Members/MembersForm";
 import ActivitiesForm from "../Components/Activities/ActivitiesForm";
 import NewsForm from "../Components/News/NewsForm";
+import TestimonialsForm from "../Components/Testimonials/TestimonialsForm";
+import SlidesForm from "../Components/Slides/SlidesForm";
+import ProjectsForm from "../Components/Projects/ProjectsForm";
+import OrganizationScreen from "../Components/Organization/OrganizationScreen";
+import OrganizationForm from "../Components/Organization/OrganizationForm";
+
 const BackofficeRoutes = () => {
     return (
         <Routes>
             <Route index element={<></>}/>
             <Route path="organizacion">
-                <Route path="editar" element={<></>}/>
+                <Route index element={<OrganizationScreen />} />
+                <Route path="editar" element={<OrganizationForm />}/>
             </Route>
             <Route path="slides">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<SlidesForm/>}/>
+                <Route path="editar/:id" element={<SlidesForm/>}/>
             </Route>
             <Route path="proyectos">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<ProjectsForm/>}/>
+                <Route path="editar/:id" element={<ProjectsForm/>}/>
             </Route>
             <Route path="testimonios">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<TestimonialsForm/>}/>
+                <Route path="editar/:id" element={<TestimonialsForm/>}/>
             </Route>
             <Route path="usuarios">
                 <Route path="crear" element={<UsersForm/>}/>
@@ -37,8 +44,8 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<CategoriesForm />}/>
             </Route>
             <Route path="novedades">
-                <Route path="crear" element={<></>}/>
-                <Route path="editar/:id" element={<></>}/>
+                <Route path="crear" element={<NewsForm/>}/>
+                <Route path="editar/:id" element={<NewsForm/>}/>
             </Route>
             <Route path="actividades">
                 <Route path="crear" element={<ActivitiesForm/>}/>

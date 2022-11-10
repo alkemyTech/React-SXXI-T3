@@ -1,5 +1,4 @@
 .ck.ck-editor__editable > .ck-placeholder::before {
-    content: 'Realiza una descripción de este miembro' !important;
     color: rgba(0, 0, 0, 0.47);
 }
 

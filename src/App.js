@@ -8,6 +8,11 @@ import Slider from "./Components/Slides/Slider/Slider";
 import ActivitiesDetail from "./Components/Activities/Detail/ActivitiesDetail";
 import './App.css';
 import NewsDetail from './Components/News/Detail/NewsDetail';
+import Donation from './Components/Donations/Donation';
+import Thanks from './Components/Donations/Thanks';
+import Contact from "./Components/Contact/Contact";
+import NewsList from './Components/News/List/NewsList';
+import Nosotros from './Components/About/Nosotros';
 
 
 function App() {
@@ -22,11 +27,13 @@ function App() {
           <Route path=":id" element={<ActivitiesDetail/>}/>
         </Route>
         <Route path="novedades">
-          <Route index element={<></>}/>
+          <Route index element={<NewsList/>}/>
           <Route path=":id" element={<NewsDetail title="Novedad"/>}/>
         </Route>
-        <Route path="contacto" element={<></>}/>
-        <Route path="nosotros" element={<></>}/>
+        <Route path="contacto" element={<Contact/>}/>
+        <Route path="nosotros" element={<Nosotros />}/>
+        <Route path="donar" element={<Donation/>}/>
+        <Route path="gracias" element={<Thanks/>}/>
         <Route path="/" element={<Slider/>}/>
         <Route path="*" element={<></>}/>
       </Routes>

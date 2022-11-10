@@ -1,13 +1,21 @@
 import { apiONG } from '../apiONG';
 import Swal from 'sweetalert2';
 
-export const onSubmitService = (category, name, description, resetForm, setSubmitting) => {
-    if (category) {
+export const onSubmitService = (
+    id,
+    name,
+    description,
+    image,
+    resetForm,
+    setSubmitting
+) => {
+    if (id) {
 
         apiONG
-            .put(`/categories/${category.id}`, {
+            .put(`/categories/${id}`, {
                 name,
-                description
+                description,
+                image
             })
             .then((response) => {
                 const { data: { message } } = response;
@@ -38,7 +46,8 @@ export const onSubmitService = (category, name, description, resetForm, setSubmi
         apiONG
             .post(`/categories`, {
                 name,
-                description
+                description,
+                image
             })
             .then((response) => {
                 const { data: { message } } = response;

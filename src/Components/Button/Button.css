@@ -54,9 +54,3 @@
 .button.tertiary:hover {
 	background-color: var(--color-tertiary-strong);
 }
-
-form .button{
-	margin: auto;
-	margin-top: 1rem;
-	width: 80%;
-}

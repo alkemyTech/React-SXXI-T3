@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 
-import DetailCard from "../../DetailCard/DetailCard";
-import Title from "../../Title/Title";
+import DetailCard from "../DetailCard/DetailCard";
+import Title from "../Title/Title";
 
 
 const ActivitiesDetail = () => {

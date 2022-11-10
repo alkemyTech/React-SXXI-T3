@@ -11,7 +11,7 @@ import { onSubmitService } from '../../Services/categoryFormServices';
 import Swal from 'sweetalert2';
 
 import { apiONG } from '../../Services/apiONG';
-import { getBase64 } from '../utils/getBase64';
+import { getBase64 } from '../../utils/getBase64';
 
 import '../FormStyles.css'
 import './categoriesForm.css';
@@ -169,7 +169,7 @@ const CategoriesForm = () => {
                     <CKEditor
                         editor={ClassicEditor}
                         data={description}
-                        config={{ placeholder: 'true' }}
+                        config={{ placeholder: 'Realiza una descripción de esta categoría' }}
                         onFocus={(event, editor) => {
                             editor.setData(description)
                         }}

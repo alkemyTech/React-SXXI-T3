@@ -7,7 +7,7 @@ import Register from './Components/Auth/Register';
 import Slider from "./Components/Slides/Slider/Slider";
 import ActivitiesDetail from "./Components/Activities/ActivitiesDetail";
 import './App.css';
-import NewsDetail from './Components/News/NewsDetail';
+import NewsDetail from './Components/News/Detail/NewsDetail';
 import Donation from './Components/Donations/Donation';
 import Thanks from './Components/Donations/Thanks';
 import Nosotros from './Components/About/Nosotros';

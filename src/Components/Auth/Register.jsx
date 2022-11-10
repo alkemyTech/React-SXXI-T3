@@ -23,27 +23,14 @@ const Register = () => {
 
   return (
     <>
-      {!isMobile ? (
-        <div className="row">
-          <div className="col-6 d-flex flex-column justify-content-center">
-            <RegisterForm desktop={true} />
+      <div className="row flex-sm-row flex-column-reverse">
+          <div className="col-sm-6">
+            <RegisterForm desktop={isMobile? false : true} />
           </div>
-          <div className="col-6">
-            <img src={img} className="img-fluid" alt="imagen" />
-          </div>
-        </div>
-      ) : (
-        <div className="row">
-          <div className="col-sm d-flex justify-content-center align-items-center">
-            <div className="logo">
-              <img src={logo} className="img-fluid" alt="logo" />
-            </div>
-          </div>
-          <div className="col-sm d-flex justify-content-center align-items-center">
-            <RegisterForm />
+          <div className="col-sm-6 d-flex justify-content-center">
+            <img src={isMobile ? logo : img} className="img-fluid" alt="imagen" />
           </div>
         </div>
-      )}
     </>
   );
 };

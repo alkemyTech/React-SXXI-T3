@@ -3,9 +3,9 @@ import Button from "../../Button/Button";
 import "./../Card/NewsCard.css";
 
 export const NewsCard = ({ id, name, content, image }) => {
-  
-  const newsText = { __html :
-    content.length <= 200 ? content : `${content.substring(0, 200)}...`};
+
+  const newsText = { __html : 
+    (content?.length <= 200) ? content : `${content?.substring(0, 200)}...`};
 
   return (
     <div className="news-card">

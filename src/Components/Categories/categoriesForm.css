@@ -36,7 +36,6 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .ck.ck-editor__editable > .ck-placeholder::before {
-    content: 'Realiza una descripción de esta categoría' !important;
     color: rgba(0, 0, 0, 0.47);
 }
 

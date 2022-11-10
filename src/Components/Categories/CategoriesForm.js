@@ -169,7 +169,7 @@ const CategoriesForm = () => {
                     <CKEditor
                         editor={ClassicEditor}
                         data={description}
-                        config={{ placeholder: 'true' }}
+                        config={{ placeholder: 'Realiza una descripción de esta categoría' }}
                         onFocus={(event, editor) => {
                             editor.setData(description)
                         }}

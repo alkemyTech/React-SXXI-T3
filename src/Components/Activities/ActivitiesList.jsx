@@ -27,6 +27,7 @@ const ActivitiesList = () => {
                     name={element.name}
                     content={element.description}
                     image={element.image}
+                    buttonLabel='Ver actividad'
                   />
                 );
             })}

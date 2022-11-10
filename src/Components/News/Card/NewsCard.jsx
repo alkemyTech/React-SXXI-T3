@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../Button/Button";
 import "./../Card/NewsCard.css";
 
-export const NewsCard = ({ id, name, content, image }) => {
+export const NewsCard = ({ id, name, content, image, buttonLabel }) => {
 
   const newsText = { __html : 
     (content?.length <= 200) ? content : `${content?.substring(0, 200)}...`};
@@ -16,7 +16,7 @@ export const NewsCard = ({ id, name, content, image }) => {
         <div className="news-text" dangerouslySetInnerHTML={newsText}>
         </div>
         <div className="news-btn-div">
-          <Button label="Ver novedad" className="news-btn" />
+          <Button label={buttonLabel} className="news-btn" />
         </div>
       </div>
     </div>

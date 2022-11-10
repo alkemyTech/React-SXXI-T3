@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import { apiONG } from "../../Services/apiONG";
-
 import DetailCard from "../DetailCard/DetailCard";
+
 import Title from "../Title/Title";
 
 
@@ -28,7 +28,7 @@ const ActivitiesDetail = () => {
                 onClick={() => {}}
                 imageUrl={activity.image}
                 imageAlt={activity.name}
-            />
+                />
         </div>
     );
 

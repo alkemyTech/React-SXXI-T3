@@ -5,17 +5,18 @@ import CategoriesForm from "../Components/Categories/CategoriesForm";
 import MembersForm from "../Components/Members/MembersForm.jsx";
 import ActivitiesForm from "../Components/Activities/ActivitiesForm";
 import NewsForm from "../Components/News/NewsForm";
+import HomeForm from "../Components/Home/HomeForm/HomeForm";
 import TestimonialsForm from "../Components/Testimonials/TestimonialsForm";
 import SlidesForm from "../Components/Slides/SlidesForm";
 import ProjectsForm from "../Components/Projects/ProjectsForm";
 import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
 
-
 const BackofficeRoutes = () => {
     return (
         <Routes>
             <Route index element={<></>}/>
+            <Route path="home" element={<HomeForm/>}/>
             <Route path="organizacion">
                 <Route index element={<OrganizationScreen />} />
                 <Route path="editar" element={<OrganizationForm />}/>

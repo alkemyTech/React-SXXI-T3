@@ -22,7 +22,7 @@ export const TextAreaField = ({
                labelClassName={labelClassName} errors={errors}>
         <textarea
             id={`input-${name}`}
-            className={`${styles.input}  ${errors ? styles.error : ''} ${inputClassName}`}
+            className={`${styles.input}  ${(errors && touched) ? styles.error : ''} ${inputClassName}`}
             name="name"
             value={value}
             onChange={(val) => onChange(val)}
@@ -30,7 +30,7 @@ export const TextAreaField = ({
             placeholder={placeholder}
             disabled={disabled}
             {...props}
-            rows={8}
+            // rows={8}
         />
         </Field>
     )

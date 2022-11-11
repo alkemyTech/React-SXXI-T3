@@ -2,10 +2,21 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif ;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(102, 194, 237, 0.802);
+  border-radius: 5px;
 }
 
 code {

@@ -8,14 +8,16 @@ import NewsForm from "../Components/News/NewsForm";
 import HomeForm from "../Components/Home/HomeForm/HomeForm";
 import TestimonialsForm from "../Components/Testimonials/TestimonialsForm";
 import SlidesForm from "../Components/Slides/SlidesForm";
+import { Dashboard } from "../Components/Dashboard/Dashboard";
 import ProjectsForm from "../Components/Projects/ProjectsForm";
 import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
 
+
 const BackofficeRoutes = () => {
     return (
         <Routes>
-            <Route index element={<></>}/>
+            <Route index element={<Dashboard/>}/>
             <Route path="home" element={<HomeForm/>}/>
             <Route path="organizacion">
                 <Route index element={<OrganizationScreen />} />

@@ -1,0 +1,36 @@
+.feature-container {
+  background-color: rgb(245, 241, 241) ;
+  display: block;
+  padding: 10px;
+  border: 1px solid rgb(210, 210, 221);
+  border-radius: 10px;
+  margin: 30px;
+}
+
+.feature-name {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  height: 30%;
+}
+
+.feature-logo {
+  display: flex;
+  width: 100%;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-logo img {
+  width: 90px;
+}
+
+.feature-link{
+    display: flex;
+    justify-content: center;
+}
+
+.feature-btn {
+  width: 50%;
+}

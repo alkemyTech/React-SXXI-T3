@@ -1,0 +1,149 @@
+.homeform-container {
+	margin: auto;
+	gap: 10px;
+	font-size: 14px;
+}
+
+.homeform-title {
+	text-align: center;
+	line-height: 1;
+}
+
+.homeform-container h3 {
+	font-size: 1.17em;
+	margin-bottom: .5em;
+}
+
+.textarea-container {
+	width: 100%;
+	max-width: 768px;
+	margin: auto;
+}
+
+.select-preview {
+	height: 200px;
+	border-radius: var(--container-border);
+}
+
+.select-preview + div {
+	border-radius: var(--container-border);
+}
+
+.button.select-button {
+	/*position: absolute;*/
+	/*top: 5px;*/
+	/*right: 15px;*/
+	width: 30px;
+	height: 30px;
+}
+
+.slider-container {
+	width: 100%;
+	max-width: 768px;
+	margin: 1.5rem auto 2rem;
+}
+
+.slider-container .errors-container {
+	height: 20px;
+	margin-bottom: 10px;
+	color: var(--color-primary);
+}
+
+.homeform-container .button-container {
+	margin: auto auto 1rem;
+	max-width: 768px;
+	width: 100%;
+}
+
+.carousel-slider-select {
+	max-width: 768px;
+	margin: auto;
+}
+
+.add {
+	filter: invert(46%) sepia(90%) saturate(1915%) hue-rotate(86deg) brightness(114%) contrast(121%);
+}
+
+.delete {
+	filter: invert(12%) sepia(98%) saturate(7475%) hue-rotate(1deg) brightness(103%) contrast(105%);
+}
+
+.icon {
+	height: inherit;
+}
+
+.utils-container {
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	display: flex;
+	flex-direction: row-reverse;
+	
+}
+
+.select-overlay {
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(45, 45, 45, 0.53);
+	color: rgb(232, 230, 227);
+	box-sizing: border-box;
+	border-radius: var(--container-border);
+	padding: 5px;
+}
+
+.select-overlay-buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.select-overlay-buttons .button {
+	width: 20%;
+	height: 25px;
+	font-size: 12px;
+	color: rgb(232, 230, 227);
+	border: 1px solid rgb(232, 230, 227);
+	/*background-color: rgb(232, 230, 227)*/
+	/*background-color: rgba(45, 45, 45, 0.09);*/
+}
+
+.select-overlay-buttons .button.selected {
+	background-color: #008a00;
+}
+
+@media (min-width: 576px) {
+	.homeform-container {
+		font-size: 16px;
+	}
+	
+	.homeform-container textarea {
+		font-size: 16px;
+	}
+	
+	.select-preview {
+		height: 300px;
+	}
+	
+	.button.select-button {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (min-width: 768px) {
+	.homeform-container {
+		width: 80%;
+		max-width: 1000px;
+		font-size: 18px;
+	}
+	
+	.homeform-container textarea {
+		font-size: 18px;
+	}
+	
+	.select-preview {
+		height: 350px;
+	}
+	
+}
+

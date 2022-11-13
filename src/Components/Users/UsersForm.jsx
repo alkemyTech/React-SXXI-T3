@@ -8,6 +8,7 @@ import { apiONG } from '../../Services/apiONG';
 import '../FormStyles.css';
 import { InputField } from '../Form/InputField';
 import Button from '../Button/Button';
+import { SelectField } from '../Form/SelectField';
 
 const UsersForm = () => {
     const { id } = useParams();
@@ -200,23 +201,19 @@ const UsersForm = () => {
                     }
                 </div>
                 <div className='input-label-container'>
-                    <label htmlFor='inputRole'>
-                        Selecciona un rol
-                    </label>
-                    <select
-                        id="role"
-                        name="role"
+                    <SelectField
+                        label="Selecciona un rol"
                         value={values.role}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                    >
-                        <option value="2">
-                            Regular
-                        </option>
-                        <option value="1">
-                            Administrador
-                        </option>
-                    </select>
+                        name="role"
+                        onChange={handleChange("role")}
+                        onBlur={handleBlur("role")}
+                        errors={errors.role}
+                        touched={touched.role}
+                        placeholder="Selecciona un rol"
+                        >
+                            <option value="2">Regular</option>
+                            <option value="1">Administrador</option>
+                        </SelectField>
                     <div className='form-error'>
                         {errors.role && touched.role && <span>{errors.role}</span>}
                     </div>

@@ -23,6 +23,7 @@ const ActivitiesList = () => {
               {activities?.map((element) => {
                 return (
                   <ActivityCard
+                    key={element.id}
                     id={element.id}
                     name={element.name}
                     content={element.description}

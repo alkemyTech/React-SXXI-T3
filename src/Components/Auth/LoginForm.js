@@ -42,15 +42,15 @@ const LoginForm = ({ desktop }) => {
 
   return (
     <>
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container auth-container" onSubmit={handleSubmit}>
         {desktop && (
-          <>
-            <div className="title">Bienvenido</div>
-            <div className="subtitle">Inicia sesión en tu cuenta!</div>
-          </>
+          <div className="row">
+            <span className="auth-title">Bienvenido</span>
+            <span className="auth-subtitle">Inicia sesión en tu cuenta!</span>
+          </div>
         )}
         <input
-          className="input-field"
+          className="input-field auth-input"
           type="email"
           name="email"
           value={values.email}
@@ -60,10 +60,10 @@ const LoginForm = ({ desktop }) => {
           autoComplete="off"
         ></input>
         {errors.email && touched.email && (
-          <div className="form-error">{errors.email}</div>
+          <div className="form-error auth-error">{errors.email}</div>
         )}
         <input
-          className="input-field"
+          className="input-field auth-input"
           type="password"
           name="password"
           value={values.password}
@@ -73,14 +73,14 @@ const LoginForm = ({ desktop }) => {
           autoComplete="off"
         ></input>
         {errors.password && touched.password && (
-          <div className="form-error">{errors.password}</div>
+          <div className="form-error auth-error">{errors.password}</div>
         )}
-        <button className="submit-btn" type="submit">
+        <button className="submit-btn auth-btn" type="submit">
           Inicia sesión
         </button>
-        <div className="suggestion">
+        <div className="auth-suggestion">
           No tienes una cuenta?{" "}
-          <Link className="link" to={"/register"}>
+          <Link className="auth-link" to={"/register"}>
             Regístrate
           </Link>
         </div>

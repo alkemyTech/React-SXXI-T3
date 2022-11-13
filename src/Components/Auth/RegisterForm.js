@@ -57,15 +57,15 @@ const RegisterForm = ({ desktop }) => {
   return (
     <>
       
-        <form className="form-container" onSubmit={handleSubmit}>
+        <form className="form-container auth-container" onSubmit={handleSubmit}>
           {desktop && (
             <>
-              <div className="title">Bienvenido</div>
-              <div className="subtitle">Registra tu nueva cuenta!</div>
+              <div className="auth-title">Bienvenido</div>
+              <div className="auth-subtitle">Registra tu nueva cuenta!</div>
             </>
           )}
           <input
-            className="input-field"
+            className="input-field auth-input"
             type="email"
             name="email"
             value={values.email}
@@ -75,10 +75,10 @@ const RegisterForm = ({ desktop }) => {
             autoComplete="off"
           ></input>
           {errors.email && touched.email && (
-            <div className="form-error">{errors.email}</div>
+            <div className="form-error auth-error">{errors.email}</div>
           )}
           <input
-            className="input-field"
+            className="input-field auth-input"
             type="password"
             name="password"
             value={values.password}
@@ -88,10 +88,10 @@ const RegisterForm = ({ desktop }) => {
             autoComplete="off"
           ></input>
           {errors.password && touched.password && (
-            <div className="form-error">{errors.password}</div>
+            <div className="form-error auth-error">{errors.password}</div>
           )}
           <input
-            className="input-field"
+            className="input-field auth-input"
             type="password"
             name="confirm"
             value={values.confirm}
@@ -101,14 +101,14 @@ const RegisterForm = ({ desktop }) => {
             autoComplete="off"
           ></input>
           {errors.confirm && touched.confirm && (
-            <div className="form-error">{errors.confirm}</div>
+            <div className="form-error auth-error">{errors.confirm}</div>
           )}
-          <button className="submit-btn" type="submit">
+          <button className="submit-btn auth-btn" type="submit">
             Registrarse
           </button>
-          <div className="suggestion">
+          <div className="auth-suggestion">
             Ya tienes una cuenta?
-            <Link className="link" to={"/login"}>
+            <Link className="auth-link" to={"/login"}>
               Inicia sesión
             </Link>
           </div>

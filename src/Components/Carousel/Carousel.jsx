@@ -4,15 +4,17 @@ import Button from "../Button/Button";
 
 import styles from './Carousel.module.css';
 
-const Carousel = ({itemList = [], ItemTemplate, itemKey}) => {
+const Carousel = ({itemList = [], ItemTemplate, itemKey, autoplay=true, className}) => {
     const [activeItemIndex, setActiveItemIndex] = useState(0);
     const listLength = itemList.length;
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            nextItem();
-        }, 5000);
-        return () => clearInterval(interval);
+        if (autoplay) {
+            const interval = setInterval(() => {
+                nextItem();
+            }, 5000);
+            return () => clearInterval(interval);
+        }
     });
 
     const nextItem = () => {
@@ -28,7 +30,7 @@ const Carousel = ({itemList = [], ItemTemplate, itemKey}) => {
     }
 
     return (
-        <div className={styles.carousel}>
+        <div className={`${styles.carousel} ${className}`}>
             <div className={styles.itemsContainer}>
                 {itemList.map((item, index) =>
                     {const isActive = index === activeItemIndex;
@@ -36,7 +38,7 @@ const Carousel = ({itemList = [], ItemTemplate, itemKey}) => {
                 )}
             </div>
             <Button className={`${styles.carouselButton} ${styles.left}`} onClick={prevItem} variant="text" label="◀" />
-            <Button className={`${styles.carouselButton} ${styles.right}`} onClick={nextItem}  variant="text" label="▶" />
+            <Button className={`${styles.carouselButton} ${styles.right}`} onClick={nextItem}  variant="text" label="▶"/>
         </div>
     );
 }

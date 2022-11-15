@@ -1,40 +1,46 @@
 .backoffice-table {
-	max-height: 70vh;
-	overflow-y: auto;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 thead {
-	text-align: center;
+  text-align: center;
 }
 
 th.icon-th {
-	border-width: 0;
+  border-width: 0;
 }
 
 th.icon-th + th {
-	border-right-width: 1px;
+  border-right-width: 1px;
 }
 
 td.action-icon {
-	width: 35px;
-	min-width: 30px;
+  width: 35px;
+  min-width: 30px;
 }
 
 .action-icon svg {
-	width: inherit;
-	cursor: pointer;
+  width: inherit;
+  cursor: pointer;
 }
 
 .trash-icon {
-	filter: invert(13%) sepia(62%) saturate(7452%) hue-rotate(358deg) brightness(104%) contrast(119%);
+  filter: invert(13%) sepia(62%) saturate(7452%) hue-rotate(358deg)
+    brightness(104%) contrast(119%);
 }
 
 .pencil-icon {
-	filter: invert(0%) sepia(25%) saturate(5828%) hue-rotate(28deg) brightness(97%) contrast(78%);
+  filter: invert(0%) sepia(25%) saturate(5828%) hue-rotate(28deg)
+    brightness(97%) contrast(78%);
+}
+
+.img-modal{
+    background-color: rgba(0,0,0, 0.2) !important;
 }
 
 @media (min-width: 768px) {
-	td {
-		text-align: center;
-	}
+  td {
+    text-align: center;
+  }
 }

@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 import Title from "../../Title/Title";
-import DetailCard from "../../DetailCard/DetailCard";
+import DetailCard from "../../Card/DetailCard/DetailCard";
 
 import './NewsDetail.css';
 

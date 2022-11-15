@@ -15,3 +15,10 @@
     cursor: pointer;
     background-color: #61BBF8;
 }
+
+@media (max-width: 576px) {
+    .list-container{
+        width: 95%;
+        margin: auto;
+    }
+}

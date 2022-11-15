@@ -5,19 +5,19 @@
     height: 72px;
     left: 142px;
     top: 138px;
-
+    
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-size: 48px;
     line-height: 72px;
-
+    
     /* identical to box height */
     display: flex;
     align-items: center;
     text-align: center;
     letter-spacing: -0.015em;
-
+    
     color: #000000;
 }
 
@@ -34,7 +34,7 @@
     height: 68px;
     left: 142px;
     top: 242px;
-
+    
     background: #FF0000;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
@@ -42,27 +42,27 @@
 
 .donation_button_text {
     /* Contribuir */
-
+    
     width: 161px;
     height: 48px;
-
+    
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-size: 32px;
     line-height: 48px;
     /* identical to box height */
-
+    
     display: flex;
     align-items: center;
     text-align: center;
     letter-spacing: -0.015em;
-
+    
     color: #FFFFFF;
-
-
+    
+    
     /* Inside auto layout */
-
+    
     flex: none;
     order: 0;
     flex-grow: 0;
@@ -70,10 +70,10 @@
 
 .donation_button:hover,
 .donation_button:focus {
-  background-color: #F082AC;
+    background-color: #F082AC;
 }
 
-.overlay {
+.donation_overlay {
     position: fixed;
     display: block;
     width: 100%;
@@ -85,9 +85,9 @@
     background-color: rgba(0,0,0,0.5);
     z-index: 2;
     cursor: pointer;
-  }
-  
-  .text{
+}
+
+.donation_text{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -95,4 +95,4 @@
     color: white;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
-  }
+}

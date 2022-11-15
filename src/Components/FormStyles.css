@@ -22,7 +22,9 @@
 .input-label-container {
     display: flex;
     flex-direction: column;
-    gap: 5px
+    gap: 5px;
+    width: 100%;
+    margin: auto;
 }
 
 .input-label-container label {

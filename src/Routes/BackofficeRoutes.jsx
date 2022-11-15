@@ -2,7 +2,7 @@ import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import UsersForm from "../Components/Users/UsersForm";
 import CategoriesForm from "../Components/Categories/CategoriesForm";
-import MembersForm from "../Components/Members/MembersForm.jsx";
+import MembersForm from "../Components/Members/MembersForm";
 import ActivitiesForm from "../Components/Activities/ActivitiesForm";
 import NewsForm from "../Components/News/NewsForm";
 import HomeForm from "../Components/Home/HomeForm/HomeForm";

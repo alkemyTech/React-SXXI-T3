@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 
 import './DetailCard.css'
 
-const DetailCard = ({content, date, color, buttonLabel, onClick, imageUrl, imagAlt, children}) => {
+const DetailCard = ({content, date, color, buttonLabel, onClick, imageUrl, imagAlt, children, ...props}) => {
     const htmlContent = {__html: content}
     const parsedDate = DateParser(date);
     return (

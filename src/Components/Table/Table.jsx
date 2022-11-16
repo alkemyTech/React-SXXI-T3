@@ -17,7 +17,7 @@ const Table = ({
   tableHeader = [],
   tableNames = [],
   handleDelete,
-  openImageInNewTab= false
+  openImageInNewTab = false
 }) => {
   const [modalShow, setModalShow] = useState(false);
 

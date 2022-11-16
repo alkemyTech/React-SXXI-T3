@@ -17,6 +17,7 @@ const Table = ({
   tableHeader = [],
   tableNames = [],
   handleDelete,
+  openImageInNewTab= false
 }) => {
   const [modalShow, setModalShow] = useState(false);
 
@@ -47,17 +48,22 @@ const Table = ({
                 <td key={index}>
                   {prop === "created_at" ? (
                     DateParser(elem[prop])
-                  ) : prop === "image" ? (
+                  ) : prop === "image" && ! openImageInNewTab ? (
                     <>
                       <Button variant="link" onClick={() => setModalShow(true)}>
                         {elem[prop]}
                       </Button>
-
                       <ImageModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
                         url={elem[prop]}
                       />
+                    </>
+                  ) : prop === "image" && openImageInNewTab ? (
+                    <>
+                      <Button variant="link" onClick={() => window.open(elem[prop], '_blank')}>
+                        {elem[prop]}
+                      </Button>
                     </>
                   ) : (
                     elem[prop]

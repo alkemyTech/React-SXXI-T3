@@ -15,7 +15,7 @@ export const Dashboard = () => {
       id: 0,
       name: "Novedades",
       logo: news,
-      link: "",
+      link: "/backoffice/novedades",
     },
     {
       id: 1,

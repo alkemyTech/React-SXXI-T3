@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useFormik} from 'formik';
-import { getOrganizationWelcomeText } from "../../../Services/organizationService/organizationService";
+import { getOrganizationInfo } from "../../../Services/organizationService/organizationService";
 import {getSlides } from "../../../Services/slidesServices/slidesService";
 import {TextAreaField} from "../../Form/TextAreaField";
 import SliderTemplate from "../../Slides/Slider/Template/SliderTemplate";
@@ -41,7 +41,7 @@ const HomeForm = () => {
 
     useEffect(() => {
         setIsFetching(true);
-        getOrganizationWelcomeText().then((response) => {
+        getOrganizationInfo().then((response) => {
             setFieldValue("welcomeText", response);
         }).catch((error) => {
 

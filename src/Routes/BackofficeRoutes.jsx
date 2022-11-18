@@ -14,8 +14,9 @@ import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
 import { NewsList } from "../Components/Backoffice/NewsList";
 import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
-
-
+import { UsersList } from "../Components/Backoffice/UsersList";
+import { SlidesList } from "../Components/Backoffice/SlidesList";
+import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
 
 const BackofficeRoutes = () => {
     return (
@@ -27,6 +28,7 @@ const BackofficeRoutes = () => {
                 <Route path="editar" element={<OrganizationForm />}/>
             </Route>
             <Route path="slides">
+                <Route index element={<SlidesList/>}/>
                 <Route path="crear" element={<SlidesForm/>}/>
                 <Route path="editar/:id" element={<SlidesForm/>}/>
             </Route>
@@ -39,6 +41,7 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<TestimonialsForm/>}/>
             </Route>
             <Route path="usuarios">
+                <Route index element={<UsersList/>}/>
                 <Route path="crear" element={<UsersForm/>}/>
                 <Route path="editar/:id" element={<UsersForm/>}/>
             </Route>

@@ -1,0 +1,29 @@
+.newsHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	width: 90%;
+	margin: 2rem auto .5rem;
+}
+
+.newsContainer {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+	row-gap: 20px;
+	column-gap: 10px;
+	
+}
+
+a {
+	color: black;
+}
+
+@media (max-width: 576px) {
+	.newsContainer {
+		width: 90%;
+		margin: auto;
+	}
+}

@@ -137,7 +137,7 @@ const SlidesForm = () => {
             isLoading ? 'main-container pulse' : 'main-container'
         }>
             <form className="form-container" onSubmit={handleSubmit}>
-                <h1 className='form-title'>Formulario de {id ? "Edición" : "Creación"} de Slides</h1>
+                <h1 className='form-title'>Formulario de {id ? "Edición" : "Creación"} de diapositivas</h1>
                 <div className='input-label-container'>
                     <label
                         htmlFor='inputTitle'
@@ -149,7 +149,7 @@ const SlidesForm = () => {
                         className="input-field"
                         type="text"
                         name="name"
-                        placeholder="Escriba el título de la Slide"
+                        placeholder="Escriba el título de la diapositiva"
                         {...formik.getFieldProps('name')}
                     />
                     <div className='form-error'>
@@ -222,7 +222,7 @@ const SlidesForm = () => {
                         value={values.order}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder="Escriba el Orden de la Slide"
+                        placeholder="Escriba el Orden de la diapositiva"
                     />
                     <div className='form-error'>
                         {errors.order && touched.order && <span>{errors.order}</span>}

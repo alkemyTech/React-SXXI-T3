@@ -6,9 +6,14 @@
 }
 
 .input {
-	padding: 15px 30px;
+	padding: 10px 15px;
 	border: 1px solid #c1c1c1;
-	border-radius: 5px;
+	border-radius: var(--border);
+}
+
+.ck {
+	border-radius: var(--border);
+	height: 110px;
 }
 
 .error {
@@ -25,21 +30,24 @@
 	color: var(--color-primary);
 }
 
-form .button{
+form .button {
 	margin: 1rem auto auto;
 	width: 80%;
 }
 
-textarea{
+textarea {
 	font-family: Poppins, sans-serif;
+	height: 110px;
 }
 
 @media (min-width: 576px) {
-	.input {
-		padding: 15px 30px;
+	
+	.ck {
+		height: 150px;
 	}
 	
-	.ck{
+	textarea {
+		font-family: Poppins, sans-serif;
 		height: 150px;
 	}
 }

@@ -30,7 +30,6 @@ export const TextAreaField = ({
             placeholder={placeholder}
             disabled={disabled}
             {...props}
-            // rows={8}
         />
         </Field>
     )

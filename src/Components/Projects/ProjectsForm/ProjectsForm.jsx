@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
-import * as yup from "yup";
-import { apiONG } from "../../Services/apiONG";
-import "../FormStyles.css";
-import { InputField } from "../Form/InputField";
-import { CKEditorField } from "../Form/CKEditorField";
-import Button from "../Button/Button";
+
+import { apiONG } from "../../../Services/apiONG";
+import { InputField, CKEditorField } from "../../Form";
+import Button from "../../Button/Button";
+import {initialValues,validationSchema} from "./constants";
+import {getBase64} from "../../../utils/getBase64";
+
+import "../../FormStyles.css";
 
 const updateProject = (project) => {
   apiONG
@@ -33,22 +35,6 @@ const createProject = (project) => {
     });
 };
 
-const getBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    let baseURL = "";
-    let reader = new FileReader();
-    reader.onload = () => {
-      baseURL = reader.result;
-      resolve(baseURL);
-    };
-    reader.onerror = () => {
-      reject({
-        message: "Ocurrió un error mientras se procesaba la imagen",
-      });
-    };
-    reader.readAsDataURL(file);
-  });
-
 const ProjectsForm = () => {
   const [project, setProject] = useState();
   const [isFetching, setIsFetching] = useState(false);
@@ -61,26 +47,6 @@ const ProjectsForm = () => {
     let [anio, mes, dia] = iso.slice(0, 10).split("-");
     return `${anio}-${mes}-${dia}`;
   };
-
-  const initialValues = {
-    title: "",
-    description: "",
-    image: "",
-    due_date: "",
-  };
-
-  const validationSchema = yup.object().shape({
-    title: yup.string().required("El título es obligatorio"),
-    image: yup
-      .string()
-      .matches(/^.*\.(jpg|JPG|jpeg|JPEG|png|PNG)$/, {
-        message: "Formato inválido (sólo se aceptan archivos jpg/png)",
-        excludeEmptyString: true,
-      })
-      .required("La imagen es obligatoria"),
-    description: yup.string().required("La descripción es obligatoria"),
-    due_date: yup.string(),
-  });
 
   const onSubmit = ({ title, image, description, due_date }) => {
     const file = imageRef.current.files[0];
@@ -110,19 +76,9 @@ const ProjectsForm = () => {
 
   const {
     handleSubmit,
-    errors: {
-      title: errorTitle,
-      description: errorDescription,
-      image: errorImage,
-      due_date: errorDate,
-    },
-    touched: {
-      title: touchedTitle,
-      description: touchedDescription,
-      image: touchedImage,
-      due_date: touchedDate,
-    },
-    values: {description},
+    errors,
+    touched,
+    values,
     setValues,
     setFieldTouched,
     setFieldValue,
@@ -165,50 +121,44 @@ const ProjectsForm = () => {
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
         <h1 className="form-title">
-          {id ? "Edición" : "Creación"} de Proyectos
+          {id ? "Editar" : "Crear"} Proyecto
         </h1>
-
         <InputField
           label="Título"
           placeholder="Título"
           name="title"
-          errors={errorTitle}
-          touched={touchedTitle}
+          errors={errors.title}
+          touched={touched.title}
           {...getFieldProps("title")}
         />
-
         <CKEditorField
-          value={description}
+          value={values.description}
           placeholder="Ingresa una descripción de este proyecto"
           setFieldTouched={setFieldTouched}
           setFieldValue={setFieldValue}
           label="Descripción"
           name="description"
-          errors={errorDescription}
-          touched={touchedDescription}
+          errors={errors.description}
+          touched={touched.description}
         />
-
         <InputField
           label="Imagen"
-          placeholder="Carga una imagen"
           name="image"
-          errors={errorImage}
-          touched={touchedImage}
+          errors={errors.image}
+          touched={touched.image}
           type="file"
           ref={imageRef}
           {...getFieldProps("image")}
         />
-
         <InputField
           label="Fecha de Finalización"
           placeholder=""
           name="due_date"
-          errors={errorDate}
-          touched={touchedDate}
+          errors={errors.due_date}
+          touched={touched.due_date}
           type="date"
           {...getFieldProps("due_date")}
         />
-
         <Button label="Enviar" type="submit" variant="primary" disabled={isSubmitting} />
       </form>
     </div>

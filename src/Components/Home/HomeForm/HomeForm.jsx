@@ -1,19 +1,20 @@
 import {useEffect, useState} from "react";
 import {useFormik} from 'formik';
+
 import { getOrganizationInfo } from "../../../Services/organizationService/organizationService";
 import {getSlides } from "../../../Services/slidesServices/slidesService";
-import {TextAreaField} from "../../Form/TextAreaField";
+import {TextAreaField} from "../../Form";
 import SliderTemplate from "../../Slides/Slider/Template/SliderTemplate";
 import Carousel from "../../Carousel/Carousel";
 import Button from "../../Button/Button";
 import {ReactComponent as RemoveSvg} from "../../../assets/svg/home/xmark-solid.svg";
 import {ReactComponent as AddSvg} from "../../../assets/svg/home/plus-solid.svg";
-import {validationSchema} from "./validationSchema";
+import {validationSchema, initialValues} from "./constants";
 
 import './HomeForm.css'
 
 const HomeForm = () => {
-    const initialValues = {welcomeText: "", slides: []}
+
     const [slides, setSlides] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
 
@@ -42,7 +43,7 @@ const HomeForm = () => {
     useEffect(() => {
         setIsFetching(true);
         getOrganizationInfo().then((response) => {
-            setFieldValue("welcomeText", response);
+            setFieldValue("welcomeText", response.welcome_text);
         }).catch((error) => {
 
         }).finally(() => {
@@ -104,11 +105,10 @@ const HomeForm = () => {
                         name='welcomeText'
                         value={formik.values.welcomeText}
                         touched={formik.touched.welcomeText}
-                        onBlur={handleBlur('welcomeText')}
-                        onChange={handleChange('welcomeText')}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
                         errors={formik.errors.welcomeText}
                         label='Texto de bienvenida'
-                        rows={5}
                     />
                 </div>
                 <div className="slider-container">

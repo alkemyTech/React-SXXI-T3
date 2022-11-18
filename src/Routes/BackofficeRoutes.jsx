@@ -1,18 +1,18 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
-import UsersForm from "../Components/Users/UsersForm";
-import CategoriesForm from "../Components/Categories/CategoriesForm";
-import MembersForm from "../Components/Members/MembersForm";
-import ActivitiesForm from "../Components/Activities/ActivitiesForm";
-import NewsForm from "../Components/News/NewsForm";
+import UsersForm from "../Components/Users/UsersForm/UsersForm";
 import HomeForm from "../Components/Home/HomeForm/HomeForm";
-import TestimonialsForm from "../Components/Testimonials/TestimonialsForm";
-import SlidesForm from "../Components/Slides/SlidesForm";
 import { Dashboard } from "../Components/Dashboard/Dashboard";
-import ProjectsForm from "../Components/Projects/ProjectsForm";
 import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
 import { NewsList } from "../Components/Backoffice/NewsList";
+import SlidesForm from "../Components/Slides/SlidesForm/SlidesForm";
+import ProjectsForm from "../Components/Projects/ProjectsForm/ProjectsForm";
+import TestimonialsForm from "../Components/Testimonials/TestimonialsForm/TestimonialsForm";
+import MembersForm from "../Components/Members/MembersForm/MembersForm";
+import CategoriesForm from "../Components/Categories/CategoriesForm/CategoriesForm";
+import NewsForm from "../Components/News/NewsForm/NewsForm";
+import ActivitiesForm from "../Components/Activities/ActivitiesForm/ActivitiesForm";
 
 
 

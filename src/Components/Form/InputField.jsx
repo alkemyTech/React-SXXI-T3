@@ -3,22 +3,22 @@ import {Field} from "./Field";
 import {forwardRef} from "react";
 
 export const InputField = forwardRef(({
-                              value,
-                              label,
-                              name,
-                              onChange,
-                              onBlur,
-                              placeholder,
-                              errors,
-                              touched,
-                              type = "text",
-                              disabled = false,
-                              className = "",
-                              labelClassName = "",
-                              inputClassName = "",
-                              errorsClassName = "",
-                                ...props
-                          }, ref) => {
+                                          value,
+                                          label,
+                                          name,
+                                          onChange,
+                                          onBlur,
+                                          placeholder,
+                                          errors,
+                                          touched,
+                                          type = "text",
+                                          disabled = false,
+                                          className = "",
+                                          labelClassName = "",
+                                          inputClassName = "",
+                                          errorsClassName = "",
+                                          ...props
+                                      }, ref) => {
     return (
         <Field label={label} name={name} touched={touched} className={className} errorClassName={errorsClassName}
                labelClassName={labelClassName} errors={errors}>

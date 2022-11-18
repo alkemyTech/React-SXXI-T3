@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import {CKEditorField} from "../../Form/CKEditorField";
 import Swal from "sweetalert2";
 
-import { validationSchema } from "./utils";
+import { validationSchema, initialValues } from "./constants";
 import {InputField} from "../../Form/InputField";
 import Button from "../../Button/Button";
 
@@ -11,12 +11,6 @@ import '../../FormStyles.css';
 
 const ContactForm = ({children}) => {
     const [isFetching, setIsFetching] = useState(false);
-    const initialValues = {
-        name: '',
-        email: '',
-        phone: '',
-        message: ''
-    }
 
     const onSubmit = () => {
         setIsFetching(() => (true))
@@ -45,19 +39,9 @@ const ContactForm = ({children}) => {
         handleChange,
         setFieldValue,
         setFieldTouched,
-        values: { name, email, phone, message },
-        touched: {
-            name: touchedName,
-            email: touchedEmail,
-            phone: touchedPhone,
-            message: touchedMessage
-        },
-        errors: {
-            name: errorName,
-            email: errorEmail,
-            phone: errorPhone,
-            message: errorMessage
-        }
+        values,
+        touched,
+        errors
     } = formik;
 
     const isLoading = isFetching || isSubmitting;
@@ -71,42 +55,42 @@ const ContactForm = ({children}) => {
                 <InputField
                     label="Nombre"
                     name="name"
-                    value={name}
-                    onChange={handleChange("name")}
-                    onBlur={handleBlur("name")}
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder="Ingrese su nombre"
-                    errors={errorName}
-                    touched={touchedName}
+                    errors={errors.name}
+                    touched={touched.name}
                 />
                 <InputField
                     label="Email"
                     name="email"
-                    value={email}
-                    onChange={handleChange("email")}
-                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder="Ingrese su email"
-                    errors={errorEmail}
-                    touched={touchedEmail}
+                    errors={errors.email}
+                    touched={touched.email}
                 />
                 <InputField
                     label="Teléfono"
                     name="phone"
-                    value={phone}
-                    onChange={handleChange("phone")}
-                    onBlur={handleBlur("phone")}
+                    value={values.phone}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder="Ingrese su teléfono"
-                    errors={errorPhone}
-                    touched={touchedPhone}
+                    errors={errors.phone}
+                    touched={touched.phone}
                 />
                <CKEditorField
-                        label="Mensaje"
-                        name="message"
-                        value={message}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        placeholder="Ingrese su mensaje"
-                        errors={errorMessage}
-                        touched={touchedMessage}
+                    label="Mensaje"
+                    name="message"
+                    value={values.message}
+                    setFieldValue={setFieldValue}
+                    setFieldTouched={setFieldTouched}
+                    placeholder="Ingrese su mensaje"
+                    errors={errors.message}
+                    touched={touched.message}
                />
               <Button type="submit" variant="primary" label="Enviar" disabled={isSubmitting}/>
             {children}

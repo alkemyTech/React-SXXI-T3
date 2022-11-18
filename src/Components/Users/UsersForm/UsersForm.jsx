@@ -1,57 +1,25 @@
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { useState, useEffect, useRef } from 'react';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
-import {put, post} from '../../Services/userService' ;
-import { useState, useEffect, useRef } from 'react';
-import { apiONG } from '../../Services/apiONG';
-import '../FormStyles.css';
-import { InputField } from '../Form/InputField';
-import Button from '../Button/Button';
-import { SelectField } from '../Form/SelectField';
+
+import {put, post} from '../../../Services/userService' ;
+import { apiONG } from '../../../Services/apiONG';
+import { InputField, SelectField } from '../../Form';
+import Button from '../../Button/Button';
+import {initialValues, validationSchema} from "./constants";
+
+import '../../FormStyles.css';
 
 const UsersForm = () => {
     const { id } = useParams();
     const imageRef = useRef();
-    const initialValues = {
-        name: '',
-        email: '',
-        password: '',
-        image: '',
-        role: '2'
-    };
-
-    const jpgRegExp = /\.(jpe?g|png)$/i;
-
-    const requiredMessage = `es un campo requerido`
-
     const [imagePreview, setImagePreview] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
-
-    const validationSchema = () =>
-        Yup.object().shape({
-            name: Yup
-                .string()
-                .min(4, 'El nombre debe tener 4 caracteres como mínimo')
-                .required(`El nombre ${requiredMessage}`),
-            email: Yup
-                .string()
-                .email("El email debe contener @ y extension .com u otra")
-                .required(`El email ${requiredMessage}`),
-            password: Yup
-                .string()
-                .min(8, "La contraseña debe tener minimo 8 caracteres")
-                .required(`La contraseña ${requiredMessage}`),
-            image: Yup
-                .string()
-                .matches(
-                    jpgRegExp, {
-                    message: 'La imagen debe se un archivo .jpg o .png',
-                    excludeEmptyString: true
-                })
-                .required(`La imagen ${requiredMessage}`)
-        });
-
+    const roleOptions = [
+        {label: 'Administrador', value: '1'},
+        {label: 'Regular', value: '2'}
+    ];
     const onSubmit = () => {
         const file = imageRef.current.files[0];
         const fileReader = new FileReader();
@@ -200,25 +168,17 @@ const UsersForm = () => {
                             : null
                     }
                 </div>
-                <div className='input-label-container'>
-                    <SelectField
-                        label="Selecciona un rol"
-                        value={values.role}
-                        name="role"
-                        onChange={handleChange("role")}
-                        onBlur={handleBlur("role")}
-                        errors={errors.role}
-                        touched={touched.role}
-                        placeholder="Selecciona un rol"
-                        >
-                            <option value="2">Regular</option>
-                            <option value="1">Administrador</option>
-                        </SelectField>
-                    <div className='form-error'>
-                        {errors.role && touched.role && <span>{errors.role}</span>}
-                    </div>
-                </div>
-                <Button label="Enviar" type="submit" disabled={isSubmitting}/>
+                <SelectField
+                    label="Selecciona un rol"
+                    value={values.role}
+                    name="role"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    errors={errors.role}
+                    touched={touched.role}
+                    optionsList={roleOptions}
+                />
+                <Button label="Enviar" type="submit" disabled={isSubmitting} variant="primary" className="form-button"/>
             </form>
         </div>
     );

@@ -18,7 +18,7 @@ const Home = () => {
             setSlideList(response);
         }).catch((error) => {});
         getOrganizationInfo().then((response) => {
-            setWelcomeText(response);
+            setWelcomeText(response.welcome_text);
         }).catch((error) => {});
         getNews(5).then((response) => {
             setNewsList(response);

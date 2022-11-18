@@ -22,12 +22,12 @@ export const CKEditorField = ({
                 editor={ClassicEditor}
                 config={{placeholder: placeholder}}
                 data={value}
-                onFocus={(event, editor) => editor.setData(value) }
+                onFocus={(event, editor) => editor.setData(value)}
                 onChange={(event, editor) => {
                     const data = editor.getData();
                     setFieldValue(name, data)
                 }}
-                onBlur={() => setFieldTouched(name) }
+                onBlur={() => setFieldTouched(name)}
                 onError={(errorInstance, errorDetail) => console.log({errorInstance, errorDetail})}
             />
         </Field>)

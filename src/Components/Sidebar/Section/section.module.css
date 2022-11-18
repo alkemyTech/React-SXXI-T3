@@ -24,7 +24,7 @@
     background-size: contain;
 }
 
-@media screen and (min-width: 300px) {
+@media screen and (min-width: 450px) {
     .link-container:hover {
         transform: scale(102%);
     }

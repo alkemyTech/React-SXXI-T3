@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import { motion } from "framer-motion";
 
 import s from './section.module.css';
 
@@ -17,9 +18,11 @@ const Section = ({ name, path, logo }) => {
                     className={s["logo-container"]}
                     style={{ backgroundImage: `url(${logo})` }}
                 />
-                <div className="section-name">
-                    {name}
-                </div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                >{name}</motion.div>
             </div>
         </NavLink>
     )

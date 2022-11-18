@@ -7,8 +7,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    transition: all 0.3s ease-in-out;
-    text-overflow: clip;
+    transition: transform 0.3s ease-out;
 }
 
 .link-container:hover {
@@ -23,16 +22,6 @@
     border-radius: 50%;
     background-position: center;
     background-size: contain;
-}
-
-.section-name {
-    height: 20px;
-    text-overflow: clip;
-}
-
-.active {
-    color: var(--color-primary);
-    font-weight: 500;
 }
 
 @media screen and (min-width: 300px) {

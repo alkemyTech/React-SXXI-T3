@@ -2,22 +2,27 @@
     position: absolute;
     height: min-content;
     width: 250px;
-    background-color: var(--color-header);
     z-index: 999;
-    transition: all .2s ease-in-out;
+    background-color: var(--color-header);
     box-shadow: 8px 0px 6px -4px rgba(128, 128, 128, 0.408);
 }
 
 .sidebar-hidden {
     position: absolute;
-    height: max-content;
     width: 0;
+    height: max-content;
     overflow-x: hidden;
+    transition-property: width;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    background-color: var(--color-header);
 }
 
 @media screen and (min-width: 300px) {
     .sidebar-active {
-        width: 100%;
-        max-width: 400px;
+        width: 400px;
+        transition-property: width;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
     }
 }

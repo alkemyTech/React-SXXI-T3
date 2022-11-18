@@ -34,3 +34,9 @@
     color: var(--color-primary);
     font-weight: 500;
 }
+
+@media screen and (min-width: 300px) {
+    .link-container:hover {
+        transform: scale(102%);
+    }
+}

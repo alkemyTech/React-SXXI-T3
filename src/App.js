@@ -13,6 +13,7 @@ import NewsList from './Components/News/List/NewsList';
 import Nosotros from './Components/About/Nosotros';
 import ActivitiesList from './Components/Activities/ActivitiesList';
 import Home from "./Components/Home";
+import { Footer } from './Components/Footer/Footer';
 
 import './App.css';
 
@@ -30,7 +31,7 @@ function App() {
           <Route index element={<NewsList/>}/>
           <Route path=":id" element={<NewsDetail title="Novedad"/>}/>
         </Route>
-        <Route path="contacto" element={<Contact/>}/>
+        <Route path="contacto" element={<><Contact/><Footer/></>}/>
         <Route path="nosotros" element={<Nosotros />}/>
         <Route path="donar" element={<Donation/>}/>
         <Route path="gracias" element={<Thanks/>}/>

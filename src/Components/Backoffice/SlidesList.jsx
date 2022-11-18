@@ -156,7 +156,6 @@ export const SlidesList = () => {
     tableData={slidesMock}
     tableHeader={["name", "image", "order"]}
     tableNames={["Titulo", "Imagen", "Orden"]}
-    openImageInNewTab='true'
-/>
+    />
   )
 }

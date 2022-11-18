@@ -16,7 +16,8 @@ import { NewsList } from "../Components/Backoffice/NewsList";
 import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
 import { UsersList } from "../Components/Backoffice/UsersList";
 import { SlidesList } from "../Components/Backoffice/SlidesList";
-import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
+import {MembersList} from "../Components/Backoffice/MembersList";
+import {CategoriesList} from "../Components/Backoffice/CategoriesList";
 
 const BackofficeRoutes = () => {
     return (
@@ -46,10 +47,12 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<UsersForm/>}/>
             </Route>
             <Route path="miembros">
+                <Route index element={<MembersList/>}/>
                 <Route path="crear" element={<MembersForm />}/>
                 <Route path="editar/:id" element={<MembersForm />}/>
             </Route>
             <Route path="categorias">
+                <Route index element={<CategoriesList/>}/>
                 <Route path="crear" element={<CategoriesForm />}/>
                 <Route path="editar/:id" element={<CategoriesForm />}/>
             </Route>

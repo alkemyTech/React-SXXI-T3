@@ -31,11 +31,11 @@ function App() {
           <Route index element={<NewsList/>}/>
           <Route path=":id" element={<NewsDetail title="Novedad"/>}/>
         </Route>
-        <Route path="contacto" element={<><Contact/><Footer/></>}/>
+        <Route path="contacto" element={<Contact/>}/>
         <Route path="nosotros" element={<Nosotros />}/>
         <Route path="donar" element={<Donation/>}/>
         <Route path="gracias" element={<Thanks/>}/>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<><Home/><Footer/></>}/>
         <Route path="*" element={<></>}/>
       </Routes>
   );

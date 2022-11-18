@@ -17,8 +17,6 @@ import { UsersList } from "../Components/Backoffice/UsersList";
 import { SlidesList } from "../Components/Backoffice/SlidesList";
 import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
 
-
-
 const BackofficeRoutes = () => {
     return (
         <Routes>

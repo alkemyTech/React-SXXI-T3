@@ -1,5 +1,5 @@
 import {DateParser} from "./DateParser";
-import Button from "../Button/Button";
+import Button from "../../Button/Button";
 
 import './DetailCard.css'
 

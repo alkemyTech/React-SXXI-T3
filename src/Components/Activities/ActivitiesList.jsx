@@ -1,18 +1,18 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { apiONG } from '../../Services/apiONG';
-import '../CardListStyles.css';
-import { ActivityCard } from './ActivityCard';
+import React, { useEffect, useState }  from 'react';
+
+import { ListCard } from "../Card/ListCard/ListCard";
+import {getActivities} from "../../Services/activitiesService/activitiesService";
 import Title from '../Title/Title';
+
+import '../CardListStyles.css';
 
 const ActivitiesList = () => {
     const [activities, setActivities] = useState([]);
 
     useEffect(() => {
-        apiONG.get('/activities')
+        getActivities()
         .then((response) => {
-            setActivities(response.data.data);
+            setActivities(response);
         });
     }, []);
 
@@ -22,14 +22,14 @@ const ActivitiesList = () => {
           <ul className="list-container mt-3 row">
               {activities?.map((element) => {
                 return (
-                  <ActivityCard
+                  <ListCard
                     key={element.id}
                     id={element.id}
                     name={element.name}
                     content={element.description}
                     image={element.image}
                     buttonLabel='Ver actividad'
-                    onClick={() => {document.location.href='/actividades/' + element.id}}
+                    variant='primary'
                   />
                 );
             })}

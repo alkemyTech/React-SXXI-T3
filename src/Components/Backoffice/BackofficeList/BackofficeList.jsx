@@ -12,7 +12,8 @@ const BackofficeList = ({
                             tableData = [],
                             tableHeader = [],
                             tableNames = [],
-                            deleteFunction
+                            deleteFunction,
+                            openImageInNewTab = false
                         }) => {
 
 
@@ -24,7 +25,7 @@ const BackofficeList = ({
             </div>
             <div className="backoffice-table-container">
                 <Table className={tableClassName} title={title} tableData={tableData} tableNames={tableNames} 
-                       tableHeader={tableHeader} handleDelete={deleteFunction}/>
+                       tableHeader={tableHeader} handleDelete={deleteFunction} openImageInNewTab={openImageInNewTab}/>
             </div>
         </>
     )

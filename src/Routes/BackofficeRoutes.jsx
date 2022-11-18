@@ -13,6 +13,7 @@ import ProjectsForm from "../Components/Projects/ProjectsForm";
 import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
 import { NewsList } from "../Components/Backoffice/NewsList";
+import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
 import { UsersList } from "../Components/Backoffice/UsersList";
 import { SlidesList } from "../Components/Backoffice/SlidesList";
 import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";

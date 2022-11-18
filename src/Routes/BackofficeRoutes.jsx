@@ -15,6 +15,7 @@ import OrganizationForm from "../Components/Organization/OrganizationForm";
 import { NewsList } from "../Components/Backoffice/NewsList";
 import { UsersList } from "../Components/Backoffice/UsersList";
 import { SlidesList } from "../Components/Backoffice/SlidesList";
+import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
 
 
 
@@ -59,6 +60,7 @@ const BackofficeRoutes = () => {
                 <Route path="editar/:id" element={<NewsForm/>}/>
             </Route>
             <Route path="actividades">
+                <Route index element={<ActivitiesList/>}/>
                 <Route path="crear" element={<ActivitiesForm/>}/>
                 <Route path="editar/:id" element={<ActivitiesForm/>}/>
             </Route>

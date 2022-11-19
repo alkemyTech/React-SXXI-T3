@@ -42,7 +42,7 @@ const HomeForm = () => {
     useEffect(() => {
         setIsFetching(true);
         getOrganizationInfo().then((response) => {
-            setFieldValue("welcomeText", response);
+            setFieldValue("welcomeText", response.welcome_text);
         }).catch((error) => {
 
         }).finally(() => {

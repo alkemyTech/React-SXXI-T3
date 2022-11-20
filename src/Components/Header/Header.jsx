@@ -39,11 +39,11 @@ export const Header = ({
                 <Nav className="nav">
                     {isLogged ?
                         <>
-                            <Button className="loginButton" href="/login">Iniciar sesión</Button>
-                            <Button className="registerButton" href="/register">Registrarse</Button>
+                            <Button className="registerButton" href="/">Cerrar sesión</Button>
                         </>
                     :   <>
-                            <Button className="registerButton" href="/">Cerrar sesión</Button>
+                            <Button className="loginButton" href="/login">Iniciar sesión</Button>
+                            <Button className="registerButton" href="/register">Registrarse</Button>
                         </>
                     }
                     

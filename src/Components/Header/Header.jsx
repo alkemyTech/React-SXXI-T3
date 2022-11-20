@@ -37,8 +37,16 @@ export const Header = ({
                         <Nav.Link className="container" key={index} href={element.link}>{element.text}</Nav.Link>)}
                 </Nav>
                 <Nav className="nav">
-                    <Button className="loginButton" href="/login">Iniciar sesión</Button>
-                    <Button className="registerButton" href="/register">Registrarse</Button>
+                    {isLogged ?
+                        <>
+                            <Button className="loginButton" href="/login">Iniciar sesión</Button>
+                            <Button className="registerButton" href="/register">Registrarse</Button>
+                        </>
+                    :   <>
+                            <Button className="registerButton" href="/">Cerrar sesión</Button>
+                        </>
+                    }
+                    
                 </Nav>
                 </Navbar.Collapse>
             </Container>

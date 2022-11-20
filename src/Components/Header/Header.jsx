@@ -5,7 +5,7 @@ import './Header.css';
 export const Header = ({
         isLogged=false, 
         handleLogged = () => {}, 
-        ... props
+        ...props
     }
     ) => {
 

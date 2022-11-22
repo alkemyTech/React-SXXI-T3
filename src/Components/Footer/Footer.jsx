@@ -1,8 +1,10 @@
-import React from 'react'
-import { NewsletterForm } from './NewsletterForm/NewsletterForm'
+import React from "react";
+import { NewsletterForm } from "./NewsletterForm/NewsletterForm";
 
 export const Footer = () => {
   return (
-    <div><NewsletterForm/></div>
-  )
-}
+    <div>
+      <NewsletterForm />
+    </div>
+  );
+};

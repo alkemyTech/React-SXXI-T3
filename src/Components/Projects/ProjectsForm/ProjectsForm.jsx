@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import { apiONG } from "../../../Services/apiONG";
 import { InputField, CKEditorField } from "../../Form";
 import Button from "../../Button/Button";
-import {initialValues,validationSchema} from "./constants";
-import {getBase64} from "../../../utils/getBase64";
+import { initialValues, validationSchema } from "./constants";
+import { getBase64 } from "../../../utils/getBase64";
 
 import "../../FormStyles.css";
 
@@ -120,9 +120,7 @@ const ProjectsForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">
-          {id ? "Editar" : "Crear"} Proyecto
-        </h1>
+        <h1 className="form-title">{id ? "Editar" : "Crear"} Proyecto</h1>
         <InputField
           label="Título"
           placeholder="Título"
@@ -159,7 +157,12 @@ const ProjectsForm = () => {
           type="date"
           {...getFieldProps("due_date")}
         />
-        <Button label="Enviar" type="submit" variant="primary" disabled={isSubmitting} />
+        <Button
+          label="Enviar"
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting}
+        />
       </form>
     </div>
   );

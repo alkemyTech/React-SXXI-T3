@@ -1,5 +1,5 @@
 .feature-container {
-  background-color: rgb(245, 241, 241) ;
+  background-color: rgb(245, 241, 241);
   display: block;
   padding: 10px;
   border: 1px solid rgb(210, 210, 221);
@@ -26,9 +26,9 @@
   width: 90px;
 }
 
-.feature-link{
-    display: flex;
-    justify-content: center;
+.feature-link {
+  display: flex;
+  justify-content: center;
 }
 
 .feature-btn {

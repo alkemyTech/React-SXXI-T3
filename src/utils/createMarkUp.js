@@ -1,1 +1,1 @@
-export const createMarkUp = (value) => ({ __html: value })
+export const createMarkUp = (value) => ({ __html: value });

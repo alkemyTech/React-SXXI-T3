@@ -8,8 +8,6 @@ import { ImageModal } from "./ImageModal";
 
 import "./Table.css";
 
-
-
 const Table = ({
   title = "",
   className = "",

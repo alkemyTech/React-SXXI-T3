@@ -7,8 +7,8 @@ import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
 
 export const CategoriesList = () => {
-    const [search, setSearch] = useState('categories');
-    const [info, isFetching, setRoute] = useBackofficeInfo(search);
+    const [search, setSearch] = useState('');
+    const [info, isFetching, setRoute] = useBackofficeInfo('categories');
 
     const handleChange = debounce((event) => {
         const { value } = event.target;
@@ -64,6 +64,7 @@ export const CategoriesList = () => {
                         tableNames={["Nombre", "Fecha de creación"]}
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
+                        placeholder={'Título de la categoría'}
                     />
             }
         </>

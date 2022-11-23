@@ -7,8 +7,10 @@ import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
 
 export const UsersList = () => {
-	const [search, setSearch] = useState('users');
-	const [info, isFetching, setRoute] = useBackofficeInfo(search);
+
+	const [search, setSearch] = useState('');
+	const [selectedRole, setSelectedRole] = useState('');
+	const [info, isFetching, setRoute] = useBackofficeInfo('users');
 
 	const handleChange = debounce((event) => {
 		const { value } = event.target;
@@ -16,17 +18,41 @@ export const UsersList = () => {
 
 		setSearch(() => (cleanValue))
 
-		cleanValue.length >= 3
-			&& setRoute(`users?search=${cleanValue}`)
+		if (cleanValue.length >= 3) {
+			selectedRole
+				? setRoute(`users?search=${cleanValue}&${selectedRole}`)
+				: setRoute(`users?search=${cleanValue}`)
+		}
 
 	}, 1000)
+
+	const handleSelectChange = (event) => {
+		const { value } = event.target
+		setSelectedRole(() => (`role=${value}`))
+		if (search.length) {
+			value
+				? setRoute(() => (`users?search=${search}&role=${value}`))
+				: setRoute(() => (`users`))
+		} else {
+			value
+				? setRoute(() => (`users?role=${value}`))
+				: setRoute(() => (`users`))
+		}
+	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		search.length < 3
-			? setRoute(() => ('users'))
-			: setRoute(`users?search=${search}`)
+		if (search.length) {
+			selectedRole
+				? setRoute(() => (`users?search=${search}&${selectedRole}`))
+				: setRoute(() => (`users`))
+		} else {
+			selectedRole
+				? setRoute(() => (`users?${selectedRole}`))
+				: setRoute(() => (`users`))
+		}
+
 	}
 
 	const deleteNewHandler = (id) => {
@@ -64,6 +90,18 @@ export const UsersList = () => {
 						tableNames={["Nombre", "Email"]}
 						handleChange={handleChange}
 						handleSubmit={handleSubmit}
+						handleSelectChange={handleSelectChange}
+						hasOptions={true}
+						placeholder={'Nombre del usuario'}
+						source={{
+							route: null,
+							externalResource: false,
+							resource: [
+								{ name: 'Todos los usuarios', role: '' },
+								{ name: 'Usuario Admin', role: 1 },
+								{ name: 'Usuario Regular', role: 2 }
+							]
+						}}
 					/>
 			}
 		</>

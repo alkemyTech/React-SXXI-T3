@@ -7,8 +7,9 @@ import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
 
 export const NewsList = () => {
-	const [search, setSearch] = useState('news');
-	const [info, isFetching, setRoute] = useBackofficeInfo(search);
+	const [search, setSearch] = useState('');
+	const [selectedCategory, setSelectedCategory] = useState('');
+	const [info, isFetching, setRoute] = useBackofficeInfo('news');
 
 	const handleChange = debounce((event) => {
 		const { value } = event.target;
@@ -16,17 +17,39 @@ export const NewsList = () => {
 
 		setSearch(() => (cleanValue))
 
-		cleanValue.length >= 3
-			&& setRoute(`news?search=${cleanValue}`)
+		if (cleanValue.length >= 3) {
+			selectedCategory !== 'category=Todas las categorías'
+				? setRoute(`news?search=${cleanValue}&${selectedCategory}`)
+				: setRoute(`news?search=${cleanValue}`)
+		}
 
 	}, 1000)
 
+	const handleSelectChange = (event) => {
+		const { value } = event.target
+		setSelectedCategory(() => (`category=${value}`))
+		if (search.length) {
+			value !== 'Todas las categorías'
+				? setRoute(() => (`news?search=${search}&category=${value}`))
+				: setRoute(() => (`news?search=${search}`))
+		} else {
+			value !== 'Todas las categorías'
+				? setRoute(() => (`news?category=${value}`))
+				: setRoute(() => (`news`))
+		}
+	}
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
-		search.length < 3
-			? setRoute(() => ('news'))
-			: setRoute(`news?search=${search}`)
+		if (search.length) {
+			selectedCategory !== 'category=Todas las categorías'
+				? setRoute(() => (`news?search=${search}&${selectedCategory}`))
+				: setRoute(() => (`news?search=${search}`))
+		} else {
+			selectedCategory !== 'category=Todas las categorías'
+				? setRoute(() => (`news?${selectedCategory}`))
+				: setRoute(() => (`news`))
+		}
 	}
 
 	const deleteNewHandler = (id) => {
@@ -64,6 +87,14 @@ export const NewsList = () => {
 						tableNames={["Título", "Imagen", "Creado en"]}
 						handleChange={handleChange}
 						handleSubmit={handleSubmit}
+						handleSelectChange={handleSelectChange}
+						hasOptions={true}
+						placeholder={'Título de la novedad'}
+						source={{
+							route: 'categories',
+							externalResource: true,
+							resource: null
+						}}
 					/>
 			}
 		</>

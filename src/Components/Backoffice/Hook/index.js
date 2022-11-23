@@ -8,6 +8,7 @@ export const useBackofficeInfo = (path) => {
     const [isFetching, setIsFetching] = useState(true);
 
     useEffect(() => {
+        console.log(route)
         apiONG
             .get(`/${route}`)
             .then(({ data: { data } }) => {

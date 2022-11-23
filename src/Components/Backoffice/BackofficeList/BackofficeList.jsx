@@ -16,7 +16,11 @@ const BackofficeList = ({
     deleteFunction,
     openImageInNewTab = false,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    handleSelectChange,
+    hasOptions,
+    placeholder,
+    source,
 }) => {
 
     return (
@@ -27,6 +31,10 @@ const BackofficeList = ({
                 <SearchInput
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
+                    handleSelectChange={handleSelectChange}
+                    hasOptions={hasOptions}
+                    placeholder={placeholder}
+                    source={source}
                 />
             </div>
             <div className="backoffice-table-container">

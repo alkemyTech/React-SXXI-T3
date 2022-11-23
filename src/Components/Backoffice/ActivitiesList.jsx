@@ -7,8 +7,8 @@ import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
 
 export const ActivitiesList = () => {
-	const [search, setSearch] = useState('activities');
-	const [info, isFetching, setRoute] = useBackofficeInfo(search);
+	const [search, setSearch] = useState('');
+	const [info, isFetching, setRoute] = useBackofficeInfo('activities');
 
 	const handleChange = debounce((event) => {
 		const { value } = event.target;
@@ -64,6 +64,7 @@ export const ActivitiesList = () => {
 						tableNames={["Título", "Imagen", "Creado en"]}
 						handleChange={handleChange}
 						handleSubmit={handleSubmit}
+						placeholder={'Título de la actividad'}
 					/>
 			}
 		</>

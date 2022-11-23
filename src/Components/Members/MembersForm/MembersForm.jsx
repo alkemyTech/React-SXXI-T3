@@ -13,8 +13,6 @@ import {defaultImage} from "../../../utils/defaultImage";
 
 import '../../FormStyles.css';
 
-const onSubmitService = (id, name, description, image, resetForm, setSubmitting) => {}
-
 const MembersForm = () => {
   const { id } = useParams();
   const imageRef = useRef();

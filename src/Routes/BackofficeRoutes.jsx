@@ -15,6 +15,12 @@ import CategoriesForm from "../Components/Categories/CategoriesForm/CategoriesFo
 import NewsForm from "../Components/News/NewsForm/NewsForm";
 import ActivitiesForm from "../Components/Activities/ActivitiesForm/ActivitiesForm";
 import HeaderBackoffice from "../Components/HeaderBackoffice";
+import {SlidesList} from "../Components/Backoffice/SlidesList";
+import {TestimonialsList} from "../Components/Backoffice/TestimonialsList";
+import {UsersList} from "../Components/Backoffice/UsersList";
+import MembersList from "../Components/About/MembersList";
+import {CategoriesList} from "../Components/Backoffice/CategoriesList";
+import ActivitiesList from "../Components/Activities/ActivitiesList";
 
 
 const BackofficeRoutes = () => {

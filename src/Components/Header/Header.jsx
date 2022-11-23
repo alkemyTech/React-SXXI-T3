@@ -3,8 +3,8 @@ import logo from "../../assets/images/logo.png";
 import './Header.css';
 
 export const Header = ({
-        isLogged=false, 
-        handleLogged = () => {}, 
+        isLogged=false,
+        handleLogged = () => {},
         ...props
     }
     ) => {
@@ -46,7 +46,6 @@ export const Header = ({
                             <Button className="registerButton" href="/register">Registrarse</Button>
                         </>
                     }
-                    
                 </Nav>
                 </Navbar.Collapse>
             </Container>

@@ -1,4 +1,13 @@
-.subscription-btn {
-  background-color: var(--color-primary);
-  color: white;
+.newsletter-form {
+	margin-top: .8rem;
+}
+
+.button.newsletter-button {
+	width: 33%;
+}
+
+.newsletter-form .form-error {
+	margin-bottom: 0;
+	margin-top: 5px;
+	font-size: .9em;
 }

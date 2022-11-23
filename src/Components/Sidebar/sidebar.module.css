@@ -1,0 +1,28 @@
+.sidebar-active {
+    position: absolute;
+    height: min-content;
+    width: 250px;
+    z-index: 999;
+    background-color: var(--color-header);
+    box-shadow: 8px 0px 6px -4px rgba(128, 128, 128, 0.408);
+}
+
+.sidebar-hidden {
+    position: absolute;
+    width: 0;
+    height: max-content;
+    overflow-x: hidden;
+    transition-property: width;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    background-color: var(--color-header);
+}
+
+@media screen and (min-width: 450px) {
+    .sidebar-active {
+        width: 400px;
+        transition-property: width;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+    }
+}

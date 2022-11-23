@@ -13,6 +13,7 @@ import NewsList from './Components/News/List/NewsList';
 import Nosotros from './Components/About/Nosotros';
 import ActivitiesList from './Components/Activities/ActivitiesList';
 import Home from "./Components/Home";
+import { Footer } from './Components/Footer/Footer';
 
 import './App.css';
 
@@ -34,7 +35,7 @@ function App() {
         <Route path="nosotros" element={<Nosotros />}/>
         <Route path="donar" element={<Donation/>}/>
         <Route path="gracias" element={<Thanks/>}/>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<><Home/><Footer/></>}/>
         <Route path="*" element={<></>}/>
       </Routes>
   );

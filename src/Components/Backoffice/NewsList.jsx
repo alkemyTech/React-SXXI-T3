@@ -4,7 +4,8 @@ import Swal from 'sweetalert2';
 
 
 export const NewsList = () => {
-    const mockedNews = [  {
+    const mockedNews = [
+        {
         "id": 2484,
         "name": "Prueba api Novedad",
         "slug": null,

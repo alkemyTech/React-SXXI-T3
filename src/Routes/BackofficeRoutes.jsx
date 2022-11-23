@@ -16,14 +16,15 @@ import { NewsList } from "../Components/Backoffice/NewsList";
 import HeaderBackoffice from "../Components/HeaderBackoffice";
 import { UsersList } from "../Components/Backoffice/UsersList";
 import { SlidesList } from "../Components/Backoffice/SlidesList";
-import { ActivitiesList } from "../Components/Backoffice/ActivitiesList";
+import {MembersList} from "../Components/Backoffice/MembersList";
+import {CategoriesList} from "../Components/Backoffice/CategoriesList";
 
 const BackofficeRoutes = () => {
     return (
         <>
-            <HeaderBackoffice />
+          <HeaderBackoffice />
             <Routes>
-                <Route index element={<Dashboard/>}/>
+               <Route index element={<Dashboard/>}/>
                 <Route path="home" element={<HomeForm/>}/>
                 <Route path="organizacion">
                     <Route index element={<OrganizationScreen />} />
@@ -48,10 +49,12 @@ const BackofficeRoutes = () => {
                     <Route path="editar/:id" element={<UsersForm/>}/>
                 </Route>
                 <Route path="miembros">
+                    <Route index element={<MembersList/>}/>
                     <Route path="crear" element={<MembersForm />}/>
                     <Route path="editar/:id" element={<MembersForm />}/>
                 </Route>
                 <Route path="categorias">
+                    <Route index element={<CategoriesList/>}/>
                     <Route path="crear" element={<CategoriesForm />}/>
                     <Route path="editar/:id" element={<CategoriesForm />}/>
                 </Route>
@@ -68,6 +71,7 @@ const BackofficeRoutes = () => {
                 <Route path="*" element={<Navigate to=""/>}/>
             </Routes>
         </>
+
     );
 }
 

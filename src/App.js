@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Login from './Components/Auth/Login';
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
@@ -16,27 +16,30 @@ import Home from "./Components/Home";
 import { Footer } from './Components/Footer/Footer';
 
 import './App.css';
+import { Header } from './Components/Header/Header';
 
 function App() {
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
       <Routes>
         <Route path="backoffice/*" element={<BackofficeRoutes/>}/>
-        <Route path="login" element={<Login/>}/>
-        <Route path="register" element={<Register />}/>
+        <Route path="login" element={<><Header/><Login/></>}/>
+        <Route path="register" element={<><Header/><Register/></>}/>
         <Route path="actividades">
-          <Route index element={<ActivitiesList/>}/>
-          <Route path=":id" element={<ActivitiesDetail />}/>
+          <Route index element={<><Header/><ActivitiesList/></>}/>
+          <Route path=":id" element={<><Header/><ActivitiesDetail/></>}/>
         </Route>
         <Route path="novedades">
-          <Route index element={<NewsList/>}/>
-          <Route path=":id" element={<NewsDetail title="Novedad"/>}/>
+          <Route index element={<><Header/><NewsList/></>}/>
+          <Route path=":id" element={<><Header/><NewsDetail title="Novedad"/></>}/>
         </Route>
-        <Route path="contacto" element={<Contact/>}/>
-        <Route path="nosotros" element={<Nosotros />}/>
-        <Route path="donar" element={<Donation/>}/>
-        <Route path="gracias" element={<Thanks/>}/>
-        <Route path="/" element={<><Home/><Footer/></>}/>
-        <Route path="*" element={<></>}/>
+        <Route path="contacto" element={<><Header/><Contact/></>}/>
+        <Route path="nosotros" element={<><Header/><Nosotros/></>}/>
+        <Route path="donar" element={<><Header/><Donation/></>}/>
+        <Route path="gracias" element={<><Header/><Thanks/></>}/>
+        <Route path="/" element={<><Header isLogged={isLogged} handleLogged={setIsLogged}/><Home/><Footer/></>}/>
+        <Route path="*" element={<><Header/><Home/><Footer/></>}/>
       </Routes>
   );
 }

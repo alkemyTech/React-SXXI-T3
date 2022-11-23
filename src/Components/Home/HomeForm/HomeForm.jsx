@@ -78,23 +78,22 @@ const HomeForm = () => {
     }
   };
 
-  const SliderSelectTemplate = (props) => {
-    return (
-      <>
-        <SliderTemplate {...props} imageClassName="select-preview">
-          <div className="utils-container">
-            <Button
-              label={isSelected(props.id) ? <RemoveSvg /> : <AddSvg />}
-              onClick={() => handleSelectSlide(props)}
-              type="button"
-              variant="text"
-              className="select-button"
-            />
-          </div>
-        </SliderTemplate>
-      </>
-    );
-  };
+    const SliderSelectTemplate = (props) => {
+        return (<>
+                <SliderTemplate {...props} imageClassName="select-preview">
+                    <div className="utils-container">
+                        <Button
+                            label={isSelected(props.id) ? <RemoveSvg/> : <AddSvg/>}
+                            onClick={() => handleSelectSlide(props)}
+                            type='button'
+                            variant='text'
+                            className="select-button"
+                        />
+                    </div>
+                </SliderTemplate>
+            </>
+        )
+    }
 
   const isLoading = isFetching || isSubmitting;
 

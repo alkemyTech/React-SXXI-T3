@@ -1,29 +1,41 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import Title from "../Title/Title";
 import ContactForm from "./ContactForm/ContactForm";
+import {getOrganizationInfo} from "../../Services/organizationService/organizationService";
+import { SocialMediaItemWLabel } from "./SocialMediaItem";
 import { ReactComponent as FacebookSvg } from "../../assets/svg/contact/facebook.svg";
 import { ReactComponent as InstagramSvg } from "../../assets/svg/contact/instagram.svg";
 import { ReactComponent as TwitterSvg } from "../../assets/svg/contact/twitter.svg";
 import { ReactComponent as LinkedinSvg } from "../../assets/svg/contact/linkedin.svg";
 import { ReactComponent as PhoneSvg } from "../../assets/svg/contact/phone-solid.svg";
 import { ReactComponent as LocationSvg } from "../../assets/svg/contact/location-dot-solid.svg";
-import { parseUsername } from "./parseUsernames";
 
 import "./Contact.css";
 
 const Contact = () => {
-  const [contactData, setContactData] = useState({});
+  const [contactData, setContactData] = useState({
+    address: "",
+    phone: "",
+    facebook_url: "",
+    linkedin_url: "",
+    instagram_url: "",
+    twitter_url: "",
+  });
 
   useEffect(() => {
-    setContactData({
-      address: "Paraguay 733, (C1057AAI) Ciudad Autónoma de Buenos Aires",
-      phone: "1160112988",
-      facebook_url: "https://web.facebook.com/Somos_mass",
-      linkedin_url: "https://www.linkedin.com/SomosMass",
-      instagram_url: "https://www.instagram.com/Somos_mas",
-      twitter_url: "https://www.twitter.com/SomosMas",
-    });
+    getOrganizationInfo()
+      .then((info) => {
+        setContactData({
+          address: info.address,
+          phone: info.phone,
+          facebook_url: info.facebook_url,
+          linkedin_url: info.linkedin_url,
+          instagram_url: info.instagram_url,
+          twitter_url: info.twitter_url,
+        });
+      })
+      .catch();
   }, []);
 
   return (
@@ -35,21 +47,21 @@ const Contact = () => {
             <h4>Como encontrarnos</h4>
 
             <div className="contactdata-subcontainer">
-              <SocialMediaItem
+              <SocialMediaItemWLabel
                 url={contactData.facebook_url}
                 icon={<FacebookSvg />}
               />
-              <SocialMediaItem
+              <SocialMediaItemWLabel
                 url={contactData.instagram_url}
                 icon={<InstagramSvg />}
               />
             </div>
             <div className="contactdata-subcontainer">
-              <SocialMediaItem
+              <SocialMediaItemWLabel
                 url={contactData.twitter_url}
                 icon={<TwitterSvg />}
               />
-              <SocialMediaItem
+              <SocialMediaItemWLabel
                 url={contactData.linkedin_url}
                 icon={<LinkedinSvg />}
               />
@@ -68,18 +80,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-const SocialMediaItem = ({ url, icon }) => {
-  return (
-    <div>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="contact-text"
-      >
-        {icon} {parseUsername(url)}
-      </a>
-    </div>
-  );
-};

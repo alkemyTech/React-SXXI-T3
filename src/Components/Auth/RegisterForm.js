@@ -45,74 +45,67 @@ const RegisterForm = ({ desktop }) => {
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
 
-  const {
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    errors,
-    touched,
-    values,
-  } = formik;
+  const { handleChange, handleBlur, handleSubmit, errors, touched, values } =
+    formik;
 
   return (
     <>
-      
-        <form className="form-container auth-container" onSubmit={handleSubmit}>
-          {desktop && (
-            <>
-              <div className="auth-title">Bienvenido</div>
-              <div className="auth-subtitle">Registra tu nueva cuenta!</div>
-            </>
-          )}
-          <input
-            className="input-field auth-input"
-            type="email"
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Correo electrónico"
-            autoComplete="off"
-          ></input>
-          {errors.email && touched.email && (
-            <div className="form-error auth-error">{errors.email}</div>
-          )}
-          <input
-            className="input-field auth-input"
-            type="password"
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Contraseña"
-            autoComplete="off"
-          ></input>
-          {errors.password && touched.password && (
-            <div className="form-error auth-error">{errors.password}</div>
-          )}
-          <input
-            className="input-field auth-input"
-            type="password"
-            name="confirm"
-            value={values.confirm}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Repite tu contraseña"
-            autoComplete="off"
-          ></input>
-          {errors.confirm && touched.confirm && (
-            <div className="form-error auth-error">{errors.confirm}</div>
-          )}
-          <button className="submit-btn auth-btn" type="submit">
-            Registrarse
-          </button>
-          <div className="auth-suggestion">
-            Ya tienes una cuenta?
-            <Link className="auth-link" to={"/login"}>
-              Inicia sesión
-            </Link>
-          </div>
-        </form>
+      <form className="form-container auth-container" onSubmit={handleSubmit}>
+        {desktop && (
+          <>
+            <div className="auth-title">Bienvenido</div>
+            <div className="auth-subtitle">Registra tu nueva cuenta!</div>
+          </>
+        )}
+        <input
+          className="input-field auth-input"
+          type="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Correo electrónico"
+          autoComplete="off"
+        ></input>
+        {errors.email && touched.email && (
+          <div className="form-error auth-error">{errors.email}</div>
+        )}
+        <input
+          className="input-field auth-input"
+          type="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Contraseña"
+          autoComplete="off"
+        ></input>
+        {errors.password && touched.password && (
+          <div className="form-error auth-error">{errors.password}</div>
+        )}
+        <input
+          className="input-field auth-input"
+          type="password"
+          name="confirm"
+          value={values.confirm}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Repite tu contraseña"
+          autoComplete="off"
+        ></input>
+        {errors.confirm && touched.confirm && (
+          <div className="form-error auth-error">{errors.confirm}</div>
+        )}
+        <button className="submit-btn auth-btn" type="submit">
+          Registrarse
+        </button>
+        <div className="auth-suggestion">
+          Ya tienes una cuenta?
+          <Link className="auth-link" to={"/login"}>
+            Inicia sesión
+          </Link>
+        </div>
+      </form>
     </>
   );
 };

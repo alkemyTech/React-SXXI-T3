@@ -35,8 +35,8 @@ td.action-icon {
     brightness(97%) contrast(78%);
 }
 
-.img-modal{
-    background-color: rgba(0,0,0, 0.2) !important;
+.img-modal {
+  background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 @media (min-width: 768px) {

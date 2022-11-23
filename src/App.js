@@ -1,22 +1,22 @@
-
 import React, { useState } from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Login from './Components/Auth/Login';
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
-import Register from './Components/Auth/Register';
+import Register from "./Components/Auth/Register";
 import ActivitiesDetail from "./Components/Activities/ActivitiesDetail";
-import NewsDetail from './Components/News/Detail/NewsDetail';
-import Donation from './Components/Donations/Donation';
-import Thanks from './Components/Donations/Thanks';
+import NewsDetail from "./Components/News/Detail/NewsDetail";
+import Donation from "./Components/Donations/Donation";
+import Thanks from "./Components/Donations/Thanks";
 import Contact from "./Components/Contact/Contact";
-import NewsList from './Components/News/List/NewsList';
-import Nosotros from './Components/About/Nosotros';
-import ActivitiesList from './Components/Activities/ActivitiesList';
+import NewsList from "./Components/News/List/NewsList";
+import Nosotros from "./Components/About/Nosotros";
+import ActivitiesList from "./Components/Activities/ActivitiesList";
 import Home from "./Components/Home";
 import { Footer } from './Components/Footer/Footer';
-
-import './App.css';
 import { Header } from './Components/Header/Header';
+
+import "./App.css";
+
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -45,4 +45,3 @@ function App() {
 }
 
 export default App;
-

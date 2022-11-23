@@ -1,81 +1,79 @@
-.carousel{
-	width: 100%;
-	position: relative;
+.carousel {
+  width: 100%;
+  position: relative;
 }
 
-button.carouselButton{
-	text-align: center;
-	width: auto;
-	height: auto;
-	position: absolute;
-	bottom: 50%;
-	background-color: transparent;
-	border-radius: 50%;
-	color: rgb(232, 230, 227);
+button.carouselButton {
+  text-align: center;
+  width: auto;
+  height: auto;
+  position: absolute;
+  bottom: 50%;
+  background-color: transparent;
+  border-radius: 50%;
+  color: rgb(232, 230, 227);
 }
 
-.carouselButton:hover{
-	background-color: rgba(76, 76, 76, 0.36)
+.carouselButton:hover {
+  background-color: rgba(76, 76, 76, 0.36);
 }
 
-.carouselButton.left{
-	left: 3%;
+.carouselButton.left {
+  left: 3%;
 }
 
-.carouselButton.right{
-	right: 3%;
+.carouselButton.right {
+  right: 3%;
 }
 
-.itemsContent{
-	width: 100%;
-	overflow: hidden;
+.itemsContent {
+  width: 100%;
+  overflow: hidden;
 }
 
-.itemsContainer{
-	display: flex;
-	width: 100%;
+.itemsContainer {
+  display: flex;
+  width: 100%;
 }
 
-.item{
-	display: none;
-	min-width: 100%;
-	width: 100%;
+.item {
+  display: none;
+  min-width: 100%;
+  width: 100%;
 }
 
-
-.item.active{
-	display: block;
+.item.active {
+  display: block;
 }
 
-.itemWrapper{
-	box-sizing: content-box;
-	position:relative;
+.itemWrapper {
+  box-sizing: content-box;
+  position: relative;
 }
 
-@media (min-width: 768px){
-	.carousel{
-		font-size: 18px;
-	}
-	
-	button.carouselButton{
-		font-size: 1.5em;
-		width: 60px;
-		height: 60px;
-	}
+@media (min-width: 768px) {
+  .carousel {
+    font-size: 18px;
+  }
+
+  button.carouselButton {
+    font-size: 1.5em;
+    width: 60px;
+    height: 60px;
+  }
 }
 
-@media (min-width: 1200px){
-	.carousel{
-		font-size: 22px;
-	}
-	
-	.itemWrapper{
-		text-align: center;
-	}
-	
+@media (min-width: 1200px) {
+  .carousel {
+    font-size: 22px;
+  }
+
+  .itemWrapper {
+    text-align: center;
+  }
 }
 
 /*temporal fix*/
-*{
-	background-color: unset ;
+* {
+  background-color: unset;
 }

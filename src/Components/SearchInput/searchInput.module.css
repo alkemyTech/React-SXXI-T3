@@ -1,0 +1,21 @@
+.search-input-container {
+    width: 100%;
+    align-self: flex-start;
+    box-sizing: border-box;
+    padding: 20px 0;
+}
+
+.search-input {
+    height: 40px;
+    border-radius: 10px 0 0 10px;
+    padding-left: 15px;
+    border-color: rgba(0, 0, 0, 0.222);
+    border-right-color: transparent;
+}
+
+.search-submit-btn {
+    height: 40px;
+    border-radius: 0 10px 10px 0;
+    border-color: transparent;
+    background-color: var(--color-primary);
+}

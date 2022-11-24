@@ -30,11 +30,11 @@ export const UsersList = () => {
 		const { value } = event.target
 		setSelectedRole(() => (`role=${value}`))
 		if (search.length) {
-			value
+			value !== 'Todos los usuarios'
 				? setRoute(() => (`users?search=${search}&role=${value}`))
-				: setRoute(() => (`users`))
+				: setRoute(() => (`users?search=${search}`))
 		} else {
-			value
+			value !== 'Todos los usuarios'
 				? setRoute(() => (`users?role=${value}`))
 				: setRoute(() => (`users`))
 		}

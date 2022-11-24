@@ -1,45 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import debounce from 'lodash.debounce';
+import React, { useEffect, useState } from "react";
+import debounce from "lodash.debounce";
 
 import { ListCard } from "../Card/ListCard/ListCard";
 import { getActivities } from "../../Services/activitiesService/activitiesService";
-import Title from '../Title/Title';
+import Title from "../Title/Title";
 
-import '../CardListStyles.css';
-import SearchInput from '../SearchInput';
+import "../CardListStyles.css";
+import SearchInput from "../SearchInput";
+import { SkeletonCard } from "../Feedback/SkeletonCard";
 
 const ActivitiesList = () => {
-
   const [activities, setActivities] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getActivities()
-      .then((response) => {
-        setActivities(response);
-      });
+    getActivities().then((response) => {
+      setActivities(response);
+      setIsLoading(false);
+    });
   }, []);
 
   const handleChange = debounce((event) => {
     const { value } = event.target;
     const cleanValue = value.trim();
 
-    setSearch(() => (value))
+    setSearch(() => value);
     if (cleanValue.length >= 3) {
-      getActivities(cleanValue)
-        .then(response => {
-          setActivities(response)
-        })
+      setIsLoading(true);
+      getActivities(cleanValue).then((response) => {
+        setActivities(response);
+        setIsLoading(false);
+      });
     }
-  }, 1000)
+  }, 1000);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    getActivities(search)
-      .then(response => {
-        setActivities(response)
-      })
-  }
+    setIsLoading(true);
+    getActivities(search).then((response) => {
+      setActivities(response);
+      setIsLoading(false);
+    });
+  };
 
   return (
     <div className="container">
@@ -47,22 +50,35 @@ const ActivitiesList = () => {
       <SearchInput
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        placeholder={'Buscar por título'}
+        placeholder={"Buscar por título"}
       />
       <ul className="list-container mt-3 row">
-        {activities?.map((element) => {
-          return (
-            <ListCard
-              key={element.id}
-              id={element.id}
-              name={element.name}
-              content={element.description}
-              image={element.image}
-              buttonLabel='Ver actividad'
-              variant='primary'
-            />
-          );
-        })}
+        {isLoading ? (
+          <>
+            <SkeletonCard variant="primary" />
+            <SkeletonCard variant="primary" />
+            <SkeletonCard variant="primary" />
+            <SkeletonCard variant="primary" />
+          </>
+        ) : activities?.length > 0 ? (
+          activities?.map((element) => {
+            return (
+              <ListCard
+                key={element.id}
+                id={element.id}
+                name={element.name}
+                content={element.description}
+                image={element.image}
+                buttonLabel="Ver actividad"
+                variant="primary"
+              />
+            );
+          })
+        ) : (
+          <div className="container m-5">
+            <p className="text-center fs-3">No hay actividades para mostrar...</p>
+          </div>
+        )}
       </ul>
     </div>
   );

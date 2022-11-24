@@ -22,7 +22,8 @@ const ActivitiesList = () => {
 
   const handleChange = debounce((event) => {
     const { value } = event.target;
-    const cleanValue = value.trim()
+    const cleanValue = value.trim();
+
     setSearch(() => (value))
     if (cleanValue.length >= 3) {
       getActivities(cleanValue)

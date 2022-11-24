@@ -25,9 +25,6 @@ const NewsList = () => {
         if (cleanValue.length >= 3) {
             getNews(cleanValue)
                 .then(response => {
-                    console.log(search)
-                    console.log('call')
-
                     setNews(() => (response))
                 })
         }
@@ -37,7 +34,6 @@ const NewsList = () => {
         event.preventDefault();
         getNews(search)
             .then(response => {
-                console.log('call')
                 setNews(response)
             })
     }

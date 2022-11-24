@@ -7,14 +7,18 @@ import { getNews } from "../../../Services/newsService/newsService";
 
 import "../../CardListStyles.css";
 import SearchInput from "../../SearchInput";
+import { SkeletonCard } from "../../Feedback/SkeletonCard";
 
 const NewsList = () => {
     const [news, setNews] = useState([]);
     const [search, setSearch] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    
     useEffect(() => {
         getNews()
             .then((response) => {
                 setNews(response);
+                setIsLoading(false);
             });
     }, []);
 
@@ -23,18 +27,22 @@ const NewsList = () => {
         const cleanValue = value.trim()
         setSearch(() => (value))
         if (cleanValue.length >= 3) {
+            setIsLoading(true)
             getNews(cleanValue)
                 .then(response => {
                     setNews(() => (response))
+                    setIsLoading(false)
                 })
         }
     }, 1000)
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true)
         getNews(search)
             .then(response => {
                 setNews(response)
+                setIsLoading(false)
             })
     }
 
@@ -51,7 +59,15 @@ const NewsList = () => {
             />
 
             <div className="list-container mt-3 row ">
-                {news.length > 0 ? (
+                { isLoading ?
+               <>
+                    <SkeletonCard />
+                    <SkeletonCard />
+                    <SkeletonCard />
+                    <SkeletonCard />
+                    </>
+                 :
+                news.length > 0 ? (
                     news.map((element) => {
                         return (
                             <ListCard

@@ -2,11 +2,11 @@ import { Skeleton } from "@mui/material";
 import React from "react";
 import "../Card/ListCard/ListCard.css"
 
-export const SkeletonCard = () => {
+export const SkeletonCard = ({variant}) => {
   return (
-    <div className={`list-card `} styles={{overflow:"hidden"}}>
+    <div className={`list-card ${variant}`}>
       <div className="list-card-image">
-        <Skeleton width={180} height={280} />
+        <Skeleton width={180} height={280}  />
       </div>
       <div className="list-card-content">
         <Skeleton  width={200} height={180} />

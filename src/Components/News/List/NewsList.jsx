@@ -61,10 +61,10 @@ const NewsList = () => {
             <div className="list-container mt-3 row ">
                 { isLoading ?
                <>
-                    <SkeletonCard />
-                    <SkeletonCard />
-                    <SkeletonCard />
-                    <SkeletonCard />
+                    <SkeletonCard variant='tertiary' />
+                    <SkeletonCard variant='tertiary'/>
+                    <SkeletonCard variant='tertiary' />
+                    <SkeletonCard variant='tertiary'/>
                     </>
                  :
                 news.length > 0 ? (

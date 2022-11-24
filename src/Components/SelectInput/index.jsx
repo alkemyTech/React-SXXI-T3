@@ -1,37 +1,13 @@
-import { useState, useEffect } from 'react';
-import { apiONG } from '../../Services/apiONG';
+// import { useState, useEffect } from 'react';
+// import { apiONG } from '../../Services/apiONG';
 
-import Swal from 'sweetalert2';
-
+// import Swal from 'sweetalert2';
+import { useSelectInput } from './Hook';
 import s from './selectInput.module.css';
 
 const SelectInput = ({ source, handleSelectChange }) => {
-    const [options, setOptions] = useState(null);
 
-    useEffect(() => {
-        source.externalResource
-            ? apiONG
-                .get(`/${source.route}`)
-                .then(({ data: { data } }) => {
-                    setOptions(() => ([{
-                        name: 'Todas las categorías',
-                        id: '6a5sd4'
-                    }, ...data
-                    ]))
-                })
-                .catch((error) => {
-                    const errorMessage =
-                        error?.response?.data?.message
-                        || error.message;
-                    Swal.fire({
-                        title: errorMessage,
-                        icon: 'error',
-                        timer: 5000
-                    })
-                })
-            : setOptions(() => (source.resource))
-
-    }, [source])
+    const { options } = useSelectInput(source);
 
     return (
         <select

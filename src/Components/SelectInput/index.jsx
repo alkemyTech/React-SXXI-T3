@@ -1,7 +1,3 @@
-// import { useState, useEffect } from 'react';
-// import { apiONG } from '../../Services/apiONG';
-
-// import Swal from 'sweetalert2';
 import { useSelectInput } from './Hook';
 import s from './selectInput.module.css';
 

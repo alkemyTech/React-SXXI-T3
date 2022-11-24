@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
 
+
 export const UsersList = () => {
 
 	const [search, setSearch] = useState('');
@@ -19,7 +20,7 @@ export const UsersList = () => {
 		setSearch(() => (cleanValue))
 
 		if (cleanValue.length >= 3) {
-			selectedRole
+			selectedRole !== `role=0`
 				? setRoute(`users?search=${cleanValue}&${selectedRole}`)
 				: setRoute(`users?search=${cleanValue}`)
 		}
@@ -30,11 +31,11 @@ export const UsersList = () => {
 		const { value } = event.target
 		setSelectedRole(() => (`role=${value}`))
 		if (search.length) {
-			value !== 'Todos los usuarios'
+			value !== '0'
 				? setRoute(() => (`users?search=${search}&role=${value}`))
 				: setRoute(() => (`users?search=${search}`))
 		} else {
-			value !== 'Todos los usuarios'
+			value !== '0'
 				? setRoute(() => (`users?role=${value}`))
 				: setRoute(() => (`users`))
 		}
@@ -42,13 +43,13 @@ export const UsersList = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
+		console.log({ search, selectedRole })
 		if (search.length) {
-			selectedRole
+			selectedRole !== `role=0`
 				? setRoute(() => (`users?search=${search}&${selectedRole}`))
-				: setRoute(() => (`users`))
+				: setRoute(() => (`users?search=${search}`))
 		} else {
-			selectedRole
+			selectedRole !== `role=0`
 				? setRoute(() => (`users?${selectedRole}`))
 				: setRoute(() => (`users`))
 		}
@@ -97,7 +98,7 @@ export const UsersList = () => {
 							route: null,
 							externalResource: false,
 							resource: [
-								{ name: 'Todos los usuarios', role: '' },
+								{ name: 'Todos los usuarios', role: '0' },
 								{ name: 'Usuario Admin', role: 1 },
 								{ name: 'Usuario Regular', role: 2 }
 							]

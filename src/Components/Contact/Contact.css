@@ -1,90 +1,93 @@
-.contact-container .form-container{
-	gap: 10px;
-	max-width: 768px;
-	width: 100%;
-	margin-top: 0
+.contact-container .form-container {
+  gap: 10px;
+  max-width: 768px;
+  width: 100%;
+  margin-top: 0;
 }
 
 .contact-container button {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-.contact-container .main-container{
-	min-height: unset;
+.contact-container .main-container {
+  min-height: unset;
 }
 
-.contact-container .form-title{
-	padding-top: 0;
+.contact-container .form-title {
+  padding-top: 0;
 }
 
 .contactdata-container {
-	padding: 0 .5rem .5rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	font-size: 17px;
-	gap: 3px;
+  padding: 0 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 17px;
+  gap: 3px;
 }
 
 .contactdata-subcontainer {
-	display: flex;
-	width: 100%;
-	justify-content: space-evenly;
-	gap: 5px
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  gap: 5px;
 }
 
-.contact-text{
-	height: 20px;
-	margin-bottom: 5px;
-	padding: .25rem;
+.contact-text {
+  height: 20px;
+  margin-bottom: 5px;
+  padding: 0.25rem;
 }
 
 a {
-	text-decoration: unset;
-	color: black;
+  text-decoration: unset;
+  color: black;
 }
 
 svg.icon {
-	height: inherit;
+  height: inherit;
 }
 
 .fb {
-	filter: invert(39%) sepia(12%) saturate(2760%) hue-rotate(182deg) brightness(94%) contrast(87%);
+  filter: invert(39%) sepia(12%) saturate(2760%) hue-rotate(182deg)
+    brightness(94%) contrast(87%);
 }
 
 .twit {
-	filter: invert(55%) sepia(38%) saturate(4631%) hue-rotate(179deg) brightness(97%) contrast(93%);
+  filter: invert(55%) sepia(38%) saturate(4631%) hue-rotate(179deg)
+    brightness(97%) contrast(93%);
 }
 
 .lkin {
-	filter: invert(17%) sepia(59%) saturate(4865%) hue-rotate(185deg) brightness(93%) contrast(103%);
+  filter: invert(17%) sepia(59%) saturate(4865%) hue-rotate(185deg)
+    brightness(93%) contrast(103%);
 }
 
 .insta {
-	filter: invert(27%) sepia(84%) saturate(1256%) hue-rotate(292deg) brightness(95%) contrast(93%);
+  filter: invert(27%) sepia(84%) saturate(1256%) hue-rotate(292deg)
+    brightness(95%) contrast(93%);
 }
 
-.loc{
-	filter: invert(39%) sepia(89%) saturate(7093%) hue-rotate(353deg) brightness(93%) contrast(135%);
+.loc {
+  filter: invert(39%) sepia(89%) saturate(7093%) hue-rotate(353deg)
+    brightness(93%) contrast(135%);
 }
-
 
 @media (max-width: 576px) {
-	.contact-container .title-container{
-		height: 16vh;
-		background-size: 100% 16vh;
-	}
+  .contact-container .title-container {
+    height: 16vh;
+    background-size: 100% 16vh;
+  }
 }
 
-@media (min-width: 768px){
-	.contact-container .form-container{
-		margin-top:2%
-	}
-	
-	.contactdata-container{
-		font-size: 20px;
-		gap:10px
-	}
-	
+@media (min-width: 768px) {
+  .contact-container .form-container {
+    margin-top: 2%;
+  }
+
+  .contactdata-container {
+    font-size: 20px;
+    gap: 10px;
+  }
 }

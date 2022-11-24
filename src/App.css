@@ -1,9 +1,9 @@
 :root {
-  --color-primary: #DB5752;
-  --color-primary-strong: #E31C15;
-  --color-secondary: #FAFA88;
+  --color-primary: #db5752;
+  --color-primary-strong: #e31c15;
+  --color-secondary: #fafa88;
   --color-secondary-strong: #ffff1f;
-  --color-tertiary: #9AC9FB;
+  --color-tertiary: #9ac9fb;
   --color-tertiary-strong: #67adf8;
   --color-card-primary: #fe7a74;
   --color-card-primary-strong: #fe3831;
@@ -21,12 +21,17 @@
   --container-shadow: 0 0 15px 5px rgba(141, 127, 127, 0.123);
 }
 
-@media (min-width: 576px) { }
+@media (min-width: 576px) {
+}
 
-@media (min-width: 768px) { }
+@media (min-width: 768px) {
+}
 
-@media (min-width: 992px) { }
+@media (min-width: 992px) {
+}
 
-@media (min-width: 1200px) { }
+@media (min-width: 1200px) {
+}
 
-@media (min-width: 1400px) { }
+@media (min-width: 1400px) {
+}

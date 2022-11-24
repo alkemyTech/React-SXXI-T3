@@ -1,23 +1,27 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import UsersForm from "../Components/Users/UsersForm";
-import CategoriesForm from "../Components/Categories/CategoriesForm";
-import MembersForm from "../Components/Members/MembersForm";
-import ActivitiesForm from "../Components/Activities/ActivitiesForm";
-import NewsForm from "../Components/News/NewsForm";
+
+import UsersForm from "../Components/Users/UsersForm/UsersForm";
 import HomeForm from "../Components/Home/HomeForm/HomeForm";
-import TestimonialsForm from "../Components/Testimonials/TestimonialsForm";
-import SlidesForm from "../Components/Slides/SlidesForm";
 import { Dashboard } from "../Components/Dashboard/Dashboard";
-import ProjectsForm from "../Components/Projects/ProjectsForm";
+import { NewsList } from "../Components/Backoffice/NewsList";
 import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
-import { NewsList } from "../Components/Backoffice/NewsList";
+import SlidesForm from "../Components/Slides/SlidesForm/SlidesForm";
+import ProjectsForm from "../Components/Projects/ProjectsForm/ProjectsForm";
+import TestimonialsForm from "../Components/Testimonials/TestimonialsForm/TestimonialsForm";
+import MembersForm from "../Components/Members/MembersForm/MembersForm";
+import CategoriesForm from "../Components/Categories/CategoriesForm/CategoriesForm";
+import NewsForm from "../Components/News/NewsForm/NewsForm";
+import ActivitiesForm from "../Components/Activities/ActivitiesForm/ActivitiesForm";
 import HeaderBackoffice from "../Components/HeaderBackoffice";
-import { UsersList } from "../Components/Backoffice/UsersList";
-import { SlidesList } from "../Components/Backoffice/SlidesList";
-import {MembersList} from "../Components/Backoffice/MembersList";
+import {SlidesList} from "../Components/Backoffice/SlidesList";
+import {TestimonialsList} from "../Components/Backoffice/TestimonialsList";
+import {UsersList} from "../Components/Backoffice/UsersList";
+import MembersList from "../Components/About/MembersList";
 import {CategoriesList} from "../Components/Backoffice/CategoriesList";
+import ActivitiesList from "../Components/Activities/ActivitiesList";
+
 
 const BackofficeRoutes = () => {
     return (
@@ -40,7 +44,8 @@ const BackofficeRoutes = () => {
                     <Route path="editar/:id" element={<ProjectsForm/>}/>
                 </Route>
                 <Route path="testimonios">
-                    <Route path="crear" element={<TestimonialsForm/>}/>
+                    <Route index element={<TestimonialsList />}/>
+                <Route path="crear" element={<TestimonialsForm/>}/>
                     <Route path="editar/:id" element={<TestimonialsForm/>}/>
                 </Route>
                 <Route path="usuarios">

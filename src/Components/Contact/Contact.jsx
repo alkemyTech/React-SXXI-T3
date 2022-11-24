@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import Title from "../Title/Title";
 import ContactForm from "./ContactForm/ContactForm";

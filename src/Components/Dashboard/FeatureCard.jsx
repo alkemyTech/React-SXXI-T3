@@ -4,8 +4,7 @@ import "./FeatureCard.css";
 
 
 export const FeatureCard = ({ name, logo, link }) => {
-  
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="card" onClick={()=>navigate(link)}>

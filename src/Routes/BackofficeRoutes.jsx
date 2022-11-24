@@ -18,9 +18,9 @@ import HeaderBackoffice from "../Components/HeaderBackoffice";
 import {SlidesList} from "../Components/Backoffice/SlidesList";
 import {TestimonialsList} from "../Components/Backoffice/TestimonialsList";
 import {UsersList} from "../Components/Backoffice/UsersList";
-import MembersList from "../Components/About/MembersList";
+import {MembersList} from "../Components/Backoffice/MembersList";
 import {CategoriesList} from "../Components/Backoffice/CategoriesList";
-import ActivitiesList from "../Components/Activities/ActivitiesList";
+import {ActivitiesList} from "../Components/Backoffice/ActivitiesList";
 
 
 const BackofficeRoutes = () => {

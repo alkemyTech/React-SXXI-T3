@@ -13,7 +13,11 @@ const SelectInput = ({ source, handleSelectChange }) => {
             ? apiONG
                 .get(`/${source.route}`)
                 .then(({ data: { data } }) => {
-                    setOptions(() => (data))
+                    setOptions(() => ([{
+                        name: 'Todas las categorías',
+                        id: '6a5sd4'
+                    }, ...data
+                    ]))
                 })
                 .catch((error) => {
                     const errorMessage =
@@ -36,7 +40,7 @@ const SelectInput = ({ source, handleSelectChange }) => {
         >
             {
                 options
-                    ? [{ name: 'Todas las categorías', id: '6a5sd4' }, ...options].map((option) => (
+                    ? options.map((option) => (
                         <option
                             key={option.role || option.id}
                             value={option.role || option.name}

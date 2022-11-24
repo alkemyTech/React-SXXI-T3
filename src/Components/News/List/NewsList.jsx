@@ -23,18 +23,21 @@ const NewsList = () => {
         const cleanValue = value.trim()
         setSearch(() => (value))
         if (cleanValue.length >= 3) {
-            getNews(search)
+            getNews(cleanValue)
                 .then(response => {
-                    setNews(response)
+                    console.log(search)
+                    console.log('call')
+
+                    setNews(() => (response))
                 })
         }
     }, 1000)
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(search)
         getNews(search)
             .then(response => {
+                console.log('call')
                 setNews(response)
             })
     }
@@ -46,7 +49,7 @@ const NewsList = () => {
             </div>
 
             <SearchInput
-                placeholder={'Buscar por nombre'}
+                placeholder={'Buscar por título'}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
             />

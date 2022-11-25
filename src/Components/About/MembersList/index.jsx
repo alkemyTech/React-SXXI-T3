@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import Card from "../Card";
-import Loading from "../Loading";
 
 import Swal from "sweetalert2";
 
 import { apiONG } from "../../../Services/apiONG";
 
+import { Spinner } from "../../Feedback/Spinner/Spinner";
 import s from "./listado.module.css";
 
 const MembersList = () => {
@@ -36,7 +36,7 @@ const MembersList = () => {
     <section>
       <div className={s.card_container}>
         {isFetching ? (
-          <Loading />
+          <Spinner />
         ) : members ? (
           members.map((member) => <Card key={uuidv4()} {...member} />)
         ) : (

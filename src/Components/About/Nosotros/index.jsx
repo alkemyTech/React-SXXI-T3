@@ -9,14 +9,11 @@ Aperiam aspernatur et recusandae, qui voluptates modi eveniet pariatur esse repe
 Culpa natus harum ea blanditiis laboriosam dolores in, reprehenderit, ex esse voluptatem qui! Voluptatem sed
 consequatur asperiores.`;
 
-const img =
-  "https://www.elpaisano.pe/wp-content/uploads/2021/09/Programa-Mi-Juntos-1.jpg";
-
 const Nosotros = () => {
   return (
     <>
       <header>
-        <Title title="Sobre Nosotros" image={img} />
+        <Title title="Sobre Nosotros" />
       </header>
       <main>
         <h3 className={s["title_sobre_nosotros"]}>

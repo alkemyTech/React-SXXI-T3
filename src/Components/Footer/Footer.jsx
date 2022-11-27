@@ -39,22 +39,24 @@ export const Footer = () => {
   return (
     <footer>
       <div className="footer-container">
-        <div className="footer-info-container">
-          <div className="footer-text">{footerInfo.name}</div>
-          <img
-            src={footerInfo.logo}
-            alt={footerInfo.name}
-            className="footer-img"
-          />
+        <div className="footer-info-container" id="links">
+          <Link to={"/"}>
+            <div className="footer-text">{footerInfo.name}</div>
+            <img
+              src={footerInfo.logo}
+              alt={footerInfo.name}
+              className="footer-img"
+            />
+          </Link>
         </div>
         <hr />
         <div className="footer-links-container">
           <h3 className="footer-links-title">Enlaces útiles</h3>
-          <div className="footer-links-subcontainer">
+          <div className="footer-links-subcontainer" id="links">
             <Link to="/">Inicio</Link>
             <Link to="/nosotros">Nosotros</Link>
-            <Link to="/novedades">Novedades</Link>
             <Link to="/actividades">Actividades</Link>
+            <Link to="/novedades">Novedades</Link>
             <Link to="/testimonios">Testimonios</Link>
             <Link to="/contacto">Contacto</Link>
           </div>
@@ -64,20 +66,24 @@ export const Footer = () => {
           <h3 className="footer-socials-title">Redes sociales</h3>
           <div className="footer-socials-subcontainer">
             <SocialMediaItem
-              url={footerInfo.facebook_url}
-              icon={<FacebookSvg />}
+                className="contact-text"
+                url={footerInfo.facebook_url}
+                icon={<FacebookSvg />}
             />
             <SocialMediaItem
-              url={footerInfo.instagram_url}
-              icon={<InstagramSvg />}
+                className="contact-text"
+                url={footerInfo.instagram_url}
+                icon={<InstagramSvg />}
             />
             <SocialMediaItem
-              url={footerInfo.twitter_url}
-              icon={<TwitterSvg />}
+                className="contact-text"
+                url={footerInfo.twitter_url}
+                icon={<TwitterSvg />}
             />
             <SocialMediaItem
-              url={footerInfo.linkedin_url}
-              icon={<LinkedinSvg />}
+                className="contact-text"
+                url={footerInfo.linkedin_url}
+                icon={<LinkedinSvg />}
             />
           </div>
           <NewsletterForm />

@@ -45,25 +45,28 @@ const Contact = () => {
         {contactData && (
           <div className="contactdata-container">
             <h4>Como encontrarnos</h4>
-
-            <div className="contactdata-subcontainer">
+            <div className="contactdata-subcontainer" id="links">
               <SocialMediaItemWLabel
-                url={contactData.facebook_url}
-                icon={<FacebookSvg />}
+                  className="contact-text"
+                  url={contactData.facebook_url}
+                  icon={<FacebookSvg />}
               />
               <SocialMediaItemWLabel
-                url={contactData.instagram_url}
-                icon={<InstagramSvg />}
+                  className="contact-text"
+                  url={contactData.instagram_url}
+                  icon={<InstagramSvg />}
               />
             </div>
-            <div className="contactdata-subcontainer">
+            <div className="contactdata-subcontainer" id="links">
               <SocialMediaItemWLabel
-                url={contactData.twitter_url}
-                icon={<TwitterSvg />}
+                  className="contact-text"
+                  url={contactData.twitter_url}
+                  icon={<TwitterSvg />}
               />
               <SocialMediaItemWLabel
-                url={contactData.linkedin_url}
-                icon={<LinkedinSvg />}
+                  className="contact-text"
+                  url={contactData.linkedin_url}
+                  icon={<LinkedinSvg />}
               />
             </div>
             <div className="contact-text">

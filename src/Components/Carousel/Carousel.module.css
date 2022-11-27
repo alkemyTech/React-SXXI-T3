@@ -72,8 +72,3 @@ button.carouselButton {
     text-align: center;
   }
 }
-
-/*temporal fix*/
-* {
-  background-color: unset;
-}

@@ -94,6 +94,7 @@ const ContactForm = ({ children }) => {
           variant="primary"
           label="Enviar"
           disabled={isSubmitting}
+          className="form-button"
         />
         {children}
       </form>

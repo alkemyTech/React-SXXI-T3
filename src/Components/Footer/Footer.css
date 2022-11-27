@@ -41,6 +41,11 @@ footer{
 	height: 30px;
 }
 
+#links a{
+	color: var(--text-color);
+	text-decoration: unset;
+}
+
 @media (min-width: 768px) {
 	.footer-container {
 		flex-direction: row;

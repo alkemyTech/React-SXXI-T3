@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../Button/Button";
+import {useMobile} from "../../../hooks/useIsMobile";
 
 import "./ListCard.css";
 
@@ -14,19 +15,7 @@ export const ListCard = ({
   variant,
   linkTo,
 }) => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const updateDevice = () => {
-      setIsMobile(window.innerWidth <= 576);
-    };
-    updateDevice();
-    window.addEventListener("resize", updateDevice);
-
-    return () => {
-      window.removeEventListener("resize", updateDevice);
-    };
-  }, []);
+  const isMobile = useMobile();
 
   const newsText = () => {
     if (isMobile) {

@@ -13,7 +13,7 @@ const ActivitiesDetail = () => {
     apiActivity
     .getSingle(id)
     .then((response) => {
-      setActivity(response);
+      if(response) setActivity(response);
     });
   }, [id]);
 

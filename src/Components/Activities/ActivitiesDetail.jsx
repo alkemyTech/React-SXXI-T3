@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiONG } from "../../Services/apiONG";
+import { apiActivity } from "../../Services/apiService";
 import DetailCard from "../Card/DetailCard/DetailCard";
 
 import Title from "../Title/Title";
@@ -10,8 +10,10 @@ const ActivitiesDetail = () => {
   const [activity, setActivity] = useState({});
 
   useEffect(() => {
-    apiONG.get("/activities/" + id).then((response) => {
-      setActivity(response.data.data);
+    apiActivity
+    .getSingle(id)
+    .then((response) => {
+      setActivity(response);
     });
   }, [id]);
 

@@ -16,7 +16,7 @@ const ActivitiesList = () => {
 
   useEffect(() => {
     apiActivity.getAll().then((response) => {
-      setActivities(response);
+      if (response) setActivities(response);   
       setIsLoading(false);
     });
   }, []);
@@ -30,7 +30,7 @@ const ActivitiesList = () => {
       setIsLoading(true);
       const query = 'search=' + cleanValue;
       apiActivity.getAll(query).then((response) => {
-        setActivities(response);
+        if (response) setActivities(response);  
         setIsLoading(false);
       });
     }
@@ -41,7 +41,7 @@ const ActivitiesList = () => {
     setIsLoading(true);
     const query = 'search=' + search;
     apiActivity.getAll(query).then((response) => {
-      setActivities(response);
+      if (response) setActivities(response);
       setIsLoading(false);
     });
   };

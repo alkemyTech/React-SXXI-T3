@@ -33,7 +33,11 @@ export const ListCard = ({
   return (
     <div className={`list-card ${variant}`}>
       <div className="list-card-image">
-        <img src={image} alt={name} />
+        <div style={{backgroundImage: `url(${image})`}} className="list-card-divimg">
+          <h6 className="list-card-title">{name}</h6>
+        </div>
+        {/*<img src={image} alt={name} />*/}
+
       </div>
       <div className="list-card-content">
         <div className="list-card-text" dangerouslySetInnerHTML={newsText()} />

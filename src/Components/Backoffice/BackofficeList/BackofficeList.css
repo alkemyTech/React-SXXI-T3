@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.backoffice-header a{
+  text-decoration: unset;
+}
+
 .backoffice-header .button {
   width: auto;
   font-size: 1rem;

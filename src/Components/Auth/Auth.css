@@ -59,7 +59,7 @@
   
   
   .auth-cont{
-    height: calc(100vh - 76px);
+    height: calc(100vh - 65px);
     justify-content: center;
   }
 }

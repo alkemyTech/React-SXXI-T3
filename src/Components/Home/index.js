@@ -24,7 +24,7 @@ const Home = () => {
         setWelcomeText(response.welcome_text);
       })
       .catch((error) => {});
-    getNews(null, 3)
+    getNews(null, 4)
       .then((response) => {
         setNewsList(response);
       })

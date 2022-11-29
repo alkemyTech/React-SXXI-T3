@@ -40,6 +40,30 @@
   border-radius: 20px;
   max-height: 200px;
   min-height: 150px;
+ 
+}
+
+.list-card-divimg{
+  width: 85%;
+  border-radius: var(--container-border);
+  max-height: 200px;
+  min-height: 150px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.list-card-title{
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.581);
+  color: var(--text-color-inverted);
+  font-weight: 400;
+  width: 100%;
+  border-bottom-right-radius: var(--container-border);
+  border-bottom-left-radius: var(--container-border);
 }
 
 .list-card-content {
@@ -70,6 +94,8 @@
   height: 20%;
   justify-content: center;
 }
+
+
 
 @media (max-width: 576px) {
   .list-card {

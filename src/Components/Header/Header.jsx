@@ -11,11 +11,10 @@ export const Header = ({
     ) => {
     const navigate = useNavigate();
     const dataArray = [
-        // {text: 'Inicio', link: '/'},
+        {text: 'Inicio', link: '/'},
         {text: 'Nosotros', link: '/nosotros'},
         {text: 'Actividades', link: '/actividades'},
         {text: 'Novedades', link: '/novedades'},
-        {text: 'Testimonios', link: '/testimonios'},
         {text: 'Contacto', link: '/contacto'},
         {text: 'Contribuye', link: '/donar'}
     ]

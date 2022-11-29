@@ -44,7 +44,7 @@ const NewsList = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <Title title="Novedades" />
       </div>

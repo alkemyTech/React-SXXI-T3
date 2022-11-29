@@ -24,8 +24,8 @@ function App() {
       <Routes>
         <Route path="backoffice/*" element={<BackofficeRoutes/>}/>
         <Route path="" element={<Header isLogged={isLogged} handleLogged={setIsLogged}/>}>
-        <Route path="iniciar-sesion" element={<><Login/></>}/>
-            <Route path="registrarse" element={<><Register/></>}/>
+        <Route path="login" element={<><Login/></>}/>
+            <Route path="registro" element={<><Register/></>}/>
             <Route path="actividades">
               <Route index element={<><ActivitiesList/></>}/>
               <Route path=":id" element={<><ActivitiesDetail/></>}/>

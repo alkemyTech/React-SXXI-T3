@@ -27,7 +27,7 @@ export const Header = ({
     }
 
     const handleRegister = () => {
-        navigate('/register')
+        navigate('/registro')
     }
 
     return(

@@ -16,7 +16,7 @@ export const ImageModal = ({url, show, onHide}) => {
                     <Modal.Title id="contained-modal-title-vcenter">Imagen</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <img src={url} alt={url}/>
+                    <img src={url} alt={url} className="modal-body-image"/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={onHide}>Cerrar</Button>

@@ -12,7 +12,8 @@ import ActivitiesList from "./Components/Activities/ActivitiesList";
 import Home from "./Components/Home";
 import { Footer } from './Components/Footer/Footer';
 import { Header } from './Components/Header/Header';
-import { Login, Register } from "./Components/Auth";
+import Login  from "./Components/Auth/Login/Login";
+import Register from "./Components/Auth/Register/Register";
 
 import "./App.css";
 

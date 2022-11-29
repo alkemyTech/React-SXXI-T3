@@ -7,28 +7,41 @@ import { getOrganizationInfo } from "../../Services/organizationService/organiza
 import { getNews } from "../../Services/newsService/newsService";
 
 import "./Home.css";
+import { Spinner } from "../Feedback/Spinner/Spinner";
+import { errorAlert } from '../Feedback/AlertService';
 
 const Home = () => {
   const [slideList, setSlideList] = useState([]);
   const [welcomeText, setWelcomeText] = useState("");
   const [newsList, setNewsList] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     getSlides()
       .then((response) => {
         setSlideList(response);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        errorAlert();
+      });
+
     getOrganizationInfo()
       .then((response) => {
         setWelcomeText(response.welcome_text);
       })
-      .catch((error) => {});
-    getNews(5)
+      .catch((error) => {
+        errorAlert();
+      });
+      
+    getNews(null, 4)
       .then((response) => {
         setNewsList(response);
+        setIsFetching(() => false);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setIsFetching(() => false);
+        errorAlert();
+      });
   }, []);
 
   return (
@@ -38,7 +51,8 @@ const Home = () => {
           <Slider slideList={slideList} />
         </div>
         <p className="welcome-text">{welcomeText}</p>
-        <NewsList newsList={newsList} />
+
+        {isFetching ? <Spinner /> : <NewsList newsList={newsList} />}
       </div>
     </>
   );

@@ -3,12 +3,13 @@ import { v4 as uuidv4 } from "uuid";
 
 import Card from "../Card";
 
-import Swal from "sweetalert2";
-
 import { apiONG } from "../../../Services/apiONG";
 
 import { Spinner } from "../../Feedback/Spinner/Spinner";
 import s from "./listado.module.css";
+import { errorAlert } from '../../Feedback/AlertService';
+
+
 
 const MembersList = () => {
   const [members, setMembers] = useState(null);
@@ -16,7 +17,7 @@ const MembersList = () => {
 
   useEffect(() => {
     apiONG
-      .get(`/members`)
+      .get(`/members/`)
       .then(({ data: { data } }) => {
         setMembers(() => data);
         setIsFetching(() => false);
@@ -24,11 +25,8 @@ const MembersList = () => {
       .catch((error) => {
         setIsFetching(() => false);
         const errorMessage = error?.response?.data?.message || error.message;
-        Swal.fire({
-          title: errorMessage,
-          icon: "error",
-          timer: 5000,
-        });
+        console.error(errorMessage);
+        errorAlert();
       });
   }, []);
 

@@ -8,6 +8,7 @@ import { getNews } from "../../../Services/newsService/newsService";
 import "../../CardListStyles.css";
 import SearchInput from "../../SearchInput";
 import { SkeletonCard } from "../../Feedback/SkeletonCard";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const NewsList = () => {
   const [news, setNews] = useState([]);
@@ -15,10 +16,14 @@ const NewsList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getNews().then((response) => {
-      setNews(response);
-      setIsLoading(false);
-    });
+    getNews()
+      .then((response) => {
+        setNews(response);
+      })
+      .catch((error) => {
+        errorAlert();
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const handleChange = debounce((event) => {
@@ -27,20 +32,28 @@ const NewsList = () => {
     setSearch(() => value);
     if (cleanValue.length >= 3) {
       setIsLoading(true);
-      getNews(cleanValue).then((response) => {
-        setNews(() => response);
-        setIsLoading(false);
-      });
+      getNews(cleanValue)
+        .then((response) => {
+          setNews(() => response);
+        })
+        .catch((error) => {
+          errorAlert();
+        })
+        .finally(() => setIsLoading(false));
     }
   }, 1000);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    getNews(search).then((response) => {
-      setNews(response);
-      setIsLoading(false);
-    });
+    getNews(search)
+      .then((response) => {
+        setNews(response);
+      })
+      .catch((error) => {
+        errorAlert();
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (

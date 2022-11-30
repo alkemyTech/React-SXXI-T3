@@ -1,11 +1,11 @@
-.card {
+.card-detail{
   margin: 1rem auto;
   width: 80%;
   display: flex;
   flex-direction: column;
   font-size: 1.1rem;
   align-items: center;
-  border-radius: 10px;
+  border-radius: var(--container-border);
   padding: 1rem;
   box-shadow: var(--container-shadow);
 }
@@ -16,21 +16,6 @@ div.card-text p {
   margin-bottom: 0;
   padding: 1rem 1rem 0;
 }
-
-/*.card.primary{*/
-/*	!*border: 1px solid #990903;*!*/
-/*	box-shadow: 10px 10px 12px 1px var(--color-primary);*/
-/*}*/
-
-/*.card.secondary{*/
-/*	!*border: 1px solid #c7c700;*!*/
-/*	box-shadow: 10px 10px 12px 1px var(--color-secondary);*/
-/*}*/
-
-/*.card.tertiary{*/
-/*	!*border: 1px solid #3f69ff;*!*/
-/*	box-shadow: 10px 10px 12px 1px var(--color-ternary);*/
-/*}*/
 
 .card-date {
   align-self: end;
@@ -54,12 +39,12 @@ div.card-text p {
   box-shadow: 4px 4px 15px var(--color-tertiary);
 }
 
-.card .button {
+.card-detail .button {
   margin-top: 1rem;
 }
 
 @media (min-width: 576px) {
-  .card {
+  .card-detail{
     font-size: 1.2rem;
   }
 
@@ -69,7 +54,7 @@ div.card-text p {
 }
 
 @media (min-width: 768px) {
-  .card {
+  .card-detail{
     font-size: 1.3rem;
   }
 
@@ -78,15 +63,14 @@ div.card-text p {
     max-width: 768px;
   }
 
-  .card .button {
-    margin-top: 2rem;
+  .card-detail .button {
     width: 45%;
     align-self: end;
   }
 }
 
 @media (min-width: 992px) {
-  .card {
+  .card-detail{
     font-size: 1.5rem;
     max-width: 990px;
   }

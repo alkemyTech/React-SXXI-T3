@@ -7,7 +7,7 @@ export const FeatureCard = ({ name, logo, link }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="card" onClick={()=>navigate(link)}>
+    <div className="feature card" onClick={()=>navigate(link)}>
       <div className="feature-name">{name}</div>
       <div className="feature-logo">
         <img src={logo} alt={name} />

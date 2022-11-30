@@ -1,11 +1,12 @@
-.feature-container {
-  background-color: rgb(245, 241, 241);
-  display: block;
-  padding: 10px;
-  border: 1px solid rgb(210, 210, 221);
-  border-radius: 10px;
-  margin: 30px;
+.feature.card {
+  margin: 1rem auto;
+  width: 80%;
+  border-radius: var(--container-border);
+  padding: 1rem;
+  box-shadow: var(--container-shadow);
+  background-color: var(--color-surface);
 }
+
 
 .feature-name {
   text-align: center;
@@ -37,9 +38,6 @@
 }
 
 .card {
-  border-radius: 4px;
-  background: #fff;
-  box-shadow: 0 6px 10px rgba(233, 206, 206, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
   transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
     0.3s box-shadow,
     0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
@@ -49,4 +47,13 @@
 .card:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(201, 13, 13, 0.329), 0 4px 8px rgba(201, 13, 13, 0.06);
+}
+
+[theme="dark"] .card:hover {
+  box-shadow: 0 10px 20px rgba(231, 116, 116, 0.329), 0 4px 8px rgba(123, 78, 78, 0.06);
+}
+
+[theme="dark"] .feature-logo img{
+  filter: invert(100%);
+  mix-blend-mode: screen;
 }

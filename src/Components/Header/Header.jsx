@@ -1,11 +1,16 @@
 import { Container, Nav, Navbar } from "react-bootstrap"
-import './Header.css';
 import {Outlet, useNavigate} from "react-router-dom";
+
 import Button from "../Button/Button";
+import {ThemeSwitcher} from "./ThemeSwitcher";
+
+import './Header.css';
 
 export const Header = ({
         isLogged=false,
         handleLogged = () => {},
+        switchTheme,
+        theme,
         ...props
     }
     ) => {
@@ -31,7 +36,7 @@ export const Header = ({
 
     return(
         <>
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg" sticky="top" >
             <Container fluid>
                 <Navbar.Brand href="/">
                     <img
@@ -52,15 +57,13 @@ export const Header = ({
                     {isLogged ?
                         <>
                             <Button label="Cerrar Sesión" onClick={handleLogOut}  variant="primary" className="header-button"/>
-                            {/*<Button className="registerButton" href="/">Cerrar sesión</Button>*/}
                         </>
                     :   <>
                          <Button label="Iniciar Sesión" onClick={handleLogIn}  className="header-button"/>
                          <Button label="Registrarse" onClick={handleRegister}  variant="primary" className="header-button"/>
-                            {/*<Button className="loginButton" href="/login">Iniciar sesión</Button>*/}
-                            {/*<Button className="registerButton" href="/register">Registrarse</Button>*/}
                         </>
                     }
+                    <ThemeSwitcher switchTheme={switchTheme} theme={theme}/>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

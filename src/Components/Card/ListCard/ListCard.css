@@ -10,22 +10,25 @@
   height: 230px;
   border: 1px solid black;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .list-card.primary {
   background-color: var(--color-card-primary);
   border-color: var(--color-card-primary-strong);
+  color: var(--color-on-primary-card)
 }
 
 .list-card.secondary {
   background-color: var(--color-card-secondary);
   border-color: var(--color-card-secondary-strong);
+  color: var(--color-on-secondary-card)
 }
 
 .list-card.tertiary {
   background-color: var(--color-card-tertiary);
   border-color: var(--color-card-tertiary-strong);
+  color: var(--color-on-tertiary-card)
 }
 
 .list-card-image {
@@ -36,21 +39,18 @@
 }
 
 .list-card-image img {
-  width: 85%;
-  border-radius: 20px;
-  max-height: 200px;
   min-height: 150px;
- 
+  border-radius: var(--container-border);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .list-card-divimg{
   width: 85%;
-  border-radius: var(--container-border);
-  max-height: 200px;
-  min-height: 150px;
+  min-height: 200px;
   position: relative;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .list-card-title{
@@ -59,7 +59,6 @@
   margin: 0;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.581);
-  color: var(--text-color-inverted);
   font-weight: 400;
   width: 100%;
   border-bottom-right-radius: var(--container-border);
@@ -95,14 +94,16 @@
   justify-content: center;
 }
 
-
-
 @media (max-width: 576px) {
   .list-card {
     font-size: 12px;
     height: 170px;
   }
 
+  .list-card-title{
+    font-size: .85rem;
+  }
+  
   .list-card-image img {
     max-height: 150px;
     min-height: 100px;
@@ -115,5 +116,9 @@
 
   .list-card-btn {
     font-size: 12px;
+  }
+  
+  .list-card-divimg{
+    min-height: 145px;
   }
 }

@@ -24,8 +24,6 @@ const MembersList = () => {
       })
       .catch((error) => {
         setIsFetching(() => false);
-        const errorMessage = error?.response?.data?.message || error.message;
-        console.error(errorMessage);
         errorAlert();
       });
   }, []);

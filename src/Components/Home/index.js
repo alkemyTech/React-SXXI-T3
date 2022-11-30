@@ -7,22 +7,27 @@ import { getOrganizationInfo } from "../../Services/organizationService/organiza
 import { getNews } from "../../Services/newsService/newsService";
 
 import "./Home.css";
+
 import { Spinner } from "../Feedback/Spinner/Spinner";
-import { errorAlert } from '../Feedback/AlertService';
+import { errorAlert } from "../Feedback/AlertService";
+import { SkeletonCard } from "../Feedback/SkeletonCard";
 
 const Home = () => {
   const [slideList, setSlideList] = useState([]);
   const [welcomeText, setWelcomeText] = useState("");
   const [newsList, setNewsList] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
+  const [isFetchingS, setIsFetchingS] = useState(true);
+  const [isFetchingN, setIsFetchingN] = useState(true);
 
   useEffect(() => {
     getSlides()
       .then((response) => {
         setSlideList(response);
+        setIsFetchingS(false);
       })
       .catch((error) => {
         errorAlert();
+        setIsFetchingS(false);
       });
 
     getOrganizationInfo()
@@ -32,14 +37,14 @@ const Home = () => {
       .catch((error) => {
         errorAlert();
       });
-      
+
     getNews(null, 4)
       .then((response) => {
         setNewsList(response);
-        setIsFetching(() => false);
+        setIsFetchingN(false);
       })
       .catch((error) => {
-        setIsFetching(() => false);
+        setIsFetchingN(false);
         errorAlert();
       });
   }, []);
@@ -48,11 +53,18 @@ const Home = () => {
     <>
       <div className="home">
         <div className="carousel-slider-home">
-          <Slider slideList={slideList} />
+          {isFetchingS ? <Spinner /> : <Slider slideList={slideList} />}
         </div>
         <p className="welcome-text">{welcomeText}</p>
 
-        {isFetching ? <Spinner /> : <NewsList newsList={newsList} />}
+        {isFetchingN ? (
+          <div className="container-fluid d-flex justify-content-evenly">
+            <SkeletonCard variant="tertiary" />
+            <SkeletonCard variant="tertiary" />
+          </div>
+        ) : (
+          <NewsList newsList={newsList} />
+        )}
       </div>
     </>
   );

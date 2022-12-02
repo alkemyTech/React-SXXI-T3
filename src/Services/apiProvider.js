@@ -11,28 +11,14 @@ const handleError = (error) => {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
-        Swal.fire({
-            title: error.response.status + ' : ' + error.response.data.message,
-            icon: "error",
-            timer: 5000
-          });
     } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        Swal.fire({
-            title: error.request,
-            icon: "error",
-            timer: 5000
-          });
     } else {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
-        Swal.fire({
-            title: error.message,
-            icon: "error",
-            timer: 5000
-          });
     }
+    throw error
 };
 
 const getAll = (resource, query) => {

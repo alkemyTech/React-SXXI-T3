@@ -3,7 +3,6 @@ import debounce from "lodash.debounce";
 
 import Title from "../../Title/Title";
 import { ListCard } from "../../Card/ListCard/ListCard";
-import { getNews } from "../../../Services/newsService/newsService";
 
 import "../../CardListStyles.css";
 import SearchInput from "../../SearchInput";

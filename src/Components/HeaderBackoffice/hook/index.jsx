@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
-import { apiONG } from "../../../Services/apiONG";
+import { apiOrganization } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 export const useLogo = () => {
 
@@ -9,22 +10,18 @@ export const useLogo = () => {
     const [isFetching, setIsFetching] = useState(true);
 
     useEffect(() => {
-        apiONG
-            .get(`/organization`)
-            .then(({ data: { data } }) => {
-                setIsFetching(() => false)
-                setLogoONG(() => (data.logo))
+        apiOrganization
+            .getAll()
+            .then((response) => {
+                setIsFetching(false)
+                setLogoONG(response.logo)
             })
             .catch((error) => {
-                setIsFetching(() => (false))
+                setIsFetching(false)
                 const errorMessage =
                     error?.response?.data?.message
                     || error.message;
-                Swal.fire({
-                    title: errorMessage,
-                    icon: 'error',
-                    timer: 5000
-                })
+                errorAlert(errorMessage)
             })
     }, [])
 

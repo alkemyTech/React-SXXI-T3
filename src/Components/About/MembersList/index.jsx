@@ -3,11 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import Card from "../Card";
 
-import { apiONG } from "../../../Services/apiONG";
-
 import { Spinner } from "../../Feedback/Spinner/Spinner";
 import s from "./listado.module.css";
 import { errorAlert } from '../../Feedback/AlertService';
+import { apiMember } from "../../../Services/apiService";
 
 
 
@@ -16,16 +15,15 @@ const MembersList = () => {
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
-    apiONG
-      .get(`/members/`)
-      .then(({ data: { data } }) => {
-        setMembers(() => data);
-        setIsFetching(() => false);
+    apiMember
+      .getAll()
+      .then((response) => {
+        setMembers(response);
       })
       .catch((error) => {
-        setIsFetching(() => false);
         errorAlert();
-      });
+      })
+      .finally(setIsFetching(false));
   }, []);
 
   return (

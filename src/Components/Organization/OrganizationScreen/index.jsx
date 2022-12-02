@@ -5,32 +5,26 @@ import Button from "../../Button/Button";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import Swal from "sweetalert2";
-
-import { apiONG } from "../../../Services/apiONG";
 
 import styles from "./organizationScreen.module.css";
+import { apiOrganization } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const OrganizationScreen = () => {
   const [organizationInfo, setOrganizationInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    apiONG
-      .get(`/organization`)
-      .then(({ data: { data } }) => {
+    apiOrganization
+      .get()
+      .then((response) => {
         setIsLoading(() => false);
-        setOrganizationInfo(() => data);
+        setOrganizationInfo(() => response);
       })
       .catch((error) => {
         setIsLoading(() => false);
         const errorMessage = error?.response?.data?.message || error.message;
-
-        Swal.fire({
-          title: errorMessage,
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert(errorMessage);
       });
   }, []);
 

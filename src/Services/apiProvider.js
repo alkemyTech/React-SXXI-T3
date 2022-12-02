@@ -1,4 +1,3 @@
-import Swal from "sweetalert2";
 import { apiONG } from "./apiONG";
 
 const handleResponse = (response) => {

@@ -70,4 +70,14 @@ export const apiMember = new ApiCore({
     url: 'members'
 });
 
+export const apiOrganization = new ApiCore({
+    getAll: true,
+    getSingle: true,
+    post: true,
+    put: true,
+    patch: false,
+    delete: false,
+    url: 'organization'
+});
+
 

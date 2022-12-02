@@ -80,4 +80,12 @@ export const apiOrganization = new ApiCore({
     url: 'organization'
 });
 
-
+export const apiTestimonials = new ApiCore({
+    getAll: true,
+    getSingle: true,
+    post: true,
+    put: true,
+    patch: false,
+    delete: true,
+    url: 'testimonials'
+});

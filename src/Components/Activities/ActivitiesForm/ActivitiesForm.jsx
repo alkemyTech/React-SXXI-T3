@@ -10,6 +10,7 @@ import { initialValues, validationSchema } from "./constants";
 
 import "../../FormStyles.css";
 import { apiActivity } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const updateActivity = (activity) => {
   apiActivity
@@ -18,7 +19,7 @@ const updateActivity = (activity) => {
       Swal.fire("OK", "Actividad guardada correctamente!", "success");
     })
     .catch((err) => {
-      Swal.fire("Oops!", err, "error");
+      errorAlert();
     });
 };
 
@@ -29,7 +30,7 @@ const createActivity = (activity) => {
       Swal.fire("OK", "Actividad creada correctamente!", "success");
     })
     .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
+      errorAlert();
     });
 };
 
@@ -54,11 +55,7 @@ const ActivitiesForm = () => {
         else createActivity(activityToSave);
       })
       .catch(() => {
-        Swal.fire({
-          title: "Tuvimos problemas con la carga de la imagen",
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert("Error en cargar la imagen");
       });
     setSubmitting(false);
   };
@@ -89,12 +86,7 @@ const ActivitiesForm = () => {
           setActivity(response);
         })
         .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
-          });
+          errorAlert();
         });
       setIsFetching(false);
       setIsEdit(true);

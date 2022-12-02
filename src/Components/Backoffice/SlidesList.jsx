@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
+import { errorAlert } from '../Feedback/AlertService';
+import { apiSlide } from '../../Services/apiService';
 
 export const SlidesList = () => {
 	const [search, setSearch] = useState('');
@@ -41,11 +43,15 @@ export const SlidesList = () => {
 			cancelButtonText: "Cancelar"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				Swal.fire(
-					'Diapositiva borrada!',
-					'',
-					'success'
-				)
+				apiSlide.remove(id)
+				.then(response => {
+					Swal.fire(
+						'Diapositiva borrado!',
+						'',
+						'success'
+					)
+				})
+				.catch(error => errorAlert())
 			}
 		})
 	}

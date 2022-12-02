@@ -1,6 +1,8 @@
 import React from 'react';
 import BackofficeList from "./BackofficeList/BackofficeList";
 import Swal from 'sweetalert2';
+import { apiTestimonials } from '../../Services/apiService';
+import { errorAlert } from '../Feedback/AlertService';
 
 
 export const TestimonialsList = () => {
@@ -169,12 +171,16 @@ export const TestimonialsList = () => {
             cancelButtonText:"Cancelar"
           }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire(
-                'Testimonio borrado!',
-                '',
-                'success'
-              )
-            }
+				apiTestimonials.remove(id)
+				.then(response => {
+					Swal.fire(
+						'Testimonio borrado!',
+						'',
+						'success'
+					)
+				})
+				.catch(error => errorAlert())
+			}
           })
     }
     

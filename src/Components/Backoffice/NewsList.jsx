@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
+import { apiNews } from '../../Services/apiService';
+import { errorAlert } from '../Feedback/AlertService';
 
 export const NewsList = () => {
 	const [search, setSearch] = useState('');
@@ -64,11 +66,15 @@ export const NewsList = () => {
 			cancelButtonText: "Cancelar"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				Swal.fire(
-					'Novedad borrada!',
-					'',
-					'success'
-				)
+				apiNews.remove(id)
+				.then(response => {
+					Swal.fire(
+						'Novedad borrado!',
+						'',
+						'success'
+					)
+				})
+				.catch(error => errorAlert())
 			}
 		})
 	}

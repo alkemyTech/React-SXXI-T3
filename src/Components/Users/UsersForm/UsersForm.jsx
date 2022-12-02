@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import { useState, useEffect, useRef } from "react";
-import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 
 import { put, post } from "../../../Services/userService";
@@ -55,11 +54,7 @@ const UsersForm = () => {
 
     fileReader.onerror = () => {
       setSubmitting(false);
-      Swal.fire({
-        title: "Error al procesar la imagen",
-        icon: "error",
-        timer: 5000,
-      });
+      errorAlert('Error al procesar la imagen');
     };
 
     fileReader.readAsDataURL(file);

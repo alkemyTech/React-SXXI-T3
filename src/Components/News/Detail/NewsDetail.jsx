@@ -1,6 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
+import CommentsDetails from "../../Comments/CommentsDetails";
+
 import Title from "../../Title/Title";
 import DetailCard from "../../Card/DetailCard/DetailCard";
 
@@ -52,6 +55,7 @@ const NewsDetail = ({ title }) => {
           <h3 className="news-title">{news.name}</h3>
         </DetailCard>
       )}
+        <CommentsDetails idNews={id} />
     </>
   );
 };

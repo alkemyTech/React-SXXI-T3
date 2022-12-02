@@ -1,0 +1,133 @@
+/*barraComentarios*/
+.contenedorList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+.contenedor {
+  width: 60%;
+}
+ul {
+  border-bottom: 2px solid black;
+}
+ul li {
+  border-right: 2px solid black;
+  padding: 10px;
+}
+ul li:last-child {
+  border-right: none;
+}
+.nav {
+  margin-top: 5%;
+}
+/* cardComentarios*/
+#card {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0px 20px;
+  padding: 10px;
+  width: 60wv;
+  height: auto;
+  font-size: medium;
+}
+
+#card img {
+  height: 15%;
+  width: 15%;
+}
+.contenidoNombreFecha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+}
+.contenidoComentario {
+  width: 100%;
+  align-items: center;
+  padding: 10px;
+}
+#contenidoBody {
+  padding: 10px;
+  font-size: 17px;
+  width: 70%;
+}
+.btn-primary {
+  border-radius: 15px;
+}
+/*responsive*/
+@media screen and (max-width: 900px) {
+  .contenedor {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  /*barraComentarios*/
+  .contenedorList {
+    padding: 5%;
+    display: flex;
+  }
+  .contenedor {
+    display: contents;
+    width: 100% !important;
+  }
+  ul {
+    border-top: 1px solid black;
+    border-bottom: 0px;
+    font-size: auto;
+  }
+
+  ul li {
+    padding: 10px;
+    border: 0px;
+  }
+  ul li:last-child {
+    border-right: none;
+  }
+  .nav {
+    margin-top: 5%;
+  }
+  /*cardComentarios*/
+  #card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 20px;
+    padding: 10px;
+    width: 100wv;
+    height: auto;
+    font-size: medium;
+    margin-top: -20%;
+  }
+
+  #card img {
+    height: 60%;
+    width: 60%;
+  }
+  .contenidoNombreFecha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+  }
+  .contenidoComentario {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+  }
+  #contenidoBody {
+    padding: 10px;
+    font-size: 17px;
+    width: 100%;
+  }
+  .btn-primary {
+    border-radius: 15px;
+  }
+}

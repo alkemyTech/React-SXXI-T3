@@ -22,7 +22,10 @@ const handleError = (error) => {
 };
 
 const getAll = (resource, query) => {
-    return apiONG.get(`/${resource}?${query}`)
+    return apiONG
+    .get(`/${resource}?${query}`)
+    .then(handleResponse)
+    .catch(handleError)
 };
 
 const getSingle = (resource, id) => {

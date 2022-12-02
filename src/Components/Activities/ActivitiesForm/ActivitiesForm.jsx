@@ -6,25 +6,25 @@ import Swal from "sweetalert2";
 import { getBase64 } from "../../../utils/getBase64";
 import { CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import { apiONG } from "../../../Services/apiONG";
 import { initialValues, validationSchema } from "./constants";
 
 import "../../FormStyles.css";
+import { apiActivity } from "../../../Services/apiService";
 
 const updateActivity = (activity) => {
-  apiONG
-    .put(`/activities/${activity.id}`, activity)
+  apiActivity
+    .put(`${activity.id}`, activity)
     .then((response) => {
       Swal.fire("OK", "Actividad guardada correctamente!", "success");
     })
     .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
+      Swal.fire("Oops!", err, "error");
     });
 };
 
 const createActivity = (activity) => {
-  apiONG
-    .post("/activities", activity)
+  apiActivity
+    .post(activity)
     .then((response) => {
       Swal.fire("OK", "Actividad creada correctamente!", "success");
     })
@@ -82,11 +82,11 @@ const ActivitiesForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(true);
-      apiONG
-        .get(`/activities/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({ ...data, image: "" }));
-          setActivity(data);
+      apiActivity
+        .getSingle(`${id}`)
+        .then((response) => {
+          setValues(() => ({ ...response, image: "" }));
+          setActivity(response);
         })
         .catch((error) => {
           const errorMessage = error?.response?.data?.message || error.message;

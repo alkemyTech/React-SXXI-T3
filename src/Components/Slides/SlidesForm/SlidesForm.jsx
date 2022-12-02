@@ -4,13 +4,14 @@ import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/slideService";
-import { apiONG } from "../../../Services/apiONG";
 import { initialValues, validationSchema } from "./constants";
 import { CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { defaultImage } from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
+import { apiSlide } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const SlidesForm = () => {
   const { id } = useParams();
@@ -71,21 +72,17 @@ const SlidesForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(() => true);
-      apiONG
-        .get(`/slides/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({ ...data, image: "" }));
-          setImagePreview(() => data.image);
+      apiSlide
+        .getSingle(`${id}`)
+        .then(rensponse => {
+          setValues(() => ({ ...rensponse, image: "" }));
+          setImagePreview(() => rensponse.image);
           setIsFetching(() => false);
         })
         .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          setIsFetching(() => false);
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
-          });
+          
+          setIsFetching(false);
+          errorAlert();
         });
     }
   }, [id, setValues]);

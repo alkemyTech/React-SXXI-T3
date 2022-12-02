@@ -2,31 +2,32 @@ import { useFormik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { apiONG } from "../../../Services/apiONG";
 import { initialValues, validationSchema } from "./constants";
 import "../../FormStyles.css";
 import { CKEditorField, InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
+import { apiNews } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const updateNew = (oneNew) => {
-  apiONG
-    .put(`/news/${oneNew.id}`, oneNew)
+  apiNews
+    .put(`${oneNew.id}`, oneNew)
     .then((response) => {
       Swal.fire("OK", "Novedad guardada correctamente!", "success");
     })
     .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
+      errorAlert();
     });
 };
 
 const createNew = (oneNew) => {
-  apiONG
-    .post("/news", oneNew)
+  apiNews
+    .post(oneNew)
     .then((response) => {
       Swal.fire("OK", "Novedad creada correctamente!", "success");
     })
     .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
+      errorAlert();
     });
 };
 
@@ -100,28 +101,24 @@ const NewsForm = () => {
   useEffect(() => {
     let options = [];
     setIsFetching(true);
-    apiONG.get(`/categories`).then(({ data: { data } }) => {
-      data.map(
+    apiNews
+    .getAll()
+    .then(response => {
+      response.map(
         (x) =>
           (options = [...options, { value: parseInt(x.id), label: x.name }])
       );
       setCategories(options);
       if (id) {
-        apiONG
-          .get(`/news/${id}`)
-          .then(({ data: { data } }) => {
-            setValues(() => ({ ...data, image: "" }));
-            setOneNew(data);
+        apiNews
+          .getSingle(`${id}`)
+          .then((response) => {
+            setValues(() => ({ ...response, image: "" }));
+            setOneNew(response);
           })
           .catch((error) => {
-            const errorMessage =
-              error?.response?.data?.message || error.message;
-            Swal.fire({
-              title: errorMessage,
-              icon: "error",
-              timer: 5000,
+            errorAlert();
             });
-          });
         setIsEdit(true);
       }
     });

@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import Swal from 'sweetalert2';
 
 import {createValidationSchema, editValidationSchema, initialValues} from "./constants";
-import { apiONG } from '../../../Services/apiONG';
 import { onSubmitService } from '../../../Services/membersFromServices';
 import { getBase64 } from '../../../utils/getBase64';
 import {CKEditorField, InputField} from "../../Form";
@@ -12,6 +11,8 @@ import Button from "../../Button/Button";
 import {defaultImage} from "../../../utils/defaultImage";
 
 import '../../FormStyles.css';
+import { apiMember } from '../../../Services/apiService';
+import { errorAlert } from '../../Feedback/AlertService';
 
 const MembersForm = () => {
   const { id } = useParams();
@@ -85,24 +86,17 @@ const MembersForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(() => (true))
-      apiONG
-        .get(`/members/${id}`)
-        .then(({ data: { data } }) => {
-          setValues({ ...data, image: '' })
-          setImagePreview(data.image)
+      apiMember
+        .get(`${id}`)
+        .then((response) => {
+          setValues({ ...response, image: '' })
+          setImagePreview(response.image)
           setIsFetching(false)
         })
         .catch((error) => {
-          const errorMessage =
-            error?.response?.data?.message
-            || error.message;
-          setIsFetching(() => (false))
-          Swal.fire({
-            title: errorMessage,
-            icon: 'error',
-            timer: 5000
-          })
-        })
+          setIsFetching(() => (false));
+          errorAlert();
+        });
     }
 
   }, [id, setValues])

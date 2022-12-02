@@ -43,9 +43,9 @@ export const authSlice = createSlice({
             sessionStorage.removeItem('user');
             handleState(state, 'idle', null, null, null);
         },
-        cleanError: (state => {
+        cleanError: (state) => {
             handleState(state, 'idle', null, null, null)
-        })
+        }
     },
     extraReducers: (builder) => {
         builder

@@ -4,7 +4,7 @@ const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export const infoAlert = (title, description, timer, bar) => {
+export const infoAlert = (title = 'OK', description = '', timer, bar) => {
 
   title = capitalize(title.trim());
   description = capitalize(description.trim());

@@ -8,6 +8,7 @@ import "../CardListStyles.css";
 import SearchInput from "../SearchInput";
 import { SkeletonCard } from "../Feedback/SkeletonCard";
 import { apiActivity } from "../../Services/apiService";
+import { errorAlert } from "../Feedback/AlertService";
 
 const ActivitiesList = () => {
   const [activities, setActivities] = useState([]);
@@ -15,10 +16,14 @@ const ActivitiesList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    apiActivity.getAll().then((response) => {
-      if (response) setActivities(response);   
-      setIsLoading(false);
-    });
+    apiActivity.getAll()
+    .then((response) => {
+      setActivities(response);
+    })
+    .catch((error) => {
+      errorAlert();
+    })
+    .finally(() => setIsLoading(false));
   }, []);
 
   const handleChange = debounce((event) => {
@@ -29,10 +34,14 @@ const ActivitiesList = () => {
     if (cleanValue.length >= 3) {
       setIsLoading(true);
       const query = 'search=' + cleanValue;
-      apiActivity.getAll(query).then((response) => {
-        if (response) setActivities(response);  
-        setIsLoading(false);
-      });
+      apiActivity.getAll(query)
+      .then((response) => {
+        setActivities(response);  
+      })
+      .catch((error) => {
+        errorAlert();
+      })
+      .finally(() => setIsLoading(false));
     }
   }, 1000);
 
@@ -41,9 +50,12 @@ const ActivitiesList = () => {
     setIsLoading(true);
     const query = 'search=' + search;
     apiActivity.getAll(query).then((response) => {
-      if (response) setActivities(response);
-      setIsLoading(false);
-    });
+      setActivities(response);
+    })
+    .catch((error) => {
+      errorAlert();
+    })
+    .finally(() => setIsLoading(false));
   };
 
   return (
@@ -78,7 +90,9 @@ const ActivitiesList = () => {
           })
         ) : (
           <div className="container m-5">
-            <p className="text-center fs-3">No hay actividades para mostrar...</p>
+            <p className="text-center fs-3">
+              No hay actividades para mostrar...
+            </p>
           </div>
         )}
       </ul>

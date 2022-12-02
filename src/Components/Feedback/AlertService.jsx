@@ -18,7 +18,7 @@ export const infoAlert = (title, description, timer, bar) => {
   });
 };
 
-export const errorAlert = (title, description, timer, bar) => {
+export const errorAlert = (title = "Ocurrió un error", description = "Por favor, intenta más tarde...", timer, bar) => {
 
   title = capitalize(title.trim());
   description = capitalize(description.trim());

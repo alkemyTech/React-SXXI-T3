@@ -34,6 +34,7 @@
     right: 20px;
 }
 
-.logo-header img {
+.logo-header a,
+.logo-header a img {
     height: 100%;
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useFormik } from "formik";
-import Swal from "sweetalert2";
 
 import { getBase64 } from "../../../utils/getBase64";
 import { useState } from "react";
@@ -11,7 +10,7 @@ import { defaultImage } from "../../../utils/defaultImage";
 
 import styles from "./organizationForm.module.css";
 import { apiOrganization } from "../../../Services/apiService";
-import { errorAlert } from "../../Feedback/AlertService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const OrganizationForm = () => {
   const imageRef = useRef();
@@ -29,10 +28,7 @@ const OrganizationForm = () => {
           setImagePreview(() => result);
         })
         .then(() => {
-          Swal.fire({
-            title: "Organizacion Actualizada",
-            icon: "success",
-          });
+          infoAlert({title:"Organizacion Actualizada"});
         });
     }, 2000);
   };

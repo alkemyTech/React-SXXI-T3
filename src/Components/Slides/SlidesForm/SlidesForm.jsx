@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/slideService";
 import { initialValues, validationSchema } from "./constants";
@@ -38,11 +37,7 @@ const SlidesForm = () => {
 
     fileReader.onerror = () => {
       setSubmitting(false);
-      Swal.fire({
-        title: "Error al procesar la imagen",
-        icon: "error",
-        timer: 5000,
-      });
+      errorAlert("Error al procesar la imagen");
     };
 
     fileReader.readAsDataURL(file);

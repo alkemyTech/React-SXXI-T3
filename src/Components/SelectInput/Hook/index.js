@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { apiONG } from '../../../Services/apiONG';
 
-import Swal from 'sweetalert2';
+import { errorAlert } from '../../Feedback/AlertService';
 
 export const useSelectInput = (source) => {
 
@@ -19,14 +19,7 @@ export const useSelectInput = (source) => {
                     ]))
                 })
                 .catch((error) => {
-                    const errorMessage =
-                        error?.response?.data?.message
-                        || error.message;
-                    Swal.fire({
-                        title: errorMessage,
-                        icon: 'error',
-                        timer: 5000
-                    })
+                    errorAlert();
                 })
             : setOptions(() => (source.resource))
 

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Swal from "sweetalert2";
 
 import { apiOrganization } from "../../../Services/apiService";
 import { errorAlert } from "../../Feedback/AlertService";

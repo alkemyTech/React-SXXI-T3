@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
 import { apiONG } from '../../../Services/apiONG';
+import { errorAlert } from '../../Feedback/AlertService';
 
 export const useBackofficeInfo = (path) => {
     const [route, setRoute] = useState(path)
@@ -15,15 +15,8 @@ export const useBackofficeInfo = (path) => {
                 setInfo(() => (data))
             })
             .catch((error) => {
-                const errorMessage =
-                    error?.response?.data?.message
-                    || error.message;
                 setIsFetching(() => (false))
-                Swal.fire({
-                    title: errorMessage,
-                    icon: 'error',
-                    timer: 5000
-                })
+                errorAlert();
             })
     }, [route])
 

@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import Swal from 'sweetalert2';
 
 import {createValidationSchema, editValidationSchema, initialValues} from "./constants";
 import { onSubmitService } from '../../../Services/membersFromServices';
@@ -44,11 +43,7 @@ const MembersForm = () => {
           })
           .catch(({ message }) => {
             setSubmitting(false)
-            Swal.fire({
-              title: message,
-              icon: 'error',
-              timer: 5000
-            })
+            errorAlert("Error al procesar la imagen");
           });
     }else{
         onSubmitService(

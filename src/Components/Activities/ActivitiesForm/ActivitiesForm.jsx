@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import Swal from "sweetalert2";
 
 import { getBase64 } from "../../../utils/getBase64";
 import { CKEditorField, InputField } from "../../Form";
@@ -10,13 +9,13 @@ import { initialValues, validationSchema } from "./constants";
 
 import "../../FormStyles.css";
 import { apiActivity } from "../../../Services/apiService";
-import { errorAlert } from "../../Feedback/AlertService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const updateActivity = (activity) => {
   apiActivity
     .put(`${activity.id}`, activity)
     .then((response) => {
-      Swal.fire("OK", "Actividad guardada correctamente!", "success");
+      infoAlert();
     })
     .catch((err) => {
       errorAlert();
@@ -27,7 +26,7 @@ const createActivity = (activity) => {
   apiActivity
     .post(activity)
     .then((response) => {
-      Swal.fire("OK", "Actividad creada correctamente!", "success");
+      infoAlert();
     })
     .catch((err) => {
       errorAlert();

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import Swal from "sweetalert2";
 
 import { InputField, CKEditorField } from "../../Form";
 import Button from "../../Button/Button";
@@ -62,11 +61,7 @@ const ProjectsForm = () => {
         else createProject(projectToSave);
       })
       .catch(() => {
-        Swal.fire({
-          title: "Tuvimos problemas con la carga de la imagen",
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert("Error al procesar la imagen");
       });
     setSubmitting(false);
   };

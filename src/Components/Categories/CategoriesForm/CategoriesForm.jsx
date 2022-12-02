@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/categoryFormServices";
 import { CKEditorField, InputField } from "../../Form";
@@ -36,11 +35,7 @@ const CategoriesForm = () => {
       })
       .catch(({ message }) => {
         setSubmitting(false);
-        Swal.fire({
-          title: message,
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert("Error al procesar la imagen");
       });
   };
 

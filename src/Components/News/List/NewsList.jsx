@@ -47,7 +47,7 @@ const NewsList = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    getNews(search)
+    apiNews.getAll(`search=${search}`)
       .then((response) => {
         setNews(response);
       })

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Slider from "../Slides/Slider/Slider";
 import NewsList from "./NewsList/NewsList";
 import { getSlides } from "../../Services/slidesServices/slidesService";
-import { getOrganizationInfo } from "../../Services/organizationService/organizationService";
 import { getNews } from "../../Services/newsService/newsService";
 
 import "./Home.css";
@@ -11,6 +10,7 @@ import "./Home.css";
 import { Spinner } from "../Feedback/Spinner/Spinner";
 import { errorAlert } from "../Feedback/AlertService";
 import { SkeletonCard } from "../Feedback/SkeletonCard";
+import { apiOrganization } from "../../Services/apiService";
 
 const Home = () => {
   const [slideList, setSlideList] = useState([]);
@@ -30,7 +30,7 @@ const Home = () => {
         setIsFetchingS(false);
       });
 
-    getOrganizationInfo()
+      apiOrganization.getAll()
       .then((response) => {
         setWelcomeText(response.welcome_text);
       })

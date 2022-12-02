@@ -1,19 +1,18 @@
 import { useFormik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import Swal from "sweetalert2";
 import { initialValues, validationSchema } from "./constants";
 import "../../FormStyles.css";
 import { CKEditorField, InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
 import { apiNews } from "../../../Services/apiService";
-import { errorAlert } from "../../Feedback/AlertService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const updateNew = (oneNew) => {
   apiNews
     .put(`${oneNew.id}`, oneNew)
     .then((response) => {
-      Swal.fire("OK", "Novedad guardada correctamente!", "success");
+      infoAlert("OK", "Novedad guardada correctamente!");
     })
     .catch((err) => {
       errorAlert();
@@ -24,7 +23,7 @@ const createNew = (oneNew) => {
   apiNews
     .post(oneNew)
     .then((response) => {
-      Swal.fire("OK", "Novedad creada correctamente!", "success");
+      infoAlert("OK", "Novedad creada correctamente!");
     })
     .catch((err) => {
       errorAlert();
@@ -73,11 +72,7 @@ const NewsForm = () => {
         }
       })
       .catch(() => {
-        Swal.fire({
-          title: "Tuvimos problemas con la carga de la imagen",
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert('Error al cargar la imagen');
       });
     setSubmitting(false);
   };

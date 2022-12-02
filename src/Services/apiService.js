@@ -89,3 +89,13 @@ export const apiTestimonials = new ApiCore({
     delete: true,
     url: 'testimonials'
 });
+
+export const apiProject = new ApiCore({
+    getAll: true,
+    getSingle: true,
+    post: true,
+    put: true,
+    patch: false,
+    delete: true,
+    url: 'projects'
+});

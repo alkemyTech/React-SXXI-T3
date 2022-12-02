@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 
 import Slider from "../Slides/Slider/Slider";
 import NewsList from "./NewsList/NewsList";
-import { getSlides } from "../../Services/slidesServices/slidesService";
-import { getNews } from "../../Services/newsService/newsService";
 
 import "./Home.css";
 
 import { Spinner } from "../Feedback/Spinner/Spinner";
 import { errorAlert } from "../Feedback/AlertService";
 import { SkeletonCard } from "../Feedback/SkeletonCard";
-import { apiOrganization } from "../../Services/apiService";
+import { apiNews, apiOrganization, apiSlide } from "../../Services/apiService";
 
 const Home = () => {
   const [slideList, setSlideList] = useState([]);
@@ -18,9 +16,10 @@ const Home = () => {
   const [newsList, setNewsList] = useState([]);
   const [isFetchingS, setIsFetchingS] = useState(true);
   const [isFetchingN, setIsFetchingN] = useState(true);
+  const limit = 4;
 
   useEffect(() => {
-    getSlides()
+    apiSlide.getAll("limit=30")
       .then((response) => {
         setSlideList(response);
         setIsFetchingS(false);
@@ -38,7 +37,7 @@ const Home = () => {
         errorAlert();
       });
 
-    getNews(null, 4)
+    apiNews.getAll(`limit=${limit}`)
       .then((response) => {
         setNewsList(response);
         setIsFetchingN(false);

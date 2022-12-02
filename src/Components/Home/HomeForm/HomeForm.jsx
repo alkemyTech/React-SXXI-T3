@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { getSlides } from "../../../Services/slidesServices/slidesService";
 import { TextAreaField } from "../../Form";
 import SliderTemplate from "../../Slides/Slider/Template/SliderTemplate";
 import Carousel from "../../Carousel/Carousel";
@@ -10,7 +9,7 @@ import { ReactComponent as AddSvg } from "../../../assets/svg/home/plus-solid.sv
 import { validationSchema, initialValues } from "./constants";
 
 import "./HomeForm.css";
-import { apiOrganization } from "../../../Services/apiService";
+import { apiOrganization, apiSlide } from "../../../Services/apiService";
 
 const HomeForm = () => {
   const [slides, setSlides] = useState([]);
@@ -47,7 +46,7 @@ const HomeForm = () => {
       .finally(() => {
         setIsFetching(false);
       });
-    getSlides()
+      apiSlide.getAll("limit=30")
       .then((response) => {
         const actualSlides = response
           .sort((a, b) => a.order < b.order)

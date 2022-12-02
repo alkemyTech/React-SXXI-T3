@@ -3,35 +3,34 @@ import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
-import { apiONG } from "../../../Services/apiONG";
 import { InputField, CKEditorField } from "../../Form";
 import Button from "../../Button/Button";
 import { initialValues, validationSchema } from "./constants";
 import { getBase64 } from "../../../utils/getBase64";
 
 import "../../FormStyles.css";
+import { apiProject } from "../../../Services/apiService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const updateProject = (project) => {
-  apiONG
-    .put(`/projects/${project.id}`, project)
+  apiProject
+    .put(`${project.id}`, project)
     .then((response) => {
-      Swal.fire("OK", "Proyecto guardado correctamente!", "success");
+      infoAlert("OK", "Proyecto guardado correctamente!");
     })
     .catch((err) => {
-      console.error(err);
-      Swal.fire("Oops!", err.response?.data?.message, "error");
+      errorAlert();
     });
 };
 
 const createProject = (project) => {
-  apiONG
-    .post("/projects", project)
+  apiProject
+    .post(project)
     .then((response) => {
-      Swal.fire("OK", "Proyecto creado correctamente!", "success");
+      infoAlert("OK", "Proyecto creado correctamente!");
     })
     .catch((err) => {
-      console.error(err);
-      Swal.fire("Oops!", err.response?.data?.message, "error");
+      errorAlert();
     });
 };
 
@@ -91,23 +90,18 @@ const ProjectsForm = () => {
     setIsFetching(true);
 
     if (id) {
-      apiONG
-        .get(`/projects/${id}`)
-        .then(({ data: { data } }) => {
+      apiProject
+        .getSingle(`${id}`)
+        .then((response) => {
           setValues(() => ({
-            ...data,
+            ...response,
             image: "",
-            due_date: ISOtoYYYYmmDD(data.due_date),
+            due_date: ISOtoYYYYmmDD(response.due_date),
           }));
-          setProject(data);
+          setProject(response);
         })
         .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
-          });
+          errorAlert();
         });
       setIsEdit(true);
     }

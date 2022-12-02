@@ -4,12 +4,14 @@ import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 
 import { put, post } from "../../../Services/userService";
-import { apiONG } from "../../../Services/apiONG";
+
 import { InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
 import { initialValues, validationSchema } from "./constants";
 
 import "../../FormStyles.css";
+import { apiUser } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const UsersForm = () => {
   const { id } = useParams();
@@ -85,21 +87,16 @@ const UsersForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(() => true);
-      apiONG
-        .get(`/users/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({ ...data, image: "", role: data.role_id }));
-          setImagePreview(() => data.profile_image);
-          setIsFetching(() => false);
+      apiUser
+        .getSingle(`${id}`)
+        .then(response => {
+          setValues(() => ({ ...response, image: "", role: response.role_id }));
+          setImagePreview(() => response.profile_image);
+          setIsFetching(false);
         })
         .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          setIsFetching(() => false);
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
-          });
+          setIsFetching(false);
+          errorAlert();
         });
     }
   }, [id, setValues]);

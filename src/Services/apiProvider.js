@@ -43,14 +43,14 @@ const post = (resource, model) => {
 
 const put = (resource, id, model) => {
     return apiONG
-    .get(`/${resource}/${id}`, model)
+    .put(`/${resource}/${id}`, model)
     .then(handleResponse)
     .catch(handleError)
 };
 
 const patch = (resource, id, model) => {
     return apiONG
-    .get(`/${resource}/${id}`, model)
+    .patch(`/${resource}/${id}`, model)
     .then(handleResponse)
     .catch(handleError)
 };

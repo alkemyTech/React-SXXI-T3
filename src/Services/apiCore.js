@@ -21,14 +21,14 @@ export class ApiCore {
     }
 
     if (options.put) {
-      this.put = (model) => {
-        return apiProvider.put(options.url, model);
+      this.put = (id, model) => {
+        return apiProvider.put(options.url, id, model);
       };
     }
 
     if (options.patch) {
-      this.patch = (model) => {
-        return apiProvider.patch(options.url, model);
+      this.patch = (id, model) => {
+        return apiProvider.patch(options.url, id, model);
       };
     }
 

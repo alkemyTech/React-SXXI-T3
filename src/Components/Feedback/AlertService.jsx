@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 
 const capitalize = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string?.charAt(0).toUpperCase() + string?.slice(1);
 };
 
 export const infoAlert = (title, description, timer, bar) => {
@@ -20,8 +20,8 @@ export const infoAlert = (title, description, timer, bar) => {
 
 export const errorAlert = (title, description, timer, bar) => {
 
-  title = capitalize(title.trim());
-  description = capitalize(description.trim());
+  title = capitalize(title?.trim());
+  description = capitalize(description?.trim());
 
   Swal.fire({
     title: title,

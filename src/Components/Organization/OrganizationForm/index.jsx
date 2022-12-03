@@ -158,7 +158,7 @@ const OrganizationForm = () => {
         />
         <InputField
           label="Modificar logo"
-          name="image"
+          name="logo"
           value={values.logo}
           onChange={handleChange}
           onBlur={handleBlur}

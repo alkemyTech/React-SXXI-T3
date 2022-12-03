@@ -5,6 +5,7 @@ import Button from "../../Button/Button";
 import {useMobile} from "../../../hooks/useIsMobile";
 
 import "./ListCard.css";
+import {defaultImage} from "../../../utils/defaultImage";
 
 export const ListCard = ({
   id,
@@ -34,7 +35,7 @@ export const ListCard = ({
     <div className={`list-card ${variant}`}>
       <div className="list-card-image">
         <div className="list-card-divimg">
-          <img src={image} alt={name} />
+          <img src={image || defaultImage} alt={name} />
           <h6 className="list-card-title">{name}</h6>
         </div>
 

@@ -63,6 +63,18 @@
   width: 100%;
   border-bottom-right-radius: var(--container-border);
   border-bottom-left-radius: var(--container-border);
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.primary .list-card-title{
+  color: var(--color-on-primary-card-light)
+}
+.secondary .list-card-title{
+  color: var(--color-on-secondary-card-light)
+}
+.tertiary .list-card-title{
+  color: var(--color-on-tertiary-card-light)
 }
 
 .list-card-content {

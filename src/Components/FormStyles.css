@@ -138,7 +138,7 @@ button.ck{
   color: var(--text-color-placeholder);
 }
 
-form input, select{
+form input, select, textarea{
   color: var(--text-color-on-background);
 }
 

@@ -8,15 +8,11 @@ body {
   font-size: 16px;
   background-color: var(--color-background);
   color: var(--text-color-on-background);
-  transition: 0.6s linear;
+  transition: background-color 0.6s;
 }
 
-nav{
-  transition: 0.6s linear;
-}
-
-footer{
-  transition: 0.6s linear;
+nav, footer{
+  transition: background-color 0.6s;
 }
 
 textarea{

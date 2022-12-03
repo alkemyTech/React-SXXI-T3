@@ -1,6 +1,7 @@
 nav:first-child .container {
     width: fit-content;
     color: var(--text-color);
+    color: var(--text-color-on-background)
 }
 
 nav.navbar{
@@ -8,6 +9,9 @@ nav.navbar{
     padding-bottom: 0;
 }
 
+nav {
+	background-color: var(--color-header) !important;
+}
 
 .header-buttons{
     gap: 10px;
@@ -17,6 +21,10 @@ nav.navbar{
 button.header-button{
     width: 100px;
     font-size: 13px;
+}
+
+[theme="dark"] .button.header-button{
+    color: black;
 }
 
 @media (min-width: 1200px){

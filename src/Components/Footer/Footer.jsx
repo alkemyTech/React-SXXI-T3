@@ -57,8 +57,8 @@ export const Footer = () => {
             <Link to="/nosotros">Nosotros</Link>
             <Link to="/actividades">Actividades</Link>
             <Link to="/novedades">Novedades</Link>
-            <Link to="/testimonios">Testimonios</Link>
             <Link to="/contacto">Contacto</Link>
+            <Link to="/donar">Contribuye</Link>
           </div>
         </div>
         <hr />

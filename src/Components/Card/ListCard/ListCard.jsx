@@ -33,10 +33,10 @@ export const ListCard = ({
   return (
     <div className={`list-card ${variant}`}>
       <div className="list-card-image">
-        <div style={{backgroundImage: `url(${image})`}} className="list-card-divimg">
+        <div className="list-card-divimg">
+          <img src={image} alt={name} />
           <h6 className="list-card-title">{name}</h6>
         </div>
-        {/*<img src={image} alt={name} />*/}
 
       </div>
       <div className="list-card-content">

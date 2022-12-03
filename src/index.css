@@ -6,6 +6,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+  background-color: var(--color-background);
+  color: var(--text-color-on-background);
+  transition: 0.6s linear;
+}
+
+nav{
+  transition: 0.6s linear;
+}
+
+footer{
+  transition: 0.6s linear;
+}
+
+textarea{
+  resize: none;
 }
 
 body::-webkit-scrollbar {

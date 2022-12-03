@@ -1,5 +1,5 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Button from "../Button/Button";
 
 export const ImageModal = ({url, show, onHide}) => {
     return (
@@ -19,7 +19,7 @@ export const ImageModal = ({url, show, onHide}) => {
                     <img src={url} alt={url} className="modal-body-image"/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={onHide}>Cerrar</Button>
+                    <Button onClick={onHide} label="Cerrar" variant="primary"/>
                 </Modal.Footer>
             </Modal>
         </div>

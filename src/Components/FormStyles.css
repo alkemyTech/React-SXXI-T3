@@ -1,6 +1,6 @@
 .main-container {
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,7 +8,7 @@
 }
 
 .form-container {
-  box-shadow: 0 0 15px 5px rgba(141, 127, 127, 0.123);
+  box-shadow: 0 0 15px 5px var(--container-shadow);
   padding: 20px;
   border-radius: var(--container-border);
   height: 100%;
@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: var(--color-surface);
 }
 
 button.form-button {
@@ -26,12 +27,12 @@ button.form-button {
 
 input[type="file"]::-webkit-file-upload-button {
   background-color: var(--color-primary);
-  color: white;
   border: transparent;
   padding: 10px 15px;
   border-radius: var(--border);
   margin-right: 10px;
   cursor: pointer;
+  color: var(--text-color-inverted);
 }
 
 input[type="file"]::-webkit-file-upload-button:hover {
@@ -54,7 +55,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
   border: 2px solid rgba(0, 0, 0, 0.196);
   height: 200px;
   width: 200px;
-  border-radius: 10%;
+  border-radius: 50%;
   background-position: center;
   background-size: cover;
 }
@@ -63,21 +64,57 @@ input[type="file"]::-webkit-file-upload-button:hover {
   width: 100%;
 }
 
-.input-field::placeholder {
-  color: rgba(42, 40, 40, 0.528);
-}
-
 .ck.ck-editor__editable_inline {
   padding: 0 15px !important;
 }
 
 .ck.ck-editor__editable_inline {
   padding: 0 15px !important;
+}
+
+button.ck{
+  color: var(--text-color-on-background)!important;
+}
+
+.ck-placeholder::before{
+  color: var(--text-color-placeholder)!important;
 }
 
 .ck {
   height: 150px;
-  border-radius: var(--border) !important;
+  border-radius: 0 0 var(--border) var(--border)!important;
+  background-color: var(--color-surface-variant)!important;
+  color: var(--text-color-on-background);
+}
+
+.ck.ck-toolbar{
+  border-color: var(--color-outline-border)!important
+}
+
+.ck.ck-editor__editable_inline{
+  border-color: var(--color-outline-border)!important
+}
+
+.ck.ck-editor__top{
+  border-radius: var(--border) var(--border) 0 0!important;
+}
+
+.ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar, .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners{
+  border-radius: var(--border) var(--border) 0 0!important;
+}
+
+.ck.error .ck.ck-toolbar{
+  border-color: var(--color-error)!important;
+  border-width: 2px!important;
+}
+
+.ck.error .ck.ck-editor__editable_inline{
+  border-color: var(--color-error)!important;
+  border-width: 0 2px 2px!important;
+}
+
+.ck.error:focus {
+  outline-color: var(--color-error);
 }
 
 .form-title {
@@ -93,18 +130,20 @@ input[type="file"]::-webkit-file-upload-button:hover {
   align-content: flex-start;
 }
 
-.preview-container {
-  align-self: center;
-  border: 2px solid rgba(0, 0, 0, 0.196);
-  height: 200px;
-  width: 200px;
-  border-radius: 999px;
-  background-position: center;
-  background-size: cover;
-}
-
 .preview-container img {
   width: 100%;
+}
+
+::placeholder{
+  color: var(--text-color-placeholder);
+}
+
+form input, select{
+  color: var(--text-color-on-background);
+}
+
+select .select-placeholder{
+  color: var(--text-color-placeholder);
 }
 
 @media screen and (max-width: 650px) {

@@ -18,6 +18,14 @@
     background-color: var(--color-header);
 }
 
+.sidebar-active a{
+    color: var(--color-on-tertiary-card);
+}
+
+.sidebar-active a:hover{
+    color: var(--color-on-tertiary-card);
+}
+
 @media screen and (min-width: 450px) {
     .sidebar-active {
         width: 400px;

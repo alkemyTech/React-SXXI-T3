@@ -10,7 +10,6 @@ import Button from "../../Button/Button";
 import { initialValues, validationSchema } from "./constants";
 
 import "../../FormStyles.css";
-
 const UsersForm = () => {
   const { id } = useParams();
   const imageRef = useRef();
@@ -98,7 +97,7 @@ const UsersForm = () => {
           Swal.fire({
             title: errorMessage,
             icon: "error",
-            timer: 5000,
+            timer: 25000,
           });
         });
     }

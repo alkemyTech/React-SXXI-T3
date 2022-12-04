@@ -57,7 +57,7 @@ const HeaderSession = ({showInfo, handleShowInfo, switchTheme, theme}) => {
                     {isAdmin &&
                         <Button label={isBackoffice ? 'Home' : 'Backoffice'} onClick={handleRedirect} className="header-button hs-dropdown-item" variant="primary"/>
                     }
-                    <Button label="Cerrar sesión" onClick={handleRedirect} className="header-button hs-dropdown-item" variant="primary"/>
+                    <Button label="Cerrar sesión" onClick={handleLogOut} className="header-button hs-dropdown-item" variant="primary"/>
                 </div>
             }
         </div>

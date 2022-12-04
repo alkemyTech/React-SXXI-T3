@@ -149,6 +149,7 @@ select .select-placeholder{
 @media screen and (max-width: 650px) {
   .form-container {
     box-shadow: none;
+    background-color: unset;
     box-sizing: border-box;
     width: 100%;
     margin: 15px auto;

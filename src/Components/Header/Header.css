@@ -41,6 +41,18 @@ div.notMobile{
     display: none;
 }
 
+.nav.header-button-container{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.button.header-button{
+    font-size: 14px;
+    width: 120px;
+}
+
 @media (min-width: 992px) {
     div.notMobile{
         display: block;
@@ -59,6 +71,10 @@ div.notMobile{
         padding: 10px;
         gap: 10px;
     }
+    
+    .nav.navbar-nav{
+        align-items: center;
+    }
 }
 
 @media (min-width: 1050px) {
@@ -74,6 +90,10 @@ div.notMobile{
     
     .nav.header-dropdown{
         margin-left: 0;
+    }
+    .nav.header-button-container{
+        margin-bottom: 10px;
+        align-self: center;
     }
 }
 

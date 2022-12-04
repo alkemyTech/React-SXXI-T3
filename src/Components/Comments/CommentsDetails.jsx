@@ -39,7 +39,10 @@ const CommentsDetails = ({ idNews }) => {
       } else {
         let id_user = comment[i].user_id;
         let userAux = userPatch.find((user_id) => user_id.id === id_user);
-        userId.push(userAux);
+        if(userId.includes(userAux)){
+        }else{
+          userId.push(userAux);
+        }
       }
     }
   }

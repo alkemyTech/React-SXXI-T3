@@ -21,7 +21,15 @@ const CommentsDetails = ({ idNews }) => {
       setComment(comments);
     });
   }, []);
-
+  useEffect(() => {
+    apiONG
+      .get(`/users`)
+      .then((response) => {
+        const user = response.data.data;
+        setUserPatch(user);
+      })
+      .catch((error) => {});
+  }, []);
   const commentsAux = [];
   const userId = [];
   for (let i = 0; i < comment.length; i++) {
@@ -29,22 +37,12 @@ const CommentsDetails = ({ idNews }) => {
       commentsAux.push(comment[i]);
       if (userId.includes(Number(comment[i].user_id))) {
       } else {
-        userId.push(comment[i].user_id);
-        localStorage.setItem("user_id", userId[0]);
+        let id_user = comment[i].user_id;
+        let userAux = userPatch.find((user_id) => user_id.id === id_user);
+        userId.push(userAux);
       }
     }
   }
-
-  useEffect(() => {
-    const userId = localStorage.getItem("user_id");
-    apiONG
-      .get(`/users/${userId}`)
-      .then((response) => {
-        const user = response.data.data;
-        setUserPatch(user);
-      })
-      .catch((error) => {});
-  }, []);
   if (loading) {
     return (
       <>
@@ -163,7 +161,16 @@ const CommentsDetails = ({ idNews }) => {
                       <div className=" p-3 card m-2  " id="contenidoBody">
                         <div className="contenidoNombreFecha">
                           <h5 className="h5 g-color-gray-dark-v1 mb-0">
-                            <strong>{userPatch.name}</strong>
+                            {userId.map((user, index) => {
+                              return (
+                                  <strong key={index}>
+                                    {comentario.user_id===user.id
+                                    ? user.name :
+                                    ""
+                                    }
+                                  </strong>
+                              );
+                            })}
                           </h5>
                           <span className="text-muted ">
                             {comentario.updated_at.slice(0, 10)}

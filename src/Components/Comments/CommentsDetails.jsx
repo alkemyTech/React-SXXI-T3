@@ -130,10 +130,7 @@ const CommentsDetails = ({ idNews }) => {
                         src={comentario.image}
                         alt=""
                       />
-                      <div
-                        className=" p-3 card m-2 bg-light"
-                        id="contenidoBody"
-                      >
+                      <div className=" p-3 card m-2  " id="contenidoBody">
                         <div className="contenidoNombreFecha">
                           <h5 className="h5 g-color-gray-dark-v1 mb-0">
                             <strong>Usuario</strong>

@@ -34,18 +34,23 @@ const CommentsDetails = ({ idNews }) => {
   const userId = [];
   for (let i = 0; i < comment.length; i++) {
     if (comment[i].new_id === Number(idNews)) {
-      commentsAux.push(comment[i]);
+      if(comment[i]!== undefined){
+        commentsAux.push(comment[i]);
+      }
       if (userId.includes(Number(comment[i].user_id))) {
       } else {
         let id_user = comment[i].user_id;
         let userAux = userPatch.find((user_id) => user_id.id === id_user);
         if(userId.includes(userAux)){
         }else{
-          userId.push(userAux);
+          if(userAux!==undefined){
+            userId.push(userAux);
+          }
         }
       }
     }
   }
+console.log(commentsAux);
   if (loading) {
     return (
       <>
@@ -164,16 +169,16 @@ const CommentsDetails = ({ idNews }) => {
                       <div className=" p-3 card m-2  " id="contenidoBody">
                         <div className="contenidoNombreFecha">
                           <h5 className="h5 g-color-gray-dark-v1 mb-0">
-                            {userId.map((user, index) => {
+                           {userId.map((user, index) => {
                               return (
-                                  <strong key={index}>
-                                    {comentario.user_id===user.id
-                                    ? user.name :
-                                    ""
-                                    }
-                                  </strong>
+                                <strong key={index}>
+                                {comentario.user_id===user.id
+                                ? user.name :
+                                ""
+                                }
+                              </strong>
                               );
-                            })}
+                            })} 
                           </h5>
                           <span className="text-muted ">
                             {comentario.updated_at.slice(0, 10)}

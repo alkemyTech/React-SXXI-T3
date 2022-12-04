@@ -50,7 +50,7 @@ const CommentsDetails = ({ idNews }) => {
       }
     }
   }
-console.log(commentsAux);
+
   if (loading) {
     return (
       <>

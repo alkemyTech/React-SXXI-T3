@@ -1,17 +1,21 @@
-import { useFormik } from 'formik';
-import { useParams } from 'react-router-dom';
-import React, { useEffect, useRef, useState } from 'react';
-import Swal from 'sweetalert2';
+import { useFormik } from "formik";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 
-import {createValidationSchema, editValidationSchema, initialValues} from "./constants";
-import { apiONG } from '../../../Services/apiONG';
-import { onSubmitService } from '../../../Services/membersFromServices';
-import { getBase64 } from '../../../utils/getBase64';
-import {CKEditorField, InputField} from "../../Form";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
+import { apiONG } from "../../../Services/apiONG";
+import { onSubmitService } from "../../../Services/membersFromServices";
+import { getBase64 } from "../../../utils/getBase64";
+import { CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import {defaultImage} from "../../../utils/defaultImage";
+import { defaultImage } from "../../../utils/defaultImage";
 
-import '../../FormStyles.css';
+import "../../FormStyles.css";
 
 const MembersForm = () => {
   const { id } = useParams();

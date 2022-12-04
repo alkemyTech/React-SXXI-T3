@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import Title from "../Title/Title";
 import ContactForm from "./ContactForm/ContactForm";
-import {getOrganizationInfo} from "../../Services/organizationService/organizationService";
+import { getOrganizationInfo } from "../../Services/organizationService/organizationService";
 import { SocialMediaItemWLabel } from "./SocialMediaItem";
 import { ReactComponent as FacebookSvg } from "../../assets/svg/contact/facebook.svg";
 import { ReactComponent as InstagramSvg } from "../../assets/svg/contact/instagram.svg";

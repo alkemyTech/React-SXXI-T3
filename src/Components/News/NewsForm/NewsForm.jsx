@@ -3,10 +3,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { apiONG } from "../../../Services/apiONG";
-import { initialValues, validationSchema } from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 import "../../FormStyles.css";
 import { CKEditorField, InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
+import { getBase64 } from "../../../utils/getBase64";
+import { defaultImage } from "../../../utils/defaultImage";
 
 const updateNew = (oneNew) => {
   apiONG
@@ -30,29 +36,15 @@ const createNew = (oneNew) => {
     });
 };
 
-const getBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    let baseURL = "";
-    let reader = new FileReader();
-    reader.onload = () => {
-      baseURL = reader.result;
-      resolve(baseURL);
-    };
-    reader.onerror = () => {
-      reject({
-        message: "Ocurrió un error mientras se procesaba la imagen",
-      });
-    };
-    reader.readAsDataURL(file);
-  });
-
 const NewsForm = () => {
   const [oneNew, setOneNew] = useState();
   const [isFetching, setIsFetching] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [imagePreview, setImagePreview] = useState(defaultImage);
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const imageRef = useRef();
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
 
   const onSubmit = ({ name, image, content, category_id }) => {
     const file = imageRef.current.files[0];
@@ -111,6 +103,7 @@ const NewsForm = () => {
           .get(`/news/${id}`)
           .then(({ data: { data } }) => {
             setValues(() => ({ ...data, image: "" }));
+            setImagePreview(() => data.image);
             setOneNew(data);
           })
           .catch((error) => {
@@ -134,16 +127,19 @@ const NewsForm = () => {
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
         <h1 className="form-title">{id ? "Editar" : "Crear"} Novedad</h1>
-        <InputField
-          label="Título"
-          name="name"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Ingrese el título de la novedad"
-          errors={errors.name}
-          touched={touched.name}
-        />
+        <div className="input-preview-image">
+          <InputField
+            label="Título"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Ingrese el título de la novedad"
+            errors={errors.name}
+            touched={touched.name}
+          />
+          <img src={imagePreview} alt="preview" className="preview-container" />
+        </div>
         <SelectField
           label="Categoría"
           value={values.category_id}

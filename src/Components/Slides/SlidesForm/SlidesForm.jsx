@@ -5,7 +5,11 @@ import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/slideService";
 import { apiONG } from "../../../Services/apiONG";
-import { initialValues, validationSchema } from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 import { CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { defaultImage } from "../../../utils/defaultImage";
@@ -17,6 +21,7 @@ const SlidesForm = () => {
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(defaultImage);
   const [isFetching, setIsFetching] = useState(false);
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];

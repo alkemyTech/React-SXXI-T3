@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../Button/Button";
-import {useMobile} from "../../../hooks/useIsMobile";
+import { useMobile } from "../../../hooks/useIsMobile";
 
 import "./ListCard.css";
-import {defaultImage} from "../../../utils/defaultImage";
+import { defaultImage } from "../../../utils/defaultImage";
 
 export const ListCard = ({
   id,

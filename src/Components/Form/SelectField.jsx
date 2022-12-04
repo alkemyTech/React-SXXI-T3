@@ -43,7 +43,9 @@ export const SelectField = ({
         disabled={disabled}
         {...props}
       >
-        <option value="" className="select-placeholder">Seleccione una opción</option>
+        <option value="" className="select-placeholder">
+          Seleccione una opción
+        </option>
         {optionsList.map((x) => {
           return (
             <option value={x.value} key={x.value}>

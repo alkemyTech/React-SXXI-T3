@@ -2,8 +2,11 @@ import React from "react";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 
-import { loginValidationSchema as validationSchema, loginInitialValues as initialValues} from "../constants";
-import {InputField} from "../../Form";
+import {
+  loginInitialValues as initialValues,
+  loginValidationSchema as validationSchema,
+} from "../constants";
+import { InputField } from "../../Form";
 import Button from "../../Button/Button";
 
 const LoginForm = ({ desktop }) => {

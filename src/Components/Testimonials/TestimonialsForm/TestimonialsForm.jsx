@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 
 import { onSubmitService } from "../../../Services/testimonialService.js";
 import { apiONG } from "../../../Services/apiONG";
-import { initialValues, validationSchema } from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 import { CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { defaultImage } from "../../../utils/defaultImage";
@@ -17,6 +21,7 @@ const TestimonialsForm = () => {
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(defaultImage);
   const [isFetching, setIsFetching] = useState(false);
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];

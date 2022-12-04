@@ -7,12 +7,10 @@ import {
 
 export const validationSchema = Yup.object().shape({
   name: Yup.string().required(requiredMessage + "el nombre"),
-  logo: Yup.string()
-    .matches(imgRegExp, {
-      message: invalidImageFormatMessage,
-      excludeEmptyString: true,
-    })
-    .required(requiredMessage + "el logo"),
+  logo: Yup.string().matches(imgRegExp, {
+    message: invalidImageFormatMessage,
+    excludeEmptyString: true,
+  }),
   facebook_url: Yup.string()
     .url("Url de Facebook inválida")
     .required(requiredMessage + "la url de Facebook"),

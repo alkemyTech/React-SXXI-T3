@@ -1,11 +1,11 @@
-import {useFormik} from "formik";
+import { useFormik } from "formik";
 import React from "react";
 import Swal from "sweetalert2";
 import * as yup from "yup";
 import "../../FormStyles.css";
 import "./NewsletterForm.css";
 import Button from "../../Button/Button";
-import {InputField} from "../../Form";
+import { InputField } from "../../Form";
 
 export const NewsletterForm = () => {
     const isSubscribed = Boolean(localStorage.getItem("newsletter"));

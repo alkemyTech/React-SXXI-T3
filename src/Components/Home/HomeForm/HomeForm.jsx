@@ -9,7 +9,7 @@ import Carousel from "../../Carousel/Carousel";
 import Button from "../../Button/Button";
 import { ReactComponent as RemoveSvg } from "../../../assets/svg/home/xmark-solid.svg";
 import { ReactComponent as AddSvg } from "../../../assets/svg/home/plus-solid.svg";
-import { validationSchema, initialValues } from "./constants";
+import { initialValues, validationSchema } from "./constants";
 
 import "./HomeForm.css";
 

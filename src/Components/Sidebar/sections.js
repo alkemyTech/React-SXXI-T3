@@ -1,12 +1,12 @@
-import activities from '../../assets/images/backoffice-logos/activities.jpg';
-import categories from '../../assets/images/backoffice-logos/categories.jpg';
-import dashboard from '../../assets/images/backoffice-logos/dashboard.jpg';
-import members from '../../assets/images/backoffice-logos/members.jpg';
-import news from '../../assets/images/backoffice-logos/news.jpg';
-import organization from '../../assets/images/backoffice-logos/organization.jpg';
-import slides from '../../assets/images/backoffice-logos/slides.jpg';
-import testimonials from '../../assets/images/backoffice-logos/testimonials.jpg';
-import users from '../../assets/images/backoffice-logos/users.jpg';
+import activities from "../../assets/images/backoffice-logos/activities.jpg";
+import categories from "../../assets/images/backoffice-logos/categories.jpg";
+import dashboard from "../../assets/images/backoffice-logos/dashboard.jpg";
+import members from "../../assets/images/backoffice-logos/members.jpg";
+import news from "../../assets/images/backoffice-logos/news.jpg";
+import organization from "../../assets/images/backoffice-logos/organization.jpg";
+import slides from "../../assets/images/backoffice-logos/slides.jpg";
+import testimonials from "../../assets/images/backoffice-logos/testimonials.jpg";
+import users from "../../assets/images/backoffice-logos/users.jpg";
 
 export const sections = [{
     name: 'Inicio',

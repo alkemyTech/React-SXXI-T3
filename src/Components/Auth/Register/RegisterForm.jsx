@@ -2,8 +2,11 @@ import { useFormik } from "formik";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { registerValidationSchema as validationSchema, registerInitialValues as initialValues} from "../constants";
-import {InputField} from "../../Form";
+import {
+  registerInitialValues as initialValues,
+  registerValidationSchema as validationSchema,
+} from "../constants";
+import { InputField } from "../../Form";
 import Button from "../../Button/Button";
 
 const RegisterForm = ({ desktop }) => {

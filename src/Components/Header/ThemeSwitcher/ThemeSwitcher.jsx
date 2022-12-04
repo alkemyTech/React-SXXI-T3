@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ReactComponent as SunSvg } from "../../../assets/svg/switch/sun.svg";
 import { ReactComponent as MoonSvg } from "../../../assets/svg/switch/moon.svg";
 
-import './ThemeSwitcher.css';
+import "./ThemeSwitcher.css";
 
 
 export const ThemeSwitcher = ({ switchTheme, theme }) => {

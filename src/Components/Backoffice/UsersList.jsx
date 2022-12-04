@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import debounce from 'lodash.debounce';
+import { useState } from "react";
+import debounce from "lodash.debounce";
 
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 import BackofficeList from "./BackofficeList/BackofficeList";
-import {useBackofficeInfo} from "../../hooks/useBackofficeInfo";
+import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
 
 
 export const UsersList = () => {

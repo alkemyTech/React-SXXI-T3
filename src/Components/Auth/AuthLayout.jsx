@@ -1,6 +1,6 @@
-import {cloneElement} from "react";
+import { cloneElement } from "react";
 
-import {useMobile} from "../../hooks/useIsMobile";
+import { useMobile } from "../../hooks/useIsMobile";
 import img from "../../assets/images/login.jpg";
 import logo from "../../assets/images/logo.png";
 

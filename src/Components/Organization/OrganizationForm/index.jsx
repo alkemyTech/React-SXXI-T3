@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
 import { apiONG } from "../../../Services/apiONG";
 import { getBase64 } from "../../../utils/getBase64";
-import { useState } from "react";
 import { initialValues, validationSchema } from "./constants";
 import Button from "../../Button/Button";
 import { CKEditorField, InputField, TextAreaField } from "../../Form";
@@ -14,7 +13,6 @@ import styles from "./organizationForm.module.css";
 
 const OrganizationForm = () => {
   const imageRef = useRef();
-
   const [isFetching, setIsFetching] = useState(false);
   const [imagePreview, setImagePreview] = useState(defaultImage);
 

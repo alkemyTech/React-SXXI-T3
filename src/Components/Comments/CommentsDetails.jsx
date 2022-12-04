@@ -50,7 +50,6 @@ const CommentsDetails = ({ idNews }) => {
       }
     }
   }
-
   if (loading) {
     return (
       <>

@@ -3,11 +3,13 @@ import { getComments } from "../../../src/Services/commentServices/commentServic
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import "../Comments/Comments.css";
-
+import { apiONG } from "../../Services/apiONG/index";
+import { imgRegExp } from "../../utils/validation/constants";
+import imgNotFound from "../../assets/images/backoffice-logos/users.jpg";
 const CommentsDetails = ({ idNews }) => {
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState([]);
-
+  const [userPatch, setUserPatch] = useState([]);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -21,11 +23,28 @@ const CommentsDetails = ({ idNews }) => {
   }, []);
 
   const commentsAux = [];
+  const userId = [];
   for (let i = 0; i < comment.length; i++) {
     if (comment[i].new_id === Number(idNews)) {
       commentsAux.push(comment[i]);
+      if (userId.includes(Number(comment[i].user_id))) {
+      } else {
+        userId.push(comment[i].user_id);
+        localStorage.setItem("user_id", userId[0]);
+      }
     }
   }
+
+  useEffect(() => {
+    const userId = localStorage.getItem("user_id");
+    apiONG
+      .get(`/users/${userId}`)
+      .then((response) => {
+        const user = response.data.data;
+        setUserPatch(user);
+      })
+      .catch((error) => {});
+  }, []);
   if (loading) {
     return (
       <>
@@ -132,16 +151,19 @@ const CommentsDetails = ({ idNews }) => {
                   <div className="col-sm-12">
                     <div className="" id="card">
                       <img
-                        className="rounded-circle d-flex rounded-circle  "
+                        id="img"
+                        className="rounded-circle d-flex rounded-circle"
                         src={
-                          comentario.image !== null ? comentario.image : "#!"
+                          imgRegExp.exec(comentario.image) === null
+                            ? imgNotFound
+                            : comentario.image
                         }
                         alt=""
                       />
                       <div className=" p-3 card m-2  " id="contenidoBody">
                         <div className="contenidoNombreFecha">
                           <h5 className="h5 g-color-gray-dark-v1 mb-0">
-                            <strong>Usuario</strong>
+                            <strong>{userPatch.name}</strong>
                           </h5>
                           <span className="text-muted ">
                             {comentario.updated_at.slice(0, 10)}

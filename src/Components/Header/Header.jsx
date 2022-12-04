@@ -7,6 +7,7 @@ import "./Header.css";
 import { useLogo } from "../../hooks/useLogo";
 import HeaderSession from "./HeaderSession";
 import { useState } from "react";
+import { ThemeSwitcher } from "./ThemeSwitcher/ThemeSwitcher";
 
 //TODO: CAMBIAR DESPUES EN DEV
 export const Header = ({
@@ -126,17 +127,18 @@ const HeaderDropdown = ({
   className,
   isLogged = false,
 }) => {
-  if (!isLogged) {
-    return null;
-  }
   return (
     <Nav className={`nav header-dropdown ${className}`}>
-      <HeaderSession
-        showInfo={showInfo}
-        handleShowInfo={handleShowInfo}
-        switchTheme={switchTheme}
-        theme={theme}
-      />
+      {isLogged ? (
+        <HeaderSession
+          showInfo={showInfo}
+          handleShowInfo={handleShowInfo}
+          switchTheme={switchTheme}
+          theme={theme}
+        />
+      ) : (
+        <ThemeSwitcher switchTheme={switchTheme} theme={theme} />
+      )}
     </Nav>
   );
 };

@@ -42,7 +42,7 @@ footer{
 }
 
 #links a{
-	color: var(--text-color);
+	color: var(--text-color-on-background);
 	text-decoration: unset;
 }
 

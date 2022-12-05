@@ -1,60 +1,60 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import debounce from "lodash.debounce";
 
 import Title from "../../Title/Title";
-import { ListCard } from "../../Card/ListCard/ListCard";
-import { getNews } from "../../../Services/newsService/newsService";
+import {ListCard} from "../../Card/ListCard/ListCard";
 
 import "../../CardListStyles.css";
 import SearchInput from "../../SearchInput";
-import { SkeletonCard } from "../../Feedback/SkeletonCard";
-import { errorAlert } from "../../Feedback/AlertService";
+import {SkeletonCard} from "../../Feedback/SkeletonCard";
+import {errorAlert} from "../../Feedback/AlertService";
+import {apiNews} from "../../../Services/apiService";
 
 const NewsList = () => {
   const [news, setNews] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    getNews()
-      .then((response) => {
-        setNews(response);
-      })
-      .catch((error) => {
-        errorAlert();
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+    useEffect(() => {
+        apiNews.getAll()
+            .then((response) => {
+                setNews(response);
+            })
+            .catch((error) => {
+                errorAlert();
+            })
+            .finally(() => setIsLoading(false));
+    }, []);
 
-  const handleChange = debounce((event) => {
-    const { value } = event.target;
-    const cleanValue = value.trim();
-    setSearch(() => value);
-    if (cleanValue.length >= 3) {
-      setIsLoading(true);
-      getNews(cleanValue)
-        .then((response) => {
-          setNews(() => response);
-        })
-        .catch((error) => {
-          errorAlert();
-        })
-        .finally(() => setIsLoading(false));
-    }
-  }, 1000);
+    const handleChange = debounce((event) => {
+        const { value } = event.target;
+        const cleanValue = value.trim();
+        setSearch(() => value);
+        if (cleanValue.length >= 3) {
+            setIsLoading(true);
+            apiNews.getAll(`search=${cleanValue}`)
+                .then((response) => {
+                    setNews(() => response);
+                })
+                .catch((error) => {
+                    errorAlert();
+                })
+                .finally(() => setIsLoading(false));
+        }
+    }, 1000);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    getNews(search)
-      .then((response) => {
-        setNews(response);
-      })
-      .catch((error) => {
-        errorAlert();
-      })
-      .finally(() => setIsLoading(false));
-  };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+        apiNews.getAll(`search=${search}`)
+            .then((response) => {
+                setNews(response);
+            })
+            .catch((error) => {
+                errorAlert();
+            })
+            .finally(() => setIsLoading(false));
+    };
 
   return (
     <div className="container-fluid">

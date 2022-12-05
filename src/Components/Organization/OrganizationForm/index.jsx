@@ -1,20 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useFormik } from "formik";
+import React, {useEffect, useRef, useState} from "react";
+import {useFormik} from "formik";
 import Swal from "sweetalert2";
-
-import { apiONG } from "../../../Services/apiONG";
-import { getBase64 } from "../../../utils/getBase64";
-import { initialValues, validationSchema } from "./constants";
+import {getBase64} from "../../../utils/getBase64";
+import {initialValues, validationSchema} from "./constants";
 import Button from "../../Button/Button";
-import {
-  BackButton,
-  CKEditorField,
-  InputField,
-  TextAreaField,
-} from "../../Form";
-import { defaultImage } from "../../../utils/defaultImage";
+import {BackButton, CKEditorField, InputField, TextAreaField,} from "../../Form";
+import {defaultImage} from "../../../utils/defaultImage";
 
 import styles from "./organizationForm.module.css";
+import {apiOrganization} from "../../../Services/apiService";
+import {errorAlert} from "../../Feedback/AlertService";
 
 const OrganizationForm = () => {
   const imageRef = useRef();
@@ -61,22 +56,18 @@ const OrganizationForm = () => {
 
   useEffect(() => {
     setIsFetching(() => true);
-    apiONG
-      .get(`/organization`)
-      .then(({ data: { data } }) => {
-        setIsFetching(() => false);
-        setImagePreview(() => data.logo);
-        setValues(() => ({ ...data, logo: "" }));
-      })
-      .catch((error) => {
-        const errorMessage = error?.response?.data?.message || error.message;
-        setIsFetching(() => false);
-        Swal.fire({
-          title: errorMessage,
-          icon: "error",
-          timer: 5000,
+    apiOrganization
+        .getAll()
+        .then(response => {
+          setIsFetching(() => false);
+          setImagePreview(() => response.logo);
+          setValues(() => ({ ...response, logo: "" }));
+        })
+        .catch((error) => {
+          const errorMessage = error?.response?.data?.message || error.message;
+          setIsFetching(() => false);
+          errorAlert(errorMessage);
         });
-      });
   }, [setValues]);
 
   const isLoading = isFetching || isSubmitting;

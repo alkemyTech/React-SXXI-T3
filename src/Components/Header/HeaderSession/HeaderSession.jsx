@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
-import { defaultImage } from "../../../utils/defaultImage";
+import {defaultImage} from "../../../utils/defaultImage";
 
 import "./HeaderSession.css";
 import Button from "../../Button/Button";
-import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
+import {ThemeSwitcher} from "../ThemeSwitcher/ThemeSwitcher";
 import {useDispatch, useSelector} from "react-redux";
 import {logout, selectAuth} from "../../../features/auth/authSlice";
 

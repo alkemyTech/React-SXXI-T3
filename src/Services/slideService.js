@@ -1,5 +1,5 @@
-import { apiONG } from "./apiONG";
-import Swal from "sweetalert2";
+import {apiSlide} from "./apiService";
+import {errorAlert, infoAlert} from "../Components/Feedback/AlertService";
 
 export const onSubmitService = (
   id,
@@ -18,55 +18,25 @@ export const onSubmitService = (
   };
 
   if (id) {
-    apiONG
-      .put(`/slides/${id}`, body)
+    apiSlide
+      .put(`${id}`, body)
       .then((response) => {
-        const {
-          data: { message },
-        } = response;
-
-        return Swal.fire({
-          title: message,
-          icon: "success",
-          timer: 3000,
-        });
+        infoAlert();
       })
       .catch((error) => {
-        const errorMessage = error?.response?.data?.message || error.message;
-
-        Swal.fire({
-          title: errorMessage,
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert();
       })
       .finally(() => {
         setSubmitting(false);
       });
   } else {
-    apiONG
-      .post(`/slides`, body)
+    apiSlide
+      .post(body)
       .then((response) => {
-        const {
-          data: { message },
-        } = response;
-        Swal.fire({
-          title: message,
-          icon: "success",
-          timer: 3000,
-        });
-        return resetForm();
+        infoAlert();
       })
       .catch((error) => {
-        const errorMessage = error?.response?.data?.message
-          ? `Ya existe una Slide con ese nombre`
-          : error.message;
-
-        Swal.fire({
-          title: errorMessage,
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert();
       })
       .finally(() => {
         setSubmitting(false);

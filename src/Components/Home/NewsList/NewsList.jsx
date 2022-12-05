@@ -1,6 +1,6 @@
 import styles from "./NewsList.module.css";
-import { Link } from "react-router-dom";
-import { ListCard } from "../../Card/ListCard/ListCard";
+import {Link} from "react-router-dom";
+import {ListCard} from "../../Card/ListCard/ListCard";
 
 const NewsList = ({ newsList }) => {
   return (

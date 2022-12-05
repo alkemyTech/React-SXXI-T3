@@ -1,13 +1,13 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import {Container, Nav, Navbar} from "react-bootstrap";
+import {Link, useNavigate} from "react-router-dom";
 
 import Button from "../../Button/Button";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 import "./Header.css";
-import { useLogo } from "../../../hooks/useLogo";
+import {useLogo} from "../../../hooks/useLogo";
 import HeaderSession from "../HeaderSession/HeaderSession";
-import { useState } from "react";
-import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
+import {useState} from "react";
+import {ThemeSwitcher} from "../ThemeSwitcher/ThemeSwitcher";
 import {useSelector} from "react-redux";
 import {selectAuth} from "../../../features/auth/authSlice";
 

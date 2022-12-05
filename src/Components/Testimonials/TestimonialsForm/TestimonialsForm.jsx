@@ -1,20 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useFormik } from "formik";
-import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {useFormik} from "formik";
+import {useParams} from "react-router-dom";
 
-import { onSubmitService } from "../../../Services/testimonialService.js";
-import { apiONG } from "../../../Services/apiONG";
-import {
-  createValidationSchema,
-  editValidationSchema,
-  initialValues,
-} from "./constants";
-import { BackButton, CKEditorField, InputField } from "../../Form";
+import {onSubmitService} from "../../../Services/testimonialService.js";
+import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
+import {BackButton, CKEditorField, InputField} from "../../Form";
 import Button from "../../Button/Button";
-import { defaultImage } from "../../../utils/defaultImage";
+import {defaultImage} from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
+import {errorAlert} from "../../Feedback/AlertService";
+import {apiTestimonials} from "../../../Services/apiService";
 
 const TestimonialsForm = () => {
   const { id } = useParams();
@@ -29,21 +25,17 @@ const TestimonialsForm = () => {
     fileReader.onload = function () {
       setImagePreview(fileReader.result);
       onSubmitService(
-        id,
-        values.name,
-        values.description,
-        fileReader.result,
-        resetForm,
-        setSubmitting
+          id,
+          values.name,
+          values.description,
+          fileReader.result,
+          resetForm,
+          setSubmitting
       );
     };
     fileReader.onerror = () => {
       setSubmitting(false);
-      Swal.fire({
-        title: "Error al procesar la imagen",
-        icon: "error",
-        timer: 5000,
-      });
+      errorAlert("Error al procesar la imagen");
     };
     fileReader.readAsDataURL(file);
   };
@@ -71,24 +63,18 @@ const TestimonialsForm = () => {
 
   useEffect(() => {
     if (id) {
-      setIsFetching(() => true);
-      apiONG
-        .get(`/testimonials/${id}`)
-        .then(({ data: { data } }) => {
-          console.log(data);
-          setValues(() => ({ ...data, image: "" }));
-          setImagePreview(() => data.image);
-          setIsFetching(() => false);
-        })
-        .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          setIsFetching(() => false);
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
+      setIsFetching(true);
+      apiTestimonials
+          .getSingle(`${id}`)
+          .then(response => {
+            setValues(() => ({ ...response, image: "" }));
+            setImagePreview(() => response.image);
+            setIsFetching(() => false);
+          })
+          .catch((error) => {
+            setIsFetching(false);
+            errorAlert();
           });
-        });
     }
   }, [id, setValues]);
 

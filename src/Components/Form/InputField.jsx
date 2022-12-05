@@ -1,6 +1,6 @@
 import styles from "./Field.module.css";
-import { Field } from "./Field";
-import { forwardRef } from "react";
+import {Field} from "./Field";
+import {forwardRef} from "react";
 
 export const InputField = forwardRef(
   (

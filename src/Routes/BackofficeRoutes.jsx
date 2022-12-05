@@ -1,10 +1,18 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 
 import UsersForm from "../Components/Users/UsersForm/UsersForm";
 import HomeForm from "../Components/Home/HomeForm/HomeForm";
-import { Dashboard } from "../Components/Dashboard/Dashboard";
-import { NewsList, ActivitiesList, TestimonialsList, CategoriesList, UsersList, SlidesList, MembersList } from "../Components/Backoffice";
+import {Dashboard} from "../Components/Dashboard/Dashboard";
+import {
+    ActivitiesList,
+    CategoriesList,
+    MembersList,
+    NewsList,
+    SlidesList,
+    TestimonialsList,
+    UsersList
+} from "../Components/Backoffice";
 import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
 import SlidesForm from "../Components/Slides/SlidesForm/SlidesForm";

@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {useEffect} from "react";
+import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import { Field } from "./Field";
+import {Field} from "./Field";
 
 export const CKEditorField = ({
   value,

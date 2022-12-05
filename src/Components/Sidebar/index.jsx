@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 
 import Section from "./Section";
 
-import { sections } from "./sections";
+import {sections} from "./sections";
 import s from "./sidebar.module.css";
 
 const Sidebar = ({ active }) => {

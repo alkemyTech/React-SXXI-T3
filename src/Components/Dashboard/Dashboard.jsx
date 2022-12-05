@@ -1,5 +1,5 @@
 import React from "react";
-import { FeatureCard } from "./FeatureCard";
+import {FeatureCard} from "./FeatureCard";
 import news from "../../assets/images/backoffice-logos/news.jpg";
 import activities from "../../assets/images/backoffice-logos/activities.jpg";
 import categories from "../../assets/images/backoffice-logos/categories.jpg";

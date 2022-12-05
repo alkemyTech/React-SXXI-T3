@@ -1,7 +1,7 @@
 import s from "./headerBackoffice.module.css";
 import Sidebar from "../../Sidebar";
-import { useState } from "react";
-import { useLogo } from "../../../hooks/useLogo";
+import {useState} from "react";
+import {useLogo} from "../../../hooks/useLogo";
 import HeaderSession from "../HeaderSession/HeaderSession";
 
 const HeaderBackoffice = ({theme, switchTheme}) => {

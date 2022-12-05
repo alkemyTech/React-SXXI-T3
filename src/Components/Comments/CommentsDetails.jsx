@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import "./Comments.css";
-import { apiONG } from "../../Services/apiONG/index";
-import { imgRegExp } from "../../utils/validation/constants";
+import {apiONG} from "../../Services/apiONG/index";
+import {imgRegExp} from "../../utils/validation/constants";
 import imgNotFound from "../../assets/images/backoffice-logos/users.jpg";
 
 const CommentsDetails = ({ idNews }) => {

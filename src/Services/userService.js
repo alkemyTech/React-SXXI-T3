@@ -1,5 +1,5 @@
-import { apiONG } from "./apiONG";
-import Swal from "sweetalert2";
+import {apiUser} from "./apiService";
+import {errorAlert, infoAlert} from "../Components/Feedback/AlertService";
 
 export const put = (
   id,
@@ -18,26 +18,13 @@ export const put = (
     profile_image: profilePhoto,
     role_id: role,
   };
-  apiONG
-    .put(`/users/${id}`, body)
+  apiUser
+    .put(`${id}`, body)
     .then((response) => {
-      const {
-        data: { message },
-      } = response;
-      return Swal.fire({
-        title: message,
-        icon: "success",
-        timer: 3000,
-      });
+      infoAlert();
     })
     .catch((error) => {
-      const errorMessage = error?.response?.data?.message || error.message;
-
-      Swal.fire({
-        title: errorMessage,
-        icon: "error",
-        timer: 5000,
-      });
+      errorAlert();
     })
     .finally(() => {
       setSubmitting(false);
@@ -53,8 +40,8 @@ export const post = (
   resetForm,
   setSubmitting
 ) => {
-  apiONG
-    .post(`/users`, {
+  apiUser
+    .post({
       name: name,
       email: email,
       password: password,
@@ -62,26 +49,11 @@ export const post = (
       role_id: role,
     })
     .then((response) => {
-      const {
-        data: { message },
-      } = response;
-      Swal.fire({
-        title: message,
-        icon: "success",
-        timer: 3000,
-      });
+      infoAlert();
       return resetForm();
     })
     .catch((error) => {
-      const errorMessage = error?.response?.data?.message
-        ? `Ya existe un usuario con ese nombre`
-        : error.message;
-
-      Swal.fire({
-        title: errorMessage,
-        icon: "error",
-        timer: 5000,
-      });
+      errorAlert();
     })
     .finally(() => {
       setSubmitting(false);

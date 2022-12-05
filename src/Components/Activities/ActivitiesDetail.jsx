@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { apiONG } from "../../Services/apiONG";
+import {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import DetailCard from "../Card/DetailCard/DetailCard";
-import { errorAlert } from "../Feedback/AlertService";
-import { Spinner } from "../Feedback/Spinner/Spinner";
+import {errorAlert} from "../Feedback/AlertService";
+import {Spinner} from "../Feedback/Spinner/Spinner";
 
 import Title from "../Title/Title";
+import {apiActivity} from "../../Services/apiService";
 
 const ActivitiesDetail = () => {
   const { id } = useParams();
@@ -14,15 +14,15 @@ const ActivitiesDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    apiONG
-      .get("/activities/" + id)
-      .then((response) => {
-        setActivity(response.data.data);
-      })
-      .catch((error) => {
-        errorAlert();
-      })
-      .finally(() => setIsLoading(false));
+    apiActivity
+        .getSingle(id)
+        .then((response) => {
+          if(response) setActivity(response);
+        })
+        .catch((error) => {
+          errorAlert();
+        })
+        .finally(() => setIsLoading(false));
   }, [id]);
 
   return (

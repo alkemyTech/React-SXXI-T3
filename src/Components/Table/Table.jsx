@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ReactComponent as PencilSvg } from "../../assets/svg/backoffice/pencil-solid.svg";
-import { ReactComponent as TrashSvg } from "../../assets/svg/backoffice/trash-can-solid.svg";
-import { DateParser } from "../../utils/DateParser";
+import {useState} from "react";
+import {Link} from "react-router-dom";
+import {ReactComponent as PencilSvg} from "../../assets/svg/backoffice/pencil-solid.svg";
+import {ReactComponent as TrashSvg} from "../../assets/svg/backoffice/trash-can-solid.svg";
+import {DateParser} from "../../utils/DateParser";
 import Button from "react-bootstrap/Button";
-import { ImageModal } from "./ImageModal";
+import {ImageModal} from "./ImageModal";
 
 import "./Table.css";
 

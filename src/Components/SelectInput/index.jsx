@@ -1,5 +1,5 @@
 import s from "./selectInput.module.css";
-import { useSelectInput } from "../../hooks/useSelectInput";
+import {useSelectInput} from "../../hooks/useSelectInput";
 
 const SelectInput = ({ source, handleSelectChange }) => {
   const { options } = useSelectInput(source);

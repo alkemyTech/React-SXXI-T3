@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 import Swal from "sweetalert2";
 
-import { apiONG } from "../Services/apiONG";
+import {apiONG} from "../Services/apiONG";
 
 export const useLogo = () => {
 

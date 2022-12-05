@@ -1,14 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 import Title from "../../Title/Title";
 import DetailCard from "../../Card/DetailCard/DetailCard";
 
 import "./NewsDetail.css";
-import { apiONG } from "../../../Services/apiONG";
-import { errorAlert } from "../../Feedback/AlertService";
-import { Spinner } from "../../Feedback/Spinner/Spinner";
+import {errorAlert} from "../../Feedback/AlertService";
+import {Spinner} from "../../Feedback/Spinner/Spinner";
 import CommentsDetails from "../../Comments/CommentsDetails";
+import {apiNews} from "../../../Services/apiService";
 
 const NewsDetail = ({ title }) => {
   const { id } = useParams();
@@ -16,20 +16,17 @@ const NewsDetail = ({ title }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    apiONG
-      .get(`news/${id}`)
-      .then((response) => {
-        const {
-          data: { data },
-        } = response;
-        setNews(data);
-      })
-      .catch((error) => {
-        errorAlert();
-      })
-      .finally(() => setIsLoading(false));
-  }, [id]);
+    useEffect(() => {
+        apiNews
+            .getSingle(id)
+            .then((response) => {
+                setNews(response);
+            })
+            .catch((error) => {
+                errorAlert();
+            })
+            .finally(() => setIsLoading(false));
+    }, [id]);
 
   return (
     <>

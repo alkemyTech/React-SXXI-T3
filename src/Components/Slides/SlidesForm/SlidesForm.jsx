@@ -1,18 +1,14 @@
-import { useFormik } from "formik";
-import { useParams } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import {useFormik} from "formik";
+import {useParams} from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
 import Swal from "sweetalert2";
 
-import { onSubmitService } from "../../../Services/slideService";
-import { apiONG } from "../../../Services/apiONG";
-import {
-  createValidationSchema,
-  editValidationSchema,
-  initialValues,
-} from "./constants";
-import { BackButton, CKEditorField, InputField } from "../../Form";
+import {onSubmitService} from "../../../Services/slideService";
+import {apiONG} from "../../../Services/apiONG";
+import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
+import {BackButton, CKEditorField, InputField} from "../../Form";
 import Button from "../../Button/Button";
-import { defaultImage } from "../../../utils/defaultImage";
+import {defaultImage} from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
 

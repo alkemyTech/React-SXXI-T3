@@ -1,7 +1,7 @@
 import {cloneElement, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
-import { useMobile } from "../../hooks/useIsMobile";
+import {useMobile} from "../../hooks/useIsMobile";
 import img from "../../assets/images/login.jpg";
 import logo from "../../assets/images/logo.png";
 import {cleanError, selectAuth} from "../../features/auth/authSlice";

@@ -1,13 +1,10 @@
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
-import {
-  registerInitialValues as initialValues,
-  registerValidationSchema as validationSchema,
-} from "../constants";
-import { InputField } from "../../Form";
+import {registerInitialValues as initialValues, registerValidationSchema as validationSchema,} from "../constants";
+import {InputField} from "../../Form";
 import Button from "../../Button/Button";
 import {authRegister} from "../../../features/auth/authSlice";
 

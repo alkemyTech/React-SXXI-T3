@@ -1,41 +1,37 @@
-import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import Swal from "sweetalert2";
+import {useFormik} from "formik";
+import React, {useEffect, useRef, useState} from "react";
+import {useParams} from "react-router-dom";
 
-import { getBase64 } from "../../../utils/getBase64";
-import { BackButton, CKEditorField, InputField } from "../../Form";
+import {getBase64} from "../../../utils/getBase64";
+import {BackButton, CKEditorField, InputField} from "../../Form";
 import Button from "../../Button/Button";
-import { apiONG } from "../../../Services/apiONG";
-import {
-  createValidationSchema,
-  editValidationSchema,
-  initialValues,
-} from "./constants";
+import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
 
 import "../../FormStyles.css";
-import { defaultImage } from "../../../utils/defaultImage";
+import {defaultImage} from "../../../utils/defaultImage";
+import {errorAlert, infoAlert} from "../../Feedback/AlertService";
+import {apiActivity} from "../../../Services/apiService";
 
 const updateActivity = (activity) => {
-  apiONG
-    .put(`/activities/${activity.id}`, activity)
-    .then((response) => {
-      Swal.fire("OK", "Actividad guardada correctamente!", "success");
-    })
-    .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
-    });
+  apiActivity
+      .put(`${activity.id}`, activity)
+      .then((response) => {
+        infoAlert();
+      })
+      .catch((err) => {
+        errorAlert();
+      });
 };
 
 const createActivity = (activity) => {
-  apiONG
-    .post("/activities", activity)
-    .then((response) => {
-      Swal.fire("OK", "Actividad creada correctamente!", "success");
-    })
-    .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
-    });
+  apiActivity
+      .post(activity)
+      .then((response) => {
+        infoAlert();
+      })
+      .catch((err) => {
+        errorAlert();
+      });
 };
 
 const ActivitiesForm = () => {
@@ -60,13 +56,7 @@ const ActivitiesForm = () => {
         if (isEdit) updateActivity(activityToSave);
         else createActivity(activityToSave);
       })
-      .catch(() => {
-        Swal.fire({
-          title: "Tuvimos problemas con la carga de la imagen",
-          icon: "error",
-          timer: 5000,
-        });
-      });
+      .catch(() =>  errorAlert("Error en cargar la imagen"));
     setSubmitting(false);
   };
 
@@ -88,21 +78,16 @@ const ActivitiesForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(true);
-      apiONG
-        .get(`/activities/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({ ...data, image: "" }));
-          setImagePreview(() => data.image);
-          setActivity(data);
-        })
-        .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
+      apiActivity
+          .getSingle(`${id}`)
+          .then((response) => {
+            setValues(() => ({ ...response, image: "" }));
+            setImagePreview(() => response.image);
+            setActivity(response);
+          })
+          .catch((error) => {
+            errorAlert();
           });
-        });
       setIsFetching(false);
       setIsEdit(true);
     }

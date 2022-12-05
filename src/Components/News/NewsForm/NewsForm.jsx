@@ -1,39 +1,35 @@
-import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import Swal from "sweetalert2";
-import { apiONG } from "../../../Services/apiONG";
-import {
-  createValidationSchema,
-  editValidationSchema,
-  initialValues,
-} from "./constants";
+import {useFormik} from "formik";
+import React, {useEffect, useRef, useState} from "react";
+import {useParams} from "react-router-dom";
+import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
 import "../../FormStyles.css";
-import { BackButton, CKEditorField, InputField, SelectField } from "../../Form";
+import {BackButton, CKEditorField, InputField, SelectField} from "../../Form";
 import Button from "../../Button/Button";
-import { getBase64 } from "../../../utils/getBase64";
-import { defaultImage } from "../../../utils/defaultImage";
+import {getBase64} from "../../../utils/getBase64";
+import {defaultImage} from "../../../utils/defaultImage";
+import {apiNews} from "../../../Services/apiService";
+import {errorAlert, infoAlert} from "../../Feedback/AlertService";
 
 const updateNew = (oneNew) => {
-  apiONG
-    .put(`/news/${oneNew.id}`, oneNew)
-    .then((response) => {
-      Swal.fire("OK", "Novedad guardada correctamente!", "success");
-    })
-    .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
-    });
+  apiNews
+      .put(`${oneNew.id}`, oneNew)
+      .then((response) => {
+        infoAlert("OK", "Novedad guardada correctamente!");
+      })
+      .catch((err) => {
+        errorAlert();
+      });
 };
 
 const createNew = (oneNew) => {
-  apiONG
-    .post("/news", oneNew)
-    .then((response) => {
-      Swal.fire("OK", "Novedad creada correctamente!", "success");
-    })
-    .catch((err) => {
-      Swal.fire("Oops!", err.response?.data?.message, "error");
-    });
+  apiNews
+      .post(oneNew)
+      .then((response) => {
+        infoAlert("OK", "Novedad creada correctamente!");
+      })
+      .catch((err) => {
+        errorAlert();
+      });
 };
 
 const NewsForm = () => {
@@ -49,27 +45,23 @@ const NewsForm = () => {
   const onSubmit = ({ name, image, content, category_id }) => {
     const file = imageRef.current.files[0];
     getBase64(file)
-      .then((result) => {
-        let oneNewToSave = {
-          id: oneNew?.id || null,
-          name,
-          content,
-          image: result,
-          category_id,
-        };
-        if (isEdit) {
-          updateNew(oneNewToSave);
-        } else {
-          createNew(oneNewToSave);
-        }
-      })
-      .catch(() => {
-        Swal.fire({
-          title: "Tuvimos problemas con la carga de la imagen",
-          icon: "error",
-          timer: 5000,
+        .then((result) => {
+          let oneNewToSave = {
+            id: oneNew?.id || null,
+            name,
+            content,
+            image: result,
+            category_id,
+          };
+          if (isEdit) {
+            updateNew(oneNewToSave);
+          } else {
+            createNew(oneNewToSave);
+          }
+        })
+        .catch(() => {
+          errorAlert('Error al cargar la imagen');
         });
-      });
     setSubmitting(false);
   };
 
@@ -92,34 +84,31 @@ const NewsForm = () => {
   useEffect(() => {
     let options = [];
     setIsFetching(true);
-    apiONG.get(`/categories`).then(({ data: { data } }) => {
-      data.map(
-        (x) =>
-          (options = [...options, { value: parseInt(x.id), label: x.name }])
-      );
-      setCategories(options);
-      if (id) {
-        apiONG
-          .get(`/news/${id}`)
-          .then(({ data: { data } }) => {
-            setValues(() => ({ ...data, image: "" }));
-            setImagePreview(() => data.image);
-            setOneNew(data);
-          })
-          .catch((error) => {
-            const errorMessage =
-              error?.response?.data?.message || error.message;
-            Swal.fire({
-              title: errorMessage,
-              icon: "error",
-              timer: 5000,
-            });
-          });
-        setIsEdit(true);
-      }
-    });
+    apiNews
+        .getAll()
+        .then(response => {
+          response.map(
+              (x) =>
+                  (options = [...options, { value: parseInt(x.id), label: x.name }])
+          );
+          setCategories(options);
+          if (id) {
+            apiNews
+                .getSingle(`${id}`)
+                .then((response) => {
+                  setValues(() => ({ ...response, image: "" }));
+                  setImagePreview(response.image);
+                  setOneNew(response);
+                })
+                .catch((error) => {
+                  errorAlert();
+                });
+            setIsEdit(true);
+          }
+        });
     setIsFetching(false);
   }, [id, setValues]);
+
 
   const isLoading = isFetching || isSubmitting;
 

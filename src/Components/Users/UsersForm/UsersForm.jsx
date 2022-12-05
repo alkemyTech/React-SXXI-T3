@@ -1,19 +1,15 @@
-import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
-import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import {useFormik} from "formik";
+import React, {useEffect, useRef, useState} from "react";
+import {useParams} from "react-router-dom";
 
-import { post, put } from "../../../Services/userService";
-import { apiONG } from "../../../Services/apiONG";
-import { BackButton, InputField, SelectField } from "../../Form";
+import {post, put} from "../../../Services/userService";
+import {BackButton, InputField, SelectField} from "../../Form";
 import Button from "../../Button/Button";
-import {
-  createValidationSchema,
-  editValidationSchema,
-  initialValues,
-} from "./constants";
+import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
 
 import "../../FormStyles.css";
+import {errorAlert} from "../../Feedback/AlertService";
+import {apiUser} from "../../../Services/apiService";
 
 const UsersForm = () => {
   const { id } = useParams();
@@ -25,6 +21,7 @@ const UsersForm = () => {
     { label: "Administrador", value: "1" },
     { label: "Regular", value: "2" },
   ];
+
   const onSubmit = () => {
     const file = imageRef.current.files[0];
     const fileReader = new FileReader();
@@ -34,39 +31,36 @@ const UsersForm = () => {
 
       if (id) {
         put(
-          id,
-          values.name,
-          values.email,
-          values.password,
-          fileReader.result,
-          values.role,
-          resetForm,
-          setSubmitting
+            id,
+            values.name,
+            values.email,
+            values.password,
+            fileReader.result,
+            values.role,
+            resetForm,
+            setSubmitting
         );
       } else {
         post(
-          values.name,
-          values.email,
-          values.password,
-          fileReader.result,
-          values.role,
-          resetForm,
-          setSubmitting
+            values.name,
+            values.email,
+            values.password,
+            fileReader.result,
+            values.role,
+            resetForm,
+            setSubmitting
         );
       }
     };
 
     fileReader.onerror = () => {
       setSubmitting(false);
-      Swal.fire({
-        title: "Error al procesar la imagen",
-        icon: "error",
-        timer: 5000,
-      });
+      errorAlert('Error al procesar la imagen');
     };
 
     fileReader.readAsDataURL(file);
   };
+
 
   const formik = useFormik({
     initialValues,
@@ -90,22 +84,17 @@ const UsersForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(() => true);
-      apiONG
-        .get(`/users/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({ ...data, image: "", role: data.role_id }));
-          setImagePreview(() => data.profile_image);
-          setIsFetching(() => false);
-        })
-        .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          setIsFetching(() => false);
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 25000,
+      apiUser
+          .getSingle(`${id}`)
+          .then(response => {
+            setValues(() => ({ ...response, image: "", role: response.role_id }));
+            setImagePreview(() => response.profile_image);
+            setIsFetching(false);
+          })
+          .catch((error) => {
+            setIsFetching(false);
+            errorAlert();
           });
-        });
     }
   }, [id, setValues]);
 

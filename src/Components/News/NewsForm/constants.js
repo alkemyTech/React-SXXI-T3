@@ -1,9 +1,5 @@
 import * as Yup from "yup";
-import {
-  imageValidation,
-  imageValidationRequired,
-  requiredMessage,
-} from "../../../utils/validation/constants";
+import {imageValidation, imageValidationRequired, requiredMessage,} from "../../../utils/validation/constants";
 
 const validation = {
   name: Yup.string()

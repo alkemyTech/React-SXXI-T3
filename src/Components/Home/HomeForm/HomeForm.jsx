@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
+import React, {useEffect, useState} from "react";
+import {useFormik} from "formik";
 
-import { getOrganizationInfo } from "../../../Services/organizationService/organizationService";
-import { getSlides } from "../../../Services/slidesServices/slidesService";
-import { BackButton, TextAreaField } from "../../Form";
+// import { getOrganizationInfo } from "../../../Services/organizationService/organizationService";
+// import { getSlides } from "../../../Services/slidesServices/slidesService";
+import {BackButton, TextAreaField} from "../../Form";
 import SliderTemplate from "../../Slides/Slider/Template/SliderTemplate";
 import Carousel from "../../Carousel/Carousel";
 import Button from "../../Button/Button";
-import { ReactComponent as RemoveSvg } from "../../../assets/svg/home/xmark-solid.svg";
-import { ReactComponent as AddSvg } from "../../../assets/svg/home/plus-solid.svg";
-import { initialValues, validationSchema } from "./constants";
+import {ReactComponent as RemoveSvg} from "../../../assets/svg/home/xmark-solid.svg";
+import {ReactComponent as AddSvg} from "../../../assets/svg/home/plus-solid.svg";
+import {initialValues, validationSchema} from "./constants";
 
 import "./HomeForm.css";
+import {apiOrganization, apiSlide} from "../../../Services/apiService";
 
 const HomeForm = () => {
   const [slides, setSlides] = useState([]);
@@ -40,26 +41,26 @@ const HomeForm = () => {
 
   useEffect(() => {
     setIsFetching(true);
-    getOrganizationInfo()
-      .then((response) => {
-        setFieldValue("welcomeText", response.welcome_text);
-      })
-      .catch((error) => {})
-      .finally(() => {
-        setIsFetching(false);
-      });
-    getSlides()
-      .then((response) => {
-        const actualSlides = response
-          .sort((a, b) => a.order < b.order)
-          .slice(0, 3);
-        setSlides(response);
-        setFieldValue("slides", actualSlides);
-      })
-      .catch((error) => {})
-      .finally(() => {
-        setIsFetching(false);
-      });
+    apiOrganization.getAll()
+        .then((response) => {
+          setFieldValue("welcomeText", response.welcome_text);
+        })
+        .catch((error) => {})
+        .finally(() => {
+          setIsFetching(false);
+        });
+    apiSlide.getAll("limit=30")
+        .then((response) => {
+          const actualSlides = response
+              .sort((a, b) => a.order < b.order)
+              .slice(0, 3);
+          setSlides(response);
+          setFieldValue("slides", actualSlides);
+        })
+        .catch((error) => {})
+        .finally(() => {
+          setIsFetching(false);
+        });
   }, [setFieldValue]);
 
   const isSelected = (id) => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import DonationButton from "./DonationButton";
 import ThanksOverlay from "./ThanksOverlay";

@@ -1,43 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useFormik } from "formik";
-import Swal from "sweetalert2";
-
-import { apiONG } from "../../../Services/apiONG";
-import { BackButton, CKEditorField, InputField } from "../../Form";
+import React, {useEffect, useRef, useState} from "react";
+import {useParams} from "react-router-dom";
+import {useFormik} from "formik";
+import {BackButton, CKEditorField, InputField} from "../../Form";
 import Button from "../../Button/Button";
-import {
-  createValidationSchema,
-  editValidationSchema,
-  initialValues,
-} from "./constants";
-import { getBase64 } from "../../../utils/getBase64";
+import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
+import {getBase64} from "../../../utils/getBase64";
 
 import "../../FormStyles.css";
-import { defaultImage } from "../../../utils/defaultImage";
+import {defaultImage} from "../../../utils/defaultImage";
+import {apiProject} from "../../../Services/apiService";
+import {errorAlert, infoAlert} from "../../Feedback/AlertService";
 
 const updateProject = (project) => {
-  apiONG
-    .put(`/projects/${project.id}`, project)
-    .then((response) => {
-      Swal.fire("OK", "Proyecto guardado correctamente!", "success");
-    })
-    .catch((err) => {
-      console.error(err);
-      Swal.fire("Oops!", err.response?.data?.message, "error");
-    });
+  apiProject
+      .put(`${project.id}`, project)
+      .then((response) => {
+        infoAlert("OK", "Proyecto guardado correctamente!");
+      })
+      .catch((err) => {
+        errorAlert();
+      });
 };
 
 const createProject = (project) => {
-  apiONG
-    .post("/projects", project)
-    .then((response) => {
-      Swal.fire("OK", "Proyecto creado correctamente!", "success");
-    })
-    .catch((err) => {
-      console.error(err);
-      Swal.fire("Oops!", err.response?.data?.message, "error");
-    });
+  apiProject
+      .post(project)
+      .then((response) => {
+        infoAlert("OK", "Proyecto creado correctamente!");
+      })
+      .catch((err) => {
+        errorAlert();
+      });
 };
 
 const ProjectsForm = () => {
@@ -58,24 +51,20 @@ const ProjectsForm = () => {
   const onSubmit = ({ title, image, description, due_date }) => {
     const file = imageRef.current.files[0];
     getBase64(file)
-      .then((result) => {
-        let projectToSave = {
-          id: project?.id || null,
-          title,
-          description,
-          image,
-          due_date,
-        };
-        if (isEdit) updateProject(projectToSave);
-        else createProject(projectToSave);
-      })
-      .catch(() => {
-        Swal.fire({
-          title: "Tuvimos problemas con la carga de la imagen",
-          icon: "error",
-          timer: 5000,
+        .then((result) => {
+          let projectToSave = {
+            id: project?.id || null,
+            title,
+            description,
+            image,
+            due_date,
+          };
+          if (isEdit) updateProject(projectToSave);
+          else createProject(projectToSave);
+        })
+        .catch(() => {
+          errorAlert("Error al procesar la imagen");
         });
-      });
     setSubmitting(false);
   };
 
@@ -98,31 +87,25 @@ const ProjectsForm = () => {
     setIsFetching(true);
 
     if (id) {
-      apiONG
-        .get(`/projects/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({
-            ...data,
-            image: "",
-            due_date: ISOtoYYYYmmDD(data.due_date),
-          }));
-          setImagePreview(data.image);
-          setProject(data);
-        })
-        .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
+      apiProject
+          .getSingle(`${id}`)
+          .then((response) => {
+            setValues(() => ({
+              ...response,
+              image: "",
+              due_date: ISOtoYYYYmmDD(response.due_date),
+            }));
+            setProject(response);
+            setImagePreview(response.image);
+          })
+          .catch((error) => {
+            errorAlert();
           });
-        });
       setIsEdit(true);
     }
 
     setIsFetching(false);
   }, [id, setValues]);
-
   const isLoading = isFetching || isSubmitting;
 
   return (

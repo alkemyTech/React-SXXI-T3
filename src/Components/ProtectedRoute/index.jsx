@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux"
-import { selectAuth } from "../../features/auth/authSlice"
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
+import {useSelector} from "react-redux"
+import {selectAuth} from "../../features/auth/authSlice"
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const ProtectedRoute = ({ children }) => {
     const navigate = useNavigate();

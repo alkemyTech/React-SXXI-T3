@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
+import React, {useEffect} from "react";
+import {Outlet, Route, Routes} from "react-router-dom";
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
 import ActivitiesDetail from "./Components/Activities/ActivitiesDetail";
 import NewsDetail from "./Components/News/Detail/NewsDetail";
@@ -10,11 +10,11 @@ import NewsList from "./Components/News/List/NewsList";
 import Nosotros from "./Components/About/Nosotros";
 import ActivitiesList from "./Components/Activities/ActivitiesList";
 import Home from "./Components/Home";
-import { Footer } from "./Components/Footer/Footer";
-import { Header } from "./Components/Header/HeaderPublic/Header";
+import {Footer} from "./Components/Footer/Footer";
+import {Header} from "./Components/Header/HeaderPublic/Header";
 import Login from "./Components/Auth/Login/Login";
 import Register from "./Components/Auth/Register/Register";
-import { useLocalStorage } from "./hooks/useLocalStorage";
+import {useLocalStorage} from "./hooks/useLocalStorage";
 
 import "./App.css";
 import ProtectedRoute from "./Components/ProtectedRoute";

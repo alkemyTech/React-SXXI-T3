@@ -1,9 +1,9 @@
 import * as Yup from "yup";
 import {
-  imageValidation,
-  imageValidationRequired,
-  numRegExp,
-  requiredMessage,
+    imageValidation,
+    imageValidationRequired,
+    numRegExp,
+    requiredMessage,
 } from "../../../utils/validation/constants";
 
 const validations = {

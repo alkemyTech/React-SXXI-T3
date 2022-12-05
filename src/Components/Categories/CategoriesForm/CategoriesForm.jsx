@@ -1,21 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useFormik } from "formik";
-import Swal from "sweetalert2";
+import React, {useEffect, useRef, useState} from "react";
+import {useParams} from "react-router-dom";
+import {useFormik} from "formik";
 
-import { onSubmitService } from "../../../Services/categoryFormServices";
-import { BackButton, CKEditorField, InputField } from "../../Form";
+import {BackButton, CKEditorField, InputField} from "../../Form";
 import Button from "../../Button/Button";
-import { apiONG } from "../../../Services/apiONG";
-import { getBase64 } from "../../../utils/getBase64";
-import {
-  createValidationSchema,
-  editValidationSchema,
-  initialValues,
-} from "./constants";
-import { defaultImage } from "../../../utils/defaultImage";
+import {getBase64} from "../../../utils/getBase64";
+import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
+import {defaultImage} from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
+import {onSubmitService} from "../../../Services/categoryService";
+import {errorAlert} from "../../Feedback/AlertService";
+import {apiCategory} from "../../../Services/apiService";
 
 const CategoriesForm = () => {
   const { id } = useParams();
@@ -27,25 +23,21 @@ const CategoriesForm = () => {
   const onSubmit = () => {
     const file = imageRef.current.files[0];
     getBase64(file)
-      .then((result) => {
-        setImagePreview(() => result);
-        onSubmitService(
-          id,
-          formik.values.name,
-          formik.values.description,
-          result,
-          resetForm,
-          setSubmitting
-        );
-      })
-      .catch(({ message }) => {
-        setSubmitting(false);
-        Swal.fire({
-          title: message,
-          icon: "error",
-          timer: 5000,
+        .then((result) => {
+          setImagePreview(() => result);
+          onSubmitService(
+              id,
+              formik.values.name,
+              formik.values.description,
+              result,
+              resetForm,
+              setSubmitting
+          );
+        })
+        .catch(({ message }) => {
+          setSubmitting(false);
+          errorAlert("Error al procesar la imagen");
         });
-      });
   };
 
   const formik = useFormik({
@@ -72,22 +64,18 @@ const CategoriesForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(() => true);
-      apiONG
-        .get(`/categories/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({ ...data, image: "" }));
-          setImagePreview(() => data.image);
-          setIsFetching(() => false);
-        })
-        .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          setIsFetching(() => false);
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
+      apiCategory
+          .getSingle(`${id}`)
+          .then(response => {
+            setValues(() => ({ ...response, image: "" }));
+            setImagePreview(() => response.image);
+            setIsFetching(() => false);
+          })
+          .catch((error) => {
+            const errorMessage = error?.response?.data?.message || error.message;
+            setIsFetching(() => false);
+            errorAlert(errorMessage);
           });
-        });
     }
   }, [id, setValues]);
 

@@ -1,22 +1,22 @@
-import {apiTestimonials} from "./apiService";
+import {apiCategory} from "./apiService";
 import {errorAlert, infoAlert} from "../Components/Feedback/AlertService";
+
 
 export const onSubmitService = (
   id,
   name,
   description,
-  imageBase64,
+  image,
   resetForm,
   setSubmitting
 ) => {
-  const body = {
-    name: name,
-    description: description,
-    image: imageBase64,
-  };
   if (id) {
-    apiTestimonials
-      .put(`${id}`, body)
+    apiCategory
+      .put(`${id}`, {
+        name,
+        description,
+        image,
+      })
       .then((response) => {
         infoAlert();
       })
@@ -27,14 +27,18 @@ export const onSubmitService = (
         setSubmitting(false);
       });
   } else {
-    apiTestimonials
-      .post(body)
+    apiCategory
+      .post({
+        name,
+        description,
+        image,
+      })
       .then((response) => {
         infoAlert();
         return resetForm();
       })
       .catch((error) => {
-        errorAlert()
+        errorAlert();
       })
       .finally(() => {
         setSubmitting(false);

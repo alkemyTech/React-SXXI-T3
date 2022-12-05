@@ -1,19 +1,26 @@
-import {NavLink} from "react-router-dom";
-import {motion} from "framer-motion";
+import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import s from "./section.module.css";
 
 const active = {
     color: 'var(--color-primary)',
-    fontWeight: 700
+    fontWeight: 700,
+    textDecoration: 'none'
 }
 
-const Section = ({ name, path, logo }) => {
+const inactive = {
+    textDecoration: 'none'
+}
+
+const Section = ({ name, path, logo, handleClick }) => {
     return (
         <NavLink
             to={path}
-            style={({ isActive }) => isActive ? active : undefined}>
-            <div className={s['link-container']}>
+            style={({ isActive }) => isActive ? active : inactive}
+            onClick={handleClick}
+        >
+            <div className={s['link-container']} >
                 <div
                     className={s["logo-container"]}
                     style={{ backgroundImage: `url(${logo})` }}

@@ -1,10 +1,10 @@
 import s from "./headerBackoffice.module.css";
 import Sidebar from "../../Sidebar";
-import {useState} from "react";
-import {useLogo} from "../../../hooks/useLogo";
+import { useState } from "react";
+import { useLogo } from "../../../hooks/useLogo";
 import HeaderSession from "../HeaderSession/HeaderSession";
 
-const HeaderBackoffice = ({theme, switchTheme}) => {
+const HeaderBackoffice = ({ theme, switchTheme }) => {
     const [showInfo, setShowInfo] = useState(false);
     const [logoONG, isFetching] = useLogo();
     const [showSidebar, setShowSidebar] = useState();
@@ -21,7 +21,7 @@ const HeaderBackoffice = ({theme, switchTheme}) => {
         <>
             <div className={s['header-backoffice']}>
                 <button className={s['sidebar-controler']} onClick={handleClick}>|||</button>
-                <HeaderSession showInfo={showInfo} handleShowInfo={handleShowInfo} theme={theme} switchTheme={switchTheme}/>
+                <HeaderSession showInfo={showInfo} handleShowInfo={handleShowInfo} theme={theme} switchTheme={switchTheme} />
                 <div className={s['logo-header']}>
                     {
                         isFetching
@@ -30,7 +30,7 @@ const HeaderBackoffice = ({theme, switchTheme}) => {
                     }
                 </div>
             </div>
-            <Sidebar active={showSidebar} />
+            <Sidebar active={showSidebar} handleClick={handleClick} />
         </>
     )
 }

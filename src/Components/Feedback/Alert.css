@@ -1,0 +1,20 @@
+.swal2-modal{
+	background: var(--color-surface);
+	color:var(--text-color-on-background);
+}
+
+.swal2-styled.swal2-confirm{
+	background-color: var(--color-tertiary)!important;
+	color: var(--text-color-inverted);
+}
+button.swal2-styled.swal2-confirm:focus{
+	box-shadow:  0 0 0 3px var(--color-card-tertiary-strong)
+}
+
+.swal2-styled.swal2-cancel{
+	background-color: var(--color-primary)!important;
+	color: var(--text-color-inverted);
+}
+button.swal2-styled.swal2-cancel:focus{
+	box-shadow:  0 0 0 3px var(--color-card-primary-strong)
+}

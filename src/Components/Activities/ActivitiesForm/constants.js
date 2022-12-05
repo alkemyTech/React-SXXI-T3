@@ -1,19 +1,23 @@
 import * as Yup from "yup";
 import {
-  imgRegExp,
-  invalidImageFormatMessage,
+  imageValidation,
+  imageValidationRequired,
   requiredMessage,
 } from "../../../utils/validation/constants";
 
-export const validationSchema = Yup.object().shape({
+const validations = {
   name: Yup.string().required(requiredMessage + "el nombre"),
-  image: Yup.string()
-    .matches(imgRegExp, {
-      message: invalidImageFormatMessage,
-      excludeEmptyString: true,
-    })
-    .required(requiredMessage + "la imagen"),
   description: Yup.string(),
+};
+
+export const createValidationSchema = Yup.object().shape({
+  ...validations,
+  ...imageValidationRequired,
+});
+
+export const editValidationSchema = Yup.object().shape({
+  ...validations,
+  ...imageValidation,
 });
 
 export const initialValues = {

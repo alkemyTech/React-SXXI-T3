@@ -11,7 +11,7 @@ button.carouselButton {
   bottom: 50%;
   background-color: transparent;
   border-radius: 50%;
-  color: rgb(232, 230, 227);
+  color: var(--color-on-primary-card-light);
 }
 
 .carouselButton:hover {
@@ -71,9 +71,4 @@ button.carouselButton {
   .itemWrapper {
     text-align: center;
   }
-}
-
-/*temporal fix*/
-* {
-  background-color: unset;
 }

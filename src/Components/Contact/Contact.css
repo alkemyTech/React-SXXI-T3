@@ -40,10 +40,6 @@
   padding: 0.25rem;
 }
 
-a {
-  text-decoration: unset;
-  color: black;
-}
 
 svg.icon {
   height: inherit;

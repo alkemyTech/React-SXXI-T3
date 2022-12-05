@@ -4,10 +4,9 @@
 }
 
 .title_sobre_nosotros {
-  margin-top: -5px;
   padding: 20px 0;
   text-align: center;
-  color: aliceblue;
+  color: var(--text-color-on-background-inverted);
   background-color: var(--color-primary);
   border-bottom-left-radius: var(--container-border);
   border-bottom-right-radius: var(--container-border);

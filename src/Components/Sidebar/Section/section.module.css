@@ -11,7 +11,7 @@
 }
 
 .link-container:hover {
-    background-color: var(--color-tertiary);
+    background-color: var(--color-card-tertiary);
     transform: scale(105%);
 }
 
@@ -22,6 +22,12 @@
     border-radius: 50%;
     background-position: center;
     background-size: contain;
+    mix-blend-mode: multiply;
+}
+
+[theme="dark"] .logo-container{
+    filter: invert(100%);
+    mix-blend-mode: screen;
 }
 
 @media screen and (min-width: 450px) {

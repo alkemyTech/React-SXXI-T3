@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import UsersForm from "../Components/Users/UsersForm/UsersForm";
 import HomeForm from "../Components/Home/HomeForm/HomeForm";
 import { Dashboard } from "../Components/Dashboard/Dashboard";
-import { NewsList } from "../Components/Backoffice/NewsList";
+import { NewsList, ActivitiesList, TestimonialsList, CategoriesList, UsersList, SlidesList, MembersList } from "../Components/Backoffice";
 import OrganizationScreen from "../Components/Organization/OrganizationScreen";
 import OrganizationForm from "../Components/Organization/OrganizationForm";
 import SlidesForm from "../Components/Slides/SlidesForm/SlidesForm";
@@ -15,12 +15,6 @@ import CategoriesForm from "../Components/Categories/CategoriesForm/CategoriesFo
 import NewsForm from "../Components/News/NewsForm/NewsForm";
 import ActivitiesForm from "../Components/Activities/ActivitiesForm/ActivitiesForm";
 import HeaderBackoffice from "../Components/HeaderBackoffice";
-import {SlidesList} from "../Components/Backoffice/SlidesList";
-import {TestimonialsList} from "../Components/Backoffice/TestimonialsList";
-import {UsersList} from "../Components/Backoffice/UsersList";
-import {MembersList} from "../Components/Backoffice/MembersList";
-import {CategoriesList} from "../Components/Backoffice/CategoriesList";
-import {ActivitiesList} from "../Components/Backoffice/ActivitiesList";
 
 
 const BackofficeRoutes = () => {

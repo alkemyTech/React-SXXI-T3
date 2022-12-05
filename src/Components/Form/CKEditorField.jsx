@@ -1,6 +1,8 @@
-import { Field } from "./Field";
+import { useEffect } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+import { Field } from "./Field";
 
 export const CKEditorField = ({
   value,
@@ -15,6 +17,14 @@ export const CKEditorField = ({
   labelClassName = "",
   errorsClassName = "",
 }) => {
+  useEffect(() => {
+    if(errors && touched){
+      document.getElementsByClassName("ck")[0]?.classList.add("error");
+    }else{
+      document.getElementsByClassName("ck")[0]?.classList.remove("error");
+    }
+  }, [errors, touched]);
+
   return (
     <Field
       label={label}

@@ -1,37 +1,24 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { defaultImage } from "../../utils/defaultImage";
+import { defaultImage } from "../../../utils/defaultImage";
 
 import "./HeaderSession.css";
-import Button from "../Button/Button";
-import { ThemeSwitcher } from "./ThemeSwitcher/ThemeSwitcher";
+import Button from "../../Button/Button";
+import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
+import {useDispatch, useSelector} from "react-redux";
+import {logout, selectAuth} from "../../../features/auth/authSlice";
 
-//TODO: CAMBIAR DESPUES EN DEV
 const HeaderSession = ({ showInfo, handleShowInfo, switchTheme, theme }) => {
-  const user = {
-    id: 4132,
-    name: "User Name",
-    email: "asd@gml.com",
-    email_verified_at: null,
-    password: "Aa1234*",
-    role_id: 1,
-    remember_token: null,
-    created_at: "2022-12-03T06:53:51.000000Z",
-    updated_at: "2022-12-03T06:53:51.000000Z",
-    deleted_at: null,
-    group_id: null,
-    latitude: null,
-    longitude: null,
-    address: null,
-    profile_image: null,
-  };
+  const {user} = useSelector(selectAuth);
+  const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const isAdmin = user.role_id === 1;
   const isBackoffice = location.pathname.includes("backoffice");
   const linkTo = isBackoffice ? "/" : "/backoffice";
 
   const handleLogOut = () => {
+    dispatch(logout());
     navigate("/login");
   };
 

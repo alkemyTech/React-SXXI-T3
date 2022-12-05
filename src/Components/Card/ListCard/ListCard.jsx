@@ -7,7 +7,6 @@ import { useMobile } from "../../../hooks/useIsMobile";
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import "./ListCard.css";
-import { defaultImage } from "../../../utils/defaultImage";
 
 
 export const ListCard = ({
@@ -19,19 +18,7 @@ export const ListCard = ({
                            variant,
                            linkTo,
                          }) => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const updateDevice = () => {
-      setIsMobile(window.innerWidth <= 576);
-    };
-    updateDevice();
-    window.addEventListener("resize", updateDevice);
-
-    return () => {
-      window.removeEventListener("resize", updateDevice);
-    };
-  }, []);
+  const isMobile = useMobile();
 
   const newsText = () => {
     if (isMobile) {
@@ -49,12 +36,15 @@ export const ListCard = ({
   return (
       <div className={`list-card ${variant}`}>
         <div className="list-card-image">
+            <div className="list-card-divimg">
           <LazyLoadImage
               alt={name}
               effect="blur"
               wrapperClassName="lazy-img"
               src={image}
           />
+            <h6 className="list-card-title">{name}</h6>
+            </div>
         </div>
         <div className="list-card-content">
           <div className="list-card-text" dangerouslySetInnerHTML={newsText()} />

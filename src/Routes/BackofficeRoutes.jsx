@@ -14,13 +14,13 @@ import MembersForm from "../Components/Members/MembersForm/MembersForm";
 import CategoriesForm from "../Components/Categories/CategoriesForm/CategoriesForm";
 import NewsForm from "../Components/News/NewsForm/NewsForm";
 import ActivitiesForm from "../Components/Activities/ActivitiesForm/ActivitiesForm";
-import HeaderBackoffice from "../Components/HeaderBackoffice";
+import HeaderBackoffice from "../Components/Header/HeaderBackoffice";
 
 
-const BackofficeRoutes = () => {
+const BackofficeRoutes = ({theme, switchTheme}) => {
     return (
         <>
-          <HeaderBackoffice />
+          <HeaderBackoffice switchTheme={switchTheme} theme={theme} />
             <Routes>
                <Route index element={<Dashboard/>}/>
                 <Route path="home" element={<HomeForm/>}/>

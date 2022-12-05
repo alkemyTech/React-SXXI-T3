@@ -1,13 +1,15 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-import Button from "../Button/Button";
+import Button from "../../Button/Button";
 import { v4 as uuidv4 } from "uuid";
 import "./Header.css";
-import { useLogo } from "../../hooks/useLogo";
-import HeaderSession from "./HeaderSession";
+import { useLogo } from "../../../hooks/useLogo";
+import HeaderSession from "../HeaderSession/HeaderSession";
 import { useState } from "react";
-import { ThemeSwitcher } from "./ThemeSwitcher/ThemeSwitcher";
+import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
+import {useSelector} from "react-redux";
+import {selectAuth} from "../../../features/auth/authSlice";
 
 //TODO: CAMBIAR DESPUES EN DEV
 export const Header = ({
@@ -17,6 +19,7 @@ export const Header = ({
   theme,
   ...props
 }) => {
+  const { token } = useSelector(selectAuth);
   const navigate = useNavigate();
   const dataArray = [
     { text: "Inicio", link: "/" },
@@ -66,7 +69,7 @@ export const Header = ({
             handleShowInfo={handleShowInfo}
             switchTheme={switchTheme}
             theme={theme}
-            isLogged={isLogged}
+            isLogged={!!token}
           />
 
           <Navbar.Collapse
@@ -83,7 +86,7 @@ export const Header = ({
                   {element.text}
                 </Link>
               ))}
-              {!isLogged && (
+              {!token && (
                 <div className="nav header-button-container">
                   <Button
                     label="Iniciar Sesión"
@@ -107,11 +110,10 @@ export const Header = ({
             handleShowInfo={handleShowInfo}
             switchTheme={switchTheme}
             theme={theme}
-            isLogged={isLogged}
+            isLogged={!!token}
           />
         </Container>
       </Navbar>
-      {/*<Outlet />*/}
     </>
   );
 };
@@ -122,7 +124,7 @@ const HeaderDropdown = ({
   switchTheme,
   theme,
   className,
-  isLogged = false,
+  isLogged,
 }) => {
   return (
     <Nav className={`nav header-dropdown ${className}`}>

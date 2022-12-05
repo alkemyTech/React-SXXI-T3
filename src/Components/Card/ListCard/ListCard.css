@@ -38,7 +38,7 @@
   width: 50%;
 }
 
-.list-card-image img {
+.lazy-img,  .lazy-img img{
   min-height: 150px;
   border-radius: var(--container-border);
   position: absolute;
@@ -111,7 +111,7 @@
     font-size: 12px;
     height: 170px;
   }
-
+  
   .list-card-title{
     font-size: .85rem;
   }
@@ -120,12 +120,12 @@
     max-height: 150px;
     min-height: 100px;
   }
-
+  
   .list-card-text {
     padding: 10px;
     margin-bottom: 0;
   }
-
+  
   .list-card-btn {
     font-size: 12px;
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
 import ActivitiesDetail from "./Components/Activities/ActivitiesDetail";
@@ -11,15 +11,15 @@ import Nosotros from "./Components/About/Nosotros";
 import ActivitiesList from "./Components/Activities/ActivitiesList";
 import Home from "./Components/Home";
 import { Footer } from "./Components/Footer/Footer";
-import { Header } from "./Components/Header/Header";
+import { Header } from "./Components/Header/HeaderPublic/Header";
 import Login from "./Components/Auth/Login/Login";
 import Register from "./Components/Auth/Register/Register";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 import "./App.css";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
-  const [isLogged, setIsLogged] = useState(true);
   const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const [theme, setTheme] = useLocalStorage(
     "theme",
@@ -37,7 +37,14 @@ function App() {
 
   return (
     <Routes>
-      <Route path="backoffice/*" element={<BackofficeRoutes />} />
+      <Route
+          path="backoffice/*"
+          element={
+            <ProtectedRoute>
+              <BackofficeRoutes switchTheme={switchTheme} theme={theme}/>
+            </ProtectedRoute>
+          }
+      />
       <Route
         path=""
         element={
@@ -45,8 +52,6 @@ function App() {
             <Header
               switchTheme={switchTheme}
               theme={theme}
-              isLogged={isLogged}
-              handleLogged={setIsLogged}
             />
             <Outlet />
             <Donation />

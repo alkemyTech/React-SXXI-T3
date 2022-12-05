@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import React from "react";
 import { Link } from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 import {
   registerInitialValues as initialValues,
@@ -8,15 +9,18 @@ import {
 } from "../constants";
 import { InputField } from "../../Form";
 import Button from "../../Button/Button";
+import {authRegister} from "../../../features/auth/authSlice";
+
 
 const RegisterForm = ({ desktop }) => {
+  const dispatch = useDispatch();
   const onSubmit = ({ name, email, password }) => {
     const user = {
       name,
       email,
       password,
     };
-    console.log(user);
+    dispatch(authRegister(user));
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

@@ -8,6 +8,7 @@ import "./NewsDetail.css";
 import { apiONG } from "../../../Services/apiONG";
 import { errorAlert } from "../../Feedback/AlertService";
 import { Spinner } from "../../Feedback/Spinner/Spinner";
+import CommentsDetails from "../../Comments/CommentsDetails";
 
 const NewsDetail = ({ title }) => {
   const { id } = useParams();
@@ -52,6 +53,7 @@ const NewsDetail = ({ title }) => {
           <h3 className="news-title">{news.name}</h3>
         </DetailCard>
       )}
+        <CommentsDetails idNews={id} />
     </>
   );
 };

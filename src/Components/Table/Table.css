@@ -78,6 +78,24 @@ div.modal-content{
   filter: invert(89%) sepia(32%) saturate(390%) hue-rotate(301deg) brightness(100%) contrast(101%);
 }
 
+div.backoffice-table::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+div.backoffice-table::-webkit-scrollbar-thumb {
+  background-color: rgba(102, 194, 237, 0.802);
+  border-radius: 5px;
+}
+
+div.backoffice-table::-webkit-scrollbar-corner,
+div.backoffice-table::-webkit-resizer {
+  display: none;
+}
+
+
 @media (min-width: 768px) {
   td {
     text-align: center;

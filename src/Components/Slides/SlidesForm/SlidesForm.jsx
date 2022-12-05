@@ -10,7 +10,7 @@ import {
   editValidationSchema,
   initialValues,
 } from "./constants";
-import { CKEditorField, InputField } from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { defaultImage } from "../../../utils/defaultImage";
 
@@ -100,7 +100,10 @@ const SlidesForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Slide</h1>
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Diapositiva
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Nombre"

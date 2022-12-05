@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Button from "../Button/Button";
 import { v4 as uuidv4 } from "uuid";
@@ -24,12 +24,9 @@ export const Header = ({
     { text: "Actividades", link: "/actividades" },
     { text: "Novedades", link: "/novedades" },
     { text: "Contacto", link: "/contacto" },
-    { text: "Contribuye", link: "/donar" },
   ];
   const [logoONG, isFetching] = useLogo();
   const [showInfo, setShowInfo] = useState(false);
-
-  const handleLogOut = () => {};
 
   const handleLogIn = () => {
     navigate("/login");
@@ -114,7 +111,7 @@ export const Header = ({
           />
         </Container>
       </Navbar>
-      <Outlet />
+      {/*<Outlet />*/}
     </>
   );
 };

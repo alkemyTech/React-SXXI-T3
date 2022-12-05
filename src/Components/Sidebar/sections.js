@@ -8,40 +8,50 @@ import slides from "../../assets/images/backoffice-logos/slides.jpg";
 import testimonials from "../../assets/images/backoffice-logos/testimonials.jpg";
 import users from "../../assets/images/backoffice-logos/users.jpg";
 
-export const sections = [{
-    name: 'Inicio',
-    path: 'backoffice',
-    logo: dashboard
-}, {
-    name: 'Novedades',
-    path: 'novedades',
-    logo: news
-}, {
-    name: 'Actividades',
-    path: 'actividades',
-    logo: activities
-}, {
-    name: 'Categorías',
-    path: 'categorias',
-    logo: categories
-}, {
-    name: 'Testimonios',
-    path: 'testimonios',
-    logo: testimonials
-}, {
-    name: 'Organización',
-    path: 'organizacion',
-    logo: organization
-}, {
-    name: 'Slides',
-    path: 'slides',
-    logo: slides
-}, {
-    name: 'Usuarios',
-    path: 'usuarios',
-    logo: users
-}, {
-    name: 'Miembros',
-    path: 'miembros',
-    logo: members
-}]
+export const sections = [
+  {
+    name: "Inicio",
+    path: "backoffice",
+    logo: dashboard,
+  },
+  {
+    name: "Novedades",
+    path: "novedades",
+    logo: news,
+  },
+  {
+    name: "Actividades",
+    path: "actividades",
+    logo: activities,
+  },
+  {
+    name: "Categorías",
+    path: "categorias",
+    logo: categories,
+  },
+  {
+    name: "Testimonios",
+    path: "testimonios",
+    logo: testimonials,
+  },
+  {
+    name: "Organización",
+    path: "organizacion",
+    logo: organization,
+  },
+  {
+    name: "Diapositivas",
+    path: "slides",
+    logo: slides,
+  },
+  {
+    name: "Usuarios",
+    path: "usuarios",
+    logo: users,
+  },
+  {
+    name: "Miembros",
+    path: "miembros",
+    logo: members,
+  },
+];

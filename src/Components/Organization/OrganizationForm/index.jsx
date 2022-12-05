@@ -6,7 +6,12 @@ import { apiONG } from "../../../Services/apiONG";
 import { getBase64 } from "../../../utils/getBase64";
 import { initialValues, validationSchema } from "./constants";
 import Button from "../../Button/Button";
-import { CKEditorField, InputField, TextAreaField } from "../../Form";
+import {
+  BackButton,
+  CKEditorField,
+  InputField,
+  TextAreaField,
+} from "../../Form";
 import { defaultImage } from "../../../utils/defaultImage";
 
 import styles from "./organizationForm.module.css";
@@ -79,7 +84,10 @@ const OrganizationForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">Editar datos de la Organización</h1>
+        <h1 className="form-title">
+          <BackButton />
+          Editar datos de la Organización
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Nombre"
@@ -148,8 +156,8 @@ const OrganizationForm = () => {
           name="long_description"
           value={values.long_description}
           touched={touched.long_description}
-          onBlur={handleBlur}
-          onChange={handleChange}
+          onBlur={handleBlur("long_description")}
+          onChange={handleChange("long_description")}
           errors={errors.long_description}
           label="Descripción completa"
           inputClassName={styles.input_textArea}

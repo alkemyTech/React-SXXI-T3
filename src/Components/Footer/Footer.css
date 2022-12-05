@@ -46,6 +46,10 @@ footer{
 	text-decoration: unset;
 }
 
+.footer-socials-container{
+	align-self: center;
+}
+
 @media (min-width: 768px) {
 	.footer-container {
 		flex-direction: row;

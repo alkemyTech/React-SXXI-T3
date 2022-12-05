@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { post, put } from "../../../Services/userService";
 import { apiONG } from "../../../Services/apiONG";
-import { InputField, SelectField } from "../../Form";
+import { BackButton, InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
 import {
   createValidationSchema,
@@ -115,7 +115,8 @@ const UsersForm = () => {
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
         <h1 className="form-title">
-          Formulario de {id ? "Edición" : "Creación"} de Usuario
+          <BackButton />
+          {id ? "Editar" : "Crear"} Usuario
         </h1>
         <div className="input-preview-image">
           <InputField

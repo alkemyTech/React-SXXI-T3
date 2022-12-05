@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import BackofficeRoutes from "./Routes/BackofficeRoutes";
 import ActivitiesDetail from "./Components/Activities/ActivitiesDetail";
 import NewsDetail from "./Components/News/Detail/NewsDetail";
 import Donation from "./Components/Donations/Donation";
-import Thanks from "./Components/Donations/Thanks";
+import Thanks from "./Components/Donations/ThanksOverlay";
 import Contact from "./Components/Contact/Contact";
 import NewsList from "./Components/News/List/NewsList";
 import Nosotros from "./Components/About/Nosotros";
@@ -41,12 +41,17 @@ function App() {
       <Route
         path=""
         element={
-          <Header
-            switchTheme={switchTheme}
-            theme={theme}
-            isLogged={isLogged}
-            handleLogged={setIsLogged}
-          />
+          <>
+            <Header
+              switchTheme={switchTheme}
+              theme={theme}
+              isLogged={isLogged}
+              handleLogged={setIsLogged}
+            />
+            <Outlet />
+            <Donation />
+            <Footer />
+          </>
         }
       >
         <Route path="login" element={<Login />} />
@@ -63,24 +68,8 @@ function App() {
         <Route path="nosotros" element={<Nosotros />} />
         <Route path="donar" element={<Donation />} />
         <Route path="gracias" element={<Thanks />} />
-        <Route
-          path="/"
-          element={
-            <>
-              <Home />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <>
-              <Home />
-              <Footer />
-            </>
-          }
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Home />} />
       </Route>
     </Routes>
   );

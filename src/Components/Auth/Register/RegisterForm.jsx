@@ -10,9 +10,9 @@ import { InputField } from "../../Form";
 import Button from "../../Button/Button";
 
 const RegisterForm = ({ desktop }) => {
-
-  const onSubmit = ({ email, password }) => {
+  const onSubmit = ({ name, email, password }) => {
     const user = {
+      name,
       email,
       password,
     };
@@ -34,36 +34,50 @@ const RegisterForm = ({ desktop }) => {
           </>
         )}
         <InputField
-            type="email"
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Correo electrónico"
-            errors={errors.email}
-            touched={touched.email}
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Nombre"
+          errors={errors.name}
+          touched={touched.name}
         />
         <InputField
-            type="password"
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Contraseña"
-            errors={errors.password}
-            touched={touched.password}
+          type="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Correo electrónico"
+          errors={errors.email}
+          touched={touched.email}
         />
         <InputField
-            type="password"
-            name="confirm"
-            value={values.confirm}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Confirmar contraseña"
-            errors={errors.confirm}
-            touched={touched.confirm}
+          type="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Contraseña"
+          errors={errors.password}
+          touched={touched.password}
         />
-        <Button type="submit" label="Registrarse" variant="primary" className="form-button"/>
+        <InputField
+          type="password"
+          name="confirm"
+          value={values.confirm}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Confirmar contraseña"
+          errors={errors.confirm}
+          touched={touched.confirm}
+        />
+        <Button
+          type="submit"
+          label="Registrarse"
+          variant="primary"
+          className="form-button"
+        />
         <div className="auth-suggestion">
           Ya tienes una cuenta?
           <Link className="auth-link" to={"/login"}>

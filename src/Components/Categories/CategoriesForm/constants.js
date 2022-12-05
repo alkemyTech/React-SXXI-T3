@@ -14,12 +14,12 @@ const validations = {
 
 export const createValidationSchema = Yup.object().shape({
   ...validations,
-  imageValidationRequired,
+  ...imageValidationRequired,
 });
 
 export const editValidationSchema = Yup.object().shape({
   ...validations,
-  imageValidation,
+  ...imageValidation,
 });
 
 export const initialValues = {

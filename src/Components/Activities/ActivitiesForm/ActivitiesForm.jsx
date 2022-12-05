@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import { getBase64 } from "../../../utils/getBase64";
-import { CKEditorField, InputField } from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { apiONG } from "../../../Services/apiONG";
 import {
@@ -113,7 +113,10 @@ const ActivitiesForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Actividad</h1>
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Actividad
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Nombre"

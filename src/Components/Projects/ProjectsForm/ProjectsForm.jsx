@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
 import { apiONG } from "../../../Services/apiONG";
-import { CKEditorField, InputField } from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import {
   createValidationSchema,
@@ -128,7 +128,10 @@ const ProjectsForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Proyecto</h1>
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Proyecto
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Título"

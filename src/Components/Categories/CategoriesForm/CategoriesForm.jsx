@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/categoryFormServices";
-import { CKEditorField, InputField } from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { apiONG } from "../../../Services/apiONG";
 import { getBase64 } from "../../../utils/getBase64";
@@ -96,7 +96,10 @@ const CategoriesForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Categoría</h1>
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Categoría
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Nombre"

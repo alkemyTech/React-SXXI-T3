@@ -15,12 +15,12 @@ const validation = {
 
 export const createValidationSchema = Yup.object().shape({
   ...validation,
-  imageValidationRequired,
+  ...imageValidationRequired,
 });
 
 export const editValidationSchema = Yup.object().shape({
   ...validation,
-  imageValidation,
+  ...imageValidation,
 });
 
 export const initialValues = {

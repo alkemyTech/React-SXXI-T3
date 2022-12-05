@@ -15,27 +15,28 @@ const defaultValidations = {
 };
 
 export const loginValidationSchema = Yup.object().shape({
-    ...defaultValidations
+  ...defaultValidations,
 });
 
 export const registerValidationSchema = Yup.object().shape({
-    ...defaultValidations,
-    confirm: Yup
-        .string()
-        .oneOf(
-            [Yup.ref("password")],
-            "La confirmación debe coincidir con la contraseña ingresada"
-        )
-        .required(requiredMessage + "nuevamente la contraseña"),
+  ...defaultValidations,
+  name: Yup.string().required(requiredMessage + "el nombre"),
+  confirm: Yup.string()
+    .oneOf(
+      [Yup.ref("password")],
+      "La confirmación debe coincidir con la contraseña ingresada"
+    )
+    .required(requiredMessage + "nuevamente la contraseña"),
 });
 
 export const loginInitialValues = {
-    email: "",
-    password: "",
+  email: "",
+  password: "",
 };
 
 export const registerInitialValues = {
-    email: "",
-    password: "",
-    confirm: "",
-}
+  name: "",
+  email: "",
+  password: "",
+  confirm: "",
+};

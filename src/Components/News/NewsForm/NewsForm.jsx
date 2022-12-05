@@ -9,7 +9,7 @@ import {
   initialValues,
 } from "./constants";
 import "../../FormStyles.css";
-import { CKEditorField, InputField, SelectField } from "../../Form";
+import { BackButton, CKEditorField, InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
 import { getBase64 } from "../../../utils/getBase64";
 import { defaultImage } from "../../../utils/defaultImage";
@@ -126,7 +126,10 @@ const NewsForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Novedad</h1>
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Novedad
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Título"

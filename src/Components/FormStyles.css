@@ -122,6 +122,7 @@ button.ck{
   padding: 10px 10px;
   margin-top: 0;
   text-align: center;
+  position: relative;
 }
 
 .input-preview-image {
@@ -144,6 +145,18 @@ form input, select, textarea{
 
 select .select-placeholder{
   color: var(--text-color-placeholder);
+}
+
+.back-svg{
+  height: 30px;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  filter: invert(4%) sepia(42%) saturate(7491%) hue-rotate(340deg) brightness(117%) contrast(110%);
+}
+
+[theme="dark"] .back-svg{
+  filter: invert(89%) sepia(32%) saturate(390%) hue-rotate(301deg) brightness(100%) contrast(101%);
 }
 
 @media screen and (max-width: 650px) {

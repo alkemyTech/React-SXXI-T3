@@ -17,7 +17,7 @@ const DetailCard = ({
   const htmlContent = { __html: content };
   const parsedDate = DateParser(date);
   return (
-    <div className={`card ${color}`}>
+    <div className={`card-detail ${color}`}>
       {children}
       <img src={imageUrl} alt={imagAlt} className="card-image" />
       <div className="card-text" dangerouslySetInnerHTML={htmlContent} />

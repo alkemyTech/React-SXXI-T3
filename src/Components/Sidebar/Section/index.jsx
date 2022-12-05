@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import s from './section.module.css';
+import s from "./section.module.css";
 
 const active = {
     color: 'var(--color-primary)',

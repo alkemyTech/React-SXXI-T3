@@ -4,12 +4,17 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import { getBase64 } from "../../../utils/getBase64";
-import { CKEditorField, InputField } from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { apiONG } from "../../../Services/apiONG";
-import { initialValues, validationSchema } from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 
 import "../../FormStyles.css";
+import { defaultImage } from "../../../utils/defaultImage";
 
 const updateActivity = (activity) => {
   apiONG
@@ -37,7 +42,9 @@ const ActivitiesForm = () => {
   const [activity, setActivity] = useState();
   const [isFetching, setIsFetching] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [imagePreview, setImagePreview] = useState(defaultImage);
   const { id } = useParams();
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
   const imageRef = useRef();
 
   const onSubmit = () => {
@@ -78,7 +85,6 @@ const ActivitiesForm = () => {
     isSubmitting,
     setSubmitting,
   } = formik;
-
   useEffect(() => {
     if (id) {
       setIsFetching(true);
@@ -86,6 +92,7 @@ const ActivitiesForm = () => {
         .get(`/activities/${id}`)
         .then(({ data: { data } }) => {
           setValues(() => ({ ...data, image: "" }));
+          setImagePreview(() => data.image);
           setActivity(data);
         })
         .catch((error) => {
@@ -106,17 +113,23 @@ const ActivitiesForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Actividad</h1>
-        <InputField
-          label="Nombre"
-          name="name"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Ingrese el nombre de la actividad"
-          errors={errors.name}
-          touched={touched.name}
-        />
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Actividad
+        </h1>
+        <div className="input-preview-image">
+          <InputField
+            label="Nombre"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Ingrese el nombre de la actividad"
+            errors={errors.name}
+            touched={touched.name}
+          />
+          <img src={imagePreview} alt="preview" className="preview-container" />
+        </div>
         <CKEditorField
           placeholder="Ingrese la descripción de la actividad"
           value={values.description}

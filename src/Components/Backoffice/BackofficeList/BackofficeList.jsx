@@ -3,7 +3,7 @@ import SearchInput from "../../SearchInput";
 
 import Table from "../../Table/Table";
 
-import './BackofficeList.css'
+import "./BackofficeList.css";
 
 const BackofficeList = ({
     title,

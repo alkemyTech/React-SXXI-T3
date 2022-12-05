@@ -1,11 +1,11 @@
 import Swal from "sweetalert2";
+import "./Alert.css";
 
 const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 export const infoAlert = (title, description, timer, bar) => {
-
   title = capitalize(title.trim());
   description = capitalize(description.trim());
 
@@ -17,6 +17,7 @@ export const infoAlert = (title, description, timer, bar) => {
     timerProgressBar: bar || false,
   });
 };
+
 
 export const errorAlert = (title = "Ocurrió un error", description = "Por favor, intenta más tarde...", timer, bar) => {
 
@@ -33,7 +34,6 @@ export const errorAlert = (title = "Ocurrió un error", description = "Por favor
 };
 
 export const confirmAlert = (question, description, action, cancelled) => {
-
   question = capitalize(question.trim());
   description = capitalize(description.trim());
 

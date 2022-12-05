@@ -26,18 +26,75 @@ td.action-icon {
 }
 
 .trash-icon {
-  filter: invert(13%) sepia(62%) saturate(7452%) hue-rotate(358deg)
-    brightness(104%) contrast(119%);
+  filter: invert(11%) sepia(96%) saturate(5069%) hue-rotate(358deg) brightness(87%) contrast(83%);
 }
 
 .pencil-icon {
-  filter: invert(0%) sepia(25%) saturate(5828%) hue-rotate(28deg)
-    brightness(97%) contrast(78%);
+  filter: invert(0%) sepia(25%) saturate(5828%) hue-rotate(28deg) brightness(97%) contrast(78%);
+}
+
+[theme="dark"] .pencil-icon {
+  filter: invert(100%) sepia(13%) saturate(47%) hue-rotate(228deg) brightness(117%) contrast(100%);
+}
+
+[theme="dark"] .trash-icon {
+  filter: invert(72%) sepia(9%) saturate(1355%) hue-rotate(317deg) brightness(103%) contrast(108%);
 }
 
 .img-modal {
   background-color: rgba(0, 0, 0, 0.2) !important;
 }
+
+.modal-body-image{
+  width: 100%;
+  border-radius: var(--border);
+  max-width: 300px;
+  max-height: 300px;
+}
+
+[theme="dark"] .table-striped>tbody>tr:nth-of-type(odd)>*{
+  --bs-table-accent-bg: rgba(255, 255, 255, 0.11);
+  color: var(--text-color)
+}
+
+[theme="dark"] .table-hover>tbody>tr:hover>*{
+  --bs-table-accent-bg: rgba(255, 255, 255, 0.36);
+  color: var(--text-color)
+}
+
+div table > thead, tbody{
+  color: var(--text-color)
+}
+
+div.modal-content{
+  background-color: var(--color-surface);
+}
+
+.modal-header button.btn-close{
+  filter: invert(4%) sepia(42%) saturate(7491%) hue-rotate(340deg) brightness(117%) contrast(110%);
+}
+
+[theme="dark"] .modal-header button.btn-close{
+  filter: invert(89%) sepia(32%) saturate(390%) hue-rotate(301deg) brightness(100%) contrast(101%);
+}
+
+div.backoffice-table::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+div.backoffice-table::-webkit-scrollbar-thumb {
+  background-color: rgba(102, 194, 237, 0.802);
+  border-radius: 5px;
+}
+
+div.backoffice-table::-webkit-scrollbar-corner,
+div.backoffice-table::-webkit-resizer {
+  display: none;
+}
+
 
 @media (min-width: 768px) {
   td {

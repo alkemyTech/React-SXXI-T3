@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 
 import { getOrganizationInfo } from "../../../Services/organizationService/organizationService";
 import { getSlides } from "../../../Services/slidesServices/slidesService";
-import { TextAreaField } from "../../Form";
+import { BackButton, TextAreaField } from "../../Form";
 import SliderTemplate from "../../Slides/Slider/Template/SliderTemplate";
 import Carousel from "../../Carousel/Carousel";
 import Button from "../../Button/Button";
 import { ReactComponent as RemoveSvg } from "../../../assets/svg/home/xmark-solid.svg";
 import { ReactComponent as AddSvg } from "../../../assets/svg/home/plus-solid.svg";
-import { validationSchema, initialValues } from "./constants";
+import { initialValues, validationSchema } from "./constants";
 
 import "./HomeForm.css";
 
@@ -78,22 +78,23 @@ const HomeForm = () => {
     }
   };
 
-    const SliderSelectTemplate = (props) => {
-        return (<>
-                <SliderTemplate {...props} imageClassName="select-preview">
-                    <div className="utils-container">
-                        <Button
-                            label={isSelected(props.id) ? <RemoveSvg/> : <AddSvg/>}
-                            onClick={() => handleSelectSlide(props)}
-                            type='button'
-                            variant='text'
-                            className="select-button"
-                        />
-                    </div>
-                </SliderTemplate>
-            </>
-        )
-    }
+  const SliderSelectTemplate = (props) => {
+    return (
+      <>
+        <SliderTemplate {...props} imageClassName="select-preview">
+          <div className="utils-container">
+            <Button
+              label={isSelected(props.id) ? <RemoveSvg /> : <AddSvg />}
+              onClick={() => handleSelectSlide(props)}
+              type="button"
+              variant="text"
+              className="select-button"
+            />
+          </div>
+        </SliderTemplate>
+      </>
+    );
+  };
 
   const isLoading = isFetching || isSubmitting;
 
@@ -103,14 +104,17 @@ const HomeForm = () => {
         onSubmit={handleSubmit}
         className="form-container homeform-container"
       >
-        <h1 className="homeform-title">Actualizar datos de inicio</h1>
+        <h1 className="form-title">
+          <BackButton />
+          Actualizar datos de inicio
+        </h1>
         <div className="textarea-container">
           <TextAreaField
             name="welcomeText"
             value={formik.values.welcomeText}
             touched={formik.touched.welcomeText}
-            onBlur={handleBlur}
-            onChange={handleChange}
+            onBlur={handleBlur("welcomeText")}
+            onChange={handleChange("welcomeText")}
             errors={formik.errors.welcomeText}
             label="Texto de bienvenida"
           />

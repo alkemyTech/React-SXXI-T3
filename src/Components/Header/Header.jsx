@@ -1,54 +1,141 @@
-import { Button, Container, Nav, Navbar } from "react-bootstrap"
-import logo from "../../assets/images/logo.png";
-import './Header.css';
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
+import Button from "../Button/Button";
+import { v4 as uuidv4 } from "uuid";
+import "./Header.css";
+import { useLogo } from "../../hooks/useLogo";
+import HeaderSession from "./HeaderSession";
+import { useState } from "react";
+import { ThemeSwitcher } from "./ThemeSwitcher/ThemeSwitcher";
+
+//TODO: CAMBIAR DESPUES EN DEV
 export const Header = ({
-        isLogged=false,
-        handleLogged = () => {},
-        ...props
-    }
-    ) => {
+  isLogged = false,
+  handleLogged = () => {},
+  switchTheme,
+  theme,
+  ...props
+}) => {
+  const navigate = useNavigate();
+  const dataArray = [
+    { text: "Inicio", link: "/" },
+    { text: "Nosotros", link: "/nosotros" },
+    { text: "Actividades", link: "/actividades" },
+    { text: "Novedades", link: "/novedades" },
+    { text: "Contacto", link: "/contacto" },
+  ];
+  const [logoONG, isFetching] = useLogo();
+  const [showInfo, setShowInfo] = useState(false);
 
-    const dataArray = [
-        {text: 'Inicio', link: '/'},
-        {text: 'Nosotros', link: '/nosotros'},
-        {text: 'Novedades', link: '/novedades'},
-        {text: 'Testimonios', link: '/testimonios'},
-        {text: 'Contacto', link: '/contacto'},
-        {text: 'Contribuye', link: '/donar'}
-    ]
+  const handleLogIn = () => {
+    navigate("/login");
+  };
 
-    return(
-        <Navbar bg="light" expand="lg">
-            <Container>
-                <Navbar.Brand href="/">
-                    <img
-                    alt="Somos Mas Logo"
-                    src={logo}
-                    width="50"
-                    height="50"
-                    className="d-inline-block align-top"
-                    />
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                <Nav className="nav">
-                    {dataArray.map((element, index) => 
-                        <Nav.Link className="container" key={index} href={element.link}>{element.text}</Nav.Link>)}
-                </Nav>
-                <Nav className="nav">
-                    {isLogged ?
-                        <>
-                            <Button className="registerButton" href="/">Cerrar sesión</Button>
-                        </>
-                    :   <>
-                            <Button className="loginButton" href="/login">Iniciar sesión</Button>
-                            <Button className="registerButton" href="/register">Registrarse</Button>
-                        </>
-                    }
-                </Nav>
-                </Navbar.Collapse>
-            </Container>
-            </Navbar>
-    )
-}
+  const handleRegister = () => {
+    navigate("/registro");
+  };
+
+  const handleShowInfo = () => {
+    setShowInfo(!showInfo);
+  };
+
+  return (
+    <>
+      <Navbar expand="lg" sticky="top">
+        <Container fluid>
+          <Navbar.Brand>
+            {isFetching ? null : (
+              <Link to="/">
+                <img
+                  src={logoONG}
+                  alt="logo"
+                  width="90"
+                  height="55"
+                  className="d-inline-block align-top"
+                />
+              </Link>
+            )}
+          </Navbar.Brand>
+
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+          <HeaderDropdown
+            className="mobile"
+            showInfo={showInfo}
+            handleShowInfo={handleShowInfo}
+            switchTheme={switchTheme}
+            theme={theme}
+            isLogged={isLogged}
+          />
+
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav className="nav">
+              {dataArray.map((element) => (
+                <Link
+                  key={uuidv4()}
+                  to={element.link}
+                  className="container nav-link"
+                >
+                  {element.text}
+                </Link>
+              ))}
+              {!isLogged && (
+                <div className="nav header-button-container">
+                  <Button
+                    label="Iniciar Sesión"
+                    onClick={handleLogIn}
+                    className="header-button"
+                    variant="tertiary"
+                  />
+                  <Button
+                    label="Registrarse"
+                    onClick={handleRegister}
+                    variant="primary"
+                    className="header-button"
+                  />
+                </div>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+          <HeaderDropdown
+            className="notMobile"
+            showInfo={showInfo}
+            handleShowInfo={handleShowInfo}
+            switchTheme={switchTheme}
+            theme={theme}
+            isLogged={isLogged}
+          />
+        </Container>
+      </Navbar>
+      {/*<Outlet />*/}
+    </>
+  );
+};
+
+const HeaderDropdown = ({
+  showInfo,
+  handleShowInfo,
+  switchTheme,
+  theme,
+  className,
+  isLogged = false,
+}) => {
+  return (
+    <Nav className={`nav header-dropdown ${className}`}>
+      {isLogged ? (
+        <HeaderSession
+          showInfo={showInfo}
+          handleShowInfo={handleShowInfo}
+          switchTheme={switchTheme}
+          theme={theme}
+        />
+      ) : (
+        <ThemeSwitcher switchTheme={switchTheme} theme={theme} />
+      )}
+    </Nav>
+  );
+};

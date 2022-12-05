@@ -5,8 +5,12 @@ import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/slideService";
 import { apiONG } from "../../../Services/apiONG";
-import { initialValues, validationSchema } from "./constants";
-import { CKEditorField, InputField } from "../../Form";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { defaultImage } from "../../../utils/defaultImage";
 
@@ -17,6 +21,7 @@ const SlidesForm = () => {
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(defaultImage);
   const [isFetching, setIsFetching] = useState(false);
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
@@ -95,7 +100,10 @@ const SlidesForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Slide</h1>
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Diapositiva
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Nombre"

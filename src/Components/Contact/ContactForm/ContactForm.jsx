@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { CKEditorField } from "../../Form/CKEditorField";
 import Swal from "sweetalert2";
 
-import { validationSchema, initialValues } from "./constants";
+import { initialValues, validationSchema } from "./constants";
 import { InputField } from "../../Form/InputField";
 import Button from "../../Button/Button";
 
@@ -94,6 +94,7 @@ const ContactForm = ({ children }) => {
           variant="primary"
           label="Enviar"
           disabled={isSubmitting}
+          className="form-button"
         />
         {children}
       </form>

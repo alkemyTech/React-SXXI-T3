@@ -41,6 +41,15 @@ footer{
 	height: 30px;
 }
 
+#links a{
+	color: var(--text-color-on-background);
+	text-decoration: unset;
+}
+
+.footer-socials-container{
+	align-self: center;
+}
+
 @media (min-width: 768px) {
 	.footer-container {
 		flex-direction: row;

@@ -1,10 +1,11 @@
 import s from "./memberCard.module.css";
 
 import altImage from "../assets/avatar_member_3.png";
-import facebookIcon from "../assets/face_icon.png";
-import linkedinIcon from "../assets/linkedin_icon.png";
+import { ReactComponent as FacebookSvg } from "../../../assets/svg/contact/facebook.svg";
+import { ReactComponent as LinkedinSvg } from "../../../assets/svg/contact/linkedin.svg";
 
 import { createMarkUp } from "../../../utils/createMarkUp";
+import { SocialMediaItem } from "../../Contact/SocialMediaItem";
 
 const Card = (props) => {
   const { name, image, description, linkedinUrl, facebookUrl } = props;
@@ -24,16 +25,8 @@ const Card = (props) => {
         ></div>
       </div>
       <div className={s.media_container}>
-        <div className={s.logo}>
-          <a href={linkedinUrl} target="_blank" rel="noreferrer">
-            <img src={linkedinIcon} alt="linkedin" />
-          </a>
-        </div>
-        <div className={s.logo}>
-          <a href={facebookUrl} target="_blank" rel="noreferrer">
-            <img src={facebookIcon} alt="facebook" />
-          </a>
-        </div>
+            <SocialMediaItem url={linkedinUrl}  icon={<LinkedinSvg />} className={s.logo}/>
+            <SocialMediaItem url={facebookUrl}  icon={<FacebookSvg />} className={s.logo}/>
       </div>
     </div>
   );

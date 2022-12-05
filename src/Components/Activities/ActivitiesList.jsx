@@ -58,14 +58,14 @@ const ActivitiesList = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <Title title="Actividades" />
       <SearchInput
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         placeholder={"Buscar por título"}
       />
-      <ul className="list-container mt-3 row">
+      <div className="list-container mt-3 row">
         {isLoading ? (
           <>
             <SkeletonCard variant="primary" />
@@ -94,7 +94,7 @@ const ActivitiesList = () => {
             </p>
           </div>
         )}
-      </ul>
+      </div>
     </div>
   );
 };

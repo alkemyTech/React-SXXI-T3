@@ -4,12 +4,17 @@ import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
 import { apiONG } from "../../../Services/apiONG";
-import { InputField, CKEditorField } from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import { initialValues, validationSchema } from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 import { getBase64 } from "../../../utils/getBase64";
 
 import "../../FormStyles.css";
+import { defaultImage } from "../../../utils/defaultImage";
 
 const updateProject = (project) => {
   apiONG
@@ -39,8 +44,10 @@ const ProjectsForm = () => {
   const [project, setProject] = useState();
   const [isFetching, setIsFetching] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [imagePreview, setImagePreview] = useState(defaultImage);
   const { id } = useParams();
   const imageRef = useRef();
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
 
   const ISOtoYYYYmmDD = (iso) => {
     if (iso === null) return "";
@@ -99,6 +106,7 @@ const ProjectsForm = () => {
             image: "",
             due_date: ISOtoYYYYmmDD(data.due_date),
           }));
+          setImagePreview(data.image);
           setProject(data);
         })
         .catch((error) => {
@@ -120,15 +128,21 @@ const ProjectsForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Proyecto</h1>
-        <InputField
-          label="Título"
-          placeholder="Título"
-          name="title"
-          errors={errors.title}
-          touched={touched.title}
-          {...getFieldProps("title")}
-        />
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Proyecto
+        </h1>
+        <div className="input-preview-image">
+          <InputField
+            label="Título"
+            placeholder="Título"
+            name="title"
+            errors={errors.title}
+            touched={touched.title}
+            {...getFieldProps("title")}
+          />
+          <img src={imagePreview} alt="preview" className="preview-container" />
+        </div>
         <CKEditorField
           value={values.description}
           placeholder="Ingresa una descripción de este proyecto"

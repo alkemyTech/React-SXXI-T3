@@ -23,8 +23,9 @@
     width: 300px;
     border-radius: 10px 0 0 10px;
     padding-left: 15px;
-    border-color: rgba(0, 0, 0, 0.222);
     border-right: transparent;
+    border: 1px solid var(--color-outline-border);
+    background-color: var(--color-surface-variant);
 }
 
 .search-submit-btn {

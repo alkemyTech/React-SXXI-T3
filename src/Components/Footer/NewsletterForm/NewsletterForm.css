@@ -4,6 +4,7 @@
 
 .button.newsletter-button {
 	width: 33%;
+	max-height: 49px;
 }
 
 .newsletter-form .form-error {

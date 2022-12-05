@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Button from "../../Button/Button";
+import { useMobile } from "../../../hooks/useIsMobile";
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import "./ListCard.css";
+import { defaultImage } from "../../../utils/defaultImage";
 
 
 export const ListCard = ({

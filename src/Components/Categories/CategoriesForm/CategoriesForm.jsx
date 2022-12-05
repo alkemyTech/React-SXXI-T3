@@ -4,11 +4,15 @@ import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/categoryFormServices";
-import { CKEditorField, InputField } from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { apiONG } from "../../../Services/apiONG";
 import { getBase64 } from "../../../utils/getBase64";
-import { initialValues, validationSchema } from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 import { defaultImage } from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
@@ -18,6 +22,7 @@ const CategoriesForm = () => {
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(defaultImage);
   const [isFetching, setIsFetching] = useState(false);
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
@@ -91,7 +96,10 @@ const CategoriesForm = () => {
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className="form-title">{id ? "Editar" : "Crear"} Categoría</h1>
+        <h1 className="form-title">
+          <BackButton />
+          {id ? "Editar" : "Crear"} Categoría
+        </h1>
         <div className="input-preview-image">
           <InputField
             label="Nombre"

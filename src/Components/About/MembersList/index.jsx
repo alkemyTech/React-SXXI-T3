@@ -17,7 +17,7 @@ const MembersList = () => {
 
   useEffect(() => {
     apiONG
-      .get(`/members/`)
+      .get(`/members`)
       .then(({ data: { data } }) => {
         setMembers(() => data);
         setIsFetching(() => false);

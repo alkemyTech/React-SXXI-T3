@@ -6,4 +6,12 @@ import { SlidesList } from "./SlidesList";
 import { UsersList } from "./UsersList";
 import { TestimonialsList } from "./TestimonialsList";
 
-export {ActivitiesList, CategoriesList, MembersList, NewsList, SlidesList, UsersList, TestimonialsList};
+export {
+  ActivitiesList,
+  CategoriesList,
+  MembersList,
+  NewsList,
+  SlidesList,
+  UsersList,
+  TestimonialsList,
+};

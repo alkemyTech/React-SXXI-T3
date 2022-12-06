@@ -1,72 +1,59 @@
 import { useState } from "react";
 import debounce from "lodash.debounce";
 
-import Swal from "sweetalert2";
-
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
+import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDeleteHandler";
 
 export const SlidesList = () => {
-	const [search, setSearch] = useState('');
-	const [info, isFetching, setRoute] = useBackofficeInfo('slides');
+  const [search, setSearch] = useState("");
+  const [info, isFetching, setRoute, setInfo] = useBackofficeInfo("slides");
 
-	const handleChange = debounce((event) => {
-		const { value } = event.target;
-		const cleanValue = value.trim();
+  const handleChange = debounce((event) => {
+    const { value } = event.target;
+    const cleanValue = value.trim();
 
-		setSearch(() => (cleanValue))
+    setSearch(() => cleanValue);
 
-		cleanValue.length >= 3
-			&& setRoute(`slides?search=${cleanValue}`)
+    cleanValue.length >= 3 && setRoute(`slides?search=${cleanValue}`);
+  }, 1000);
 
-	}, 1000)
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
+    search.length < 3
+      ? setRoute(() => "slides")
+      : setRoute(`slides?search=${search}`);
+  };
 
-		search.length < 3
-			? setRoute(() => ('slides'))
-			: setRoute(`slides?search=${search}`)
-	}
+  const deleteHelper = (id) => {
+    setInfo((prevInfo) => prevInfo.filter((obj) => obj.id !== id));
+  };
 
-	const deleteNewHandler = (id) => {
-		Swal.fire({
-			title: `Se procederá a borrar la diapositiva ${id}`,
-			text: "Por favor, confirma",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Borrar',
-			cancelButtonText: "Cancelar"
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire(
-					'Diapositiva borrada!',
-					'',
-					'success'
-				)
-			}
-		})
-	}
+  const deleteHandler = (id) => {
+    provisionalBackofficeDeleteHandler(
+      id,
+      "slides",
+      deleteHelper,
+      "la diapositiva"
+    );
+  };
 
-	return (
-		<>
-			{
-				isFetching
-					? null
-					: <BackofficeList
-						deleteFunction={deleteNewHandler}
-						title="Diapositiva"
-						createButonLabel="diapositiva"
-						tableData={info}
-						tableHeader={["name", "image", "order"]}
-						tableNames={["Titulo", "Imagen", "Orden"]}
-						handleChange={handleChange}
-						handleSubmit={handleSubmit}
-						placeholder={'Título de la diapositiva'}
-					/>
-			}
-		</>
-	)
-}
+  return (
+    <>
+      {isFetching ? null : (
+        <BackofficeList
+          deleteFunction={deleteHandler}
+          title="Diapositiva"
+          createButonLabel="diapositiva"
+          tableData={info}
+          tableHeader={["name", "image", "order"]}
+          tableNames={["Titulo", "Imagen", "Orden"]}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          placeholder={"Título de la diapositiva"}
+        />
+      )}
+    </>
+  );
+};

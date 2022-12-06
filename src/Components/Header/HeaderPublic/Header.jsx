@@ -10,8 +10,8 @@ import {useState} from "react";
 import {ThemeSwitcher} from "../ThemeSwitcher/ThemeSwitcher";
 import {useSelector} from "react-redux";
 import {selectAuth} from "../../../features/auth/authSlice";
+import {useMinWindowSize} from "../../../hooks/useMinWindowSize";
 
-//TODO: CAMBIAR DESPUES EN DEV
 export const Header = ({
   isLogged = false,
   handleLogged = () => {},
@@ -30,7 +30,8 @@ export const Header = ({
   ];
   const [logoONG, isFetching] = useLogo();
   const [showInfo, setShowInfo] = useState(false);
-
+  const [expanded, setExpanded] = useState(false);
+    const isExpandable = useMinWindowSize(992);
   const handleLogIn = () => {
     navigate("/login");
   };
@@ -44,9 +45,10 @@ export const Header = ({
   };
 
   return (
-    <>
-      <Navbar expand="lg" sticky="top">
-        <Container fluid>
+      <Navbar expand="lg" sticky="top" expanded={expanded} onClick={() => {
+          if(isExpandable) {setExpanded(expanded ? false : "expanded")}
+      }}>
+      <Container fluid>
           <Navbar.Brand>
             {isFetching ? null : (
               <Link to="/">
@@ -114,7 +116,6 @@ export const Header = ({
           />
         </Container>
       </Navbar>
-    </>
   );
 };
 

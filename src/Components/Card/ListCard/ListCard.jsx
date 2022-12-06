@@ -3,10 +3,11 @@ import {Link} from "react-router-dom";
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 
 import Button from "../../Button/Button";
-import {useMobile} from "../../../hooks/useIsMobile";
+import {useMinWindowSize} from "../../../hooks/useMinWindowSize";
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import "./ListCard.css";
+
 
 
 export const ListCard = ({
@@ -18,7 +19,7 @@ export const ListCard = ({
                            variant,
                            linkTo,
                          }) => {
-  const isMobile = useMobile();
+  const isMobile = useMinWindowSize(768);
 
   const newsText = () => {
     if (isMobile) {

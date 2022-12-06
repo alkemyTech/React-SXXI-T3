@@ -1,7 +1,7 @@
 import {cloneElement, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
-import {useMobile} from "../../hooks/useIsMobile";
+import {useMinWindowSize} from "../../hooks/useMinWindowSize";
 import img from "../../assets/images/login.jpg";
 import logo from "../../assets/images/logo.png";
 import {cleanError, selectAuth} from "../../features/auth/authSlice";
@@ -13,9 +13,11 @@ import "../FormStyles.css";
 import "./Auth.css";
 
 
+
+
 export const AuthLayout = ({ children }) => {
     const navigate = useNavigate()
-    const isMobile = useMobile();
+    const isMobile = useMinWindowSize(768);
     const dispatch = useDispatch();
     const { token, error, status } = useSelector(selectAuth);
 

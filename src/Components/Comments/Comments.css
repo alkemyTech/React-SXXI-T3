@@ -5,22 +5,34 @@
 	align-items: center;
 	padding: 5%;
 }
+
 .contenedor {
 	width: 60%;
 }
-ul {
-	border-bottom: 2px solid black;
+
+span.text-muted{
+	color: var(--text-color-on-background)!important;
+	opacity: 70%;
 }
+
+[theme="dark"] #card img {
+	filter: invert(100%);
+	mix-blend-mode: screen;
+}
+
+ul {
+	border-bottom: 2px solid var(--text-color);
+}
+
 ul li {
-	border-right: 2px solid black;
+	border-right: 2px solid var(--text-color);
 	padding: 10px;
 }
+
 ul li:last-child {
 	border-right: none;
 }
-.comments-nav {
-	margin-top: 5%;
-}
+
 /* cardComentarios*/
 #card {
 	display: flex;
@@ -28,7 +40,7 @@ ul li:last-child {
 	justify-content: space-evenly;
 	padding: 0px 20px;
 	padding: 10px;
-	width: 60wv;
+	width: 60 wv;
 	height: auto;
 	font-size: medium;
 }
@@ -37,6 +49,7 @@ ul li:last-child {
 	height: 5%;
 	width: 10%;
 }
+
 .contenidoNombreFecha {
 	display: flex;
 	align-items: center;
@@ -44,22 +57,24 @@ ul li:last-child {
 	padding: 10px;
 	width: 100%;
 }
+
 .contenidoComentario {
 	width: 100%;
 	align-items: center;
 	padding: 10px;
 }
+
 #contenidoBody {
 	padding: 10px;
 	font-size: 17px;
 	width: 70%;
-	background-color: #ebebeb;
+	background-color: var(--color-surface);
 	border: 0px;
 }
+
 #contenidoBody::after {
-	/* border-right: 20px solid #ebebeb; */
 	content: "";
-	border-right: 30px solid #ebebeb;
+	border-right: 30px solid var(--color-surface);
 	border-top: 15px solid transparent;
 	border-bottom: 15px solid transparent;
 	position: absolute;
@@ -71,9 +86,11 @@ ul li:last-child {
 	width: 0;
 	height: 0;
 }
+
 .btn-primary {
 	border-radius: 15px;
 }
+
 /*responsive*/
 @media screen and (max-width: 900px) {
 	.contenedor {
@@ -85,15 +102,18 @@ ul li:last-child {
 	#contenidoBody::after {
 		visibility: hidden;
 	}
+	
 	/*barraComentarios*/
 	.contenedorList {
 		padding: 5%;
 		display: flex;
 	}
+	
 	.contenedor {
 		display: contents;
 		width: 100% !important;
 	}
+	
 	ul {
 		border-top: 1px solid black;
 		border-bottom: 0px;
@@ -104,12 +124,11 @@ ul li:last-child {
 		padding: 10px;
 		border: 0px;
 	}
+	
 	ul li:last-child {
 		border-right: none;
 	}
-	.nav {
-		margin-top: 5%;
-	}
+	
 	/*cardComentarios*/
 	#card {
 		display: flex;
@@ -117,7 +136,7 @@ ul li:last-child {
 		flex-direction: column;
 		padding: 0px 20px;
 		padding: 10px;
-		width: 100wv;
+		width: 100 wv;
 		height: auto;
 		font-size: medium;
 		margin-top: -20%;
@@ -127,6 +146,7 @@ ul li:last-child {
 		height: 60%;
 		width: 60%;
 	}
+	
 	.contenidoNombreFecha {
 		display: flex;
 		flex-direction: column;
@@ -134,6 +154,7 @@ ul li:last-child {
 		padding: 10px;
 		width: 100%;
 	}
+	
 	.contenidoComentario {
 		width: 100%;
 		display: flex;
@@ -142,11 +163,13 @@ ul li:last-child {
 		flex-direction: column;
 		padding: 10px;
 	}
+	
 	#contenidoBody {
 		padding: 10px;
 		font-size: 17px;
 		width: 100%;
 	}
+	
 	.btn-primary {
 		border-radius: 15px;
 	}

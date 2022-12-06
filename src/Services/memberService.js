@@ -11,17 +11,16 @@ export const onSubmitService = (id, data, resetForm, setSubmitting) => {
       })
       .catch((error) => {
         errorAlert();
-      });
+      }).finally(setSubmitting(false));
   } else {
     apiMember
       .post(data)
       .then((response) => {
-        setSubmitting(false)
         infoAlert();
         return resetForm();
       })
       .catch((error) => {
         errorAlert();
-      });
+      }).finally(setSubmitting(false));
   }
 };

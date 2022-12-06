@@ -18,7 +18,7 @@ const updateNew = (oneNew) => {
   apiNews
     .put(`${oneNew.id}`, oneNew)
     .then((response) => {
-      infoAlert("OK", "Novedad guardada correctamente!");
+      infoAlert();
     })
     .catch((err) => {
       errorAlert();
@@ -29,7 +29,7 @@ const createNew = (oneNew) => {
   apiNews
     .post(oneNew)
     .then((response) => {
-      infoAlert("OK", "Novedad creada correctamente!");
+      infoAlert();
     })
     .catch((err) => {
       errorAlert();
@@ -73,6 +73,7 @@ const NewsForm = () => {
         category_id,
       });
     }
+    setSubmitting(false);
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

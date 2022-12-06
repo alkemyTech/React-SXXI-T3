@@ -43,7 +43,6 @@ export const UsersList = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log({ search, selectedRole })
 		if (search.length) {
 			selectedRole !== `role=0`
 				? setRoute(() => (`users?search=${search}&${selectedRole}`))

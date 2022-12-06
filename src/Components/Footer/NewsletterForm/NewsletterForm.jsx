@@ -1,14 +1,17 @@
-import {useFormik} from "formik";
+import { useFormik } from "formik";
 import React from "react";
-import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import Button from "../../Button/Button";
+import { infoAlert } from "../../Feedback/AlertService";
+import { InputField } from "../../Form";
 import "../../FormStyles.css";
 import "./NewsletterForm.css";
-import Button from "../../Button/Button";
-import {InputField} from "../../Form";
+
 
 export const NewsletterForm = () => {
   const isSubscribed = Boolean(localStorage.getItem("newsletter"));
+  const navigate = useNavigate();
 
   const initialValues = {
     news_email: "",
@@ -23,7 +26,8 @@ export const NewsletterForm = () => {
 
   const onSubmit = ({ news_email }) => {
     localStorage.setItem("newsletter", news_email);
-    Swal.fire("Genial!", "Ya estás al tanto de nuestras novedades!", "success");
+    infoAlert("Genial!", "Ya estás al tanto de nuestras novedades!");
+    navigate('/');
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

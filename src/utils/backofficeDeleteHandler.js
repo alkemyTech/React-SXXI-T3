@@ -25,21 +25,21 @@ export const backofficeDeleteHandler = (
     `Desea borrar ${titleMessage} ${id}?`,
     "Por favor, confirmar",
     deleter,
-    () => {}
+    () => { }
   );
 };
 
 export const provisionalBackofficeDeleteHandler = (
   id,
   apiUrl,
-  deleteHelper,
-  titleMessage
+  titleMessage,
+  setRefresh
 ) => {
   const deleter = async () => {
     try {
       await apiONG.delete(`/${apiUrl}/${id}`);
       infoAlert(`Borrado realizado con éxito!`, "");
-      deleteHelper(id);
+      setRefresh(() => (true))
     } catch (e) {
       errorAlert(`Error al borrar ${titleMessage}!`, "");
     }
@@ -48,6 +48,6 @@ export const provisionalBackofficeDeleteHandler = (
     `Desea borrar ${titleMessage} ${id}?`,
     "Por favor, confirmar",
     deleter,
-    () => {}
+    () => { }
   );
 };

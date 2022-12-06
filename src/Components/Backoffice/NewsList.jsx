@@ -8,7 +8,7 @@ import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDelete
 export const NewsList = () => {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [info, isFetching, setRoute, setInfo] = useBackofficeInfo("news");
+  const [info, isFetching, setRoute, setRefresh] = useBackofficeInfo("news");
 
   const handleChange = debounce((event) => {
     const { value } = event.target;
@@ -50,12 +50,12 @@ export const NewsList = () => {
     }
   };
 
-  const deleteHelper = (id) => {
-    setInfo((prevInfo) => prevInfo.filter((obj) => obj.id !== id));
-  };
-
   const deleteHandler = (id) => {
-    provisionalBackofficeDeleteHandler(id, "news", deleteHelper, "la novedad");
+    provisionalBackofficeDeleteHandler(
+      id,
+      "news",
+      "la novedad", setRefresh
+    );
   };
 
   return (

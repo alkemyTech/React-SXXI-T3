@@ -7,7 +7,7 @@ import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDelete
 
 export const SlidesList = () => {
   const [search, setSearch] = useState("");
-  const [info, isFetching, setRoute, setInfo] = useBackofficeInfo("slides");
+  const [info, isFetching, setRoute, setRefresh] = useBackofficeInfo("slides");
 
   const handleChange = debounce((event) => {
     const { value } = event.target;
@@ -26,16 +26,12 @@ export const SlidesList = () => {
       : setRoute(`slides?search=${search}`);
   };
 
-  const deleteHelper = (id) => {
-    setInfo((prevInfo) => prevInfo.filter((obj) => obj.id !== id));
-  };
-
   const deleteHandler = (id) => {
     provisionalBackofficeDeleteHandler(
       id,
       "slides",
-      deleteHelper,
-      "la diapositiva"
+      "la diapositiva",
+      setRefresh
     );
   };
 

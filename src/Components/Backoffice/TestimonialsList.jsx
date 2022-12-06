@@ -4,19 +4,15 @@ import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDelete
 import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
 
 export const TestimonialsList = () => {
-  const [info, isFetching, setRoute, setInfo] =
+  const [info, isFetching, setRoute, setRefresh] =
     useBackofficeInfo("testimonials");
-
-  const deleteHelper = (id) => {
-    setInfo((prevInfo) => prevInfo.filter((obj) => obj.id !== id));
-  };
 
   const deleteHandler = (id) => {
     provisionalBackofficeDeleteHandler(
       id,
       "testimonials",
-      deleteHelper,
-      "el testimonio"
+      "el testimonio",
+      setRefresh
     );
   };
 

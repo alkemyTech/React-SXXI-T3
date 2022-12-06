@@ -7,7 +7,7 @@ import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDelete
 
 export const MembersList = () => {
   const [search, setSearch] = useState("");
-  const [info, isFetching, setRoute, setInfo] = useBackofficeInfo("members");
+  const [info, isFetching, setRoute, setRefresh] = useBackofficeInfo("members");
 
   const handleChange = debounce((event) => {
     const { value } = event.target;
@@ -26,16 +26,12 @@ export const MembersList = () => {
       : setRoute(`members?search=${search}`);
   };
 
-  const deleteHelper = (id) => {
-    setInfo((prevInfo) => prevInfo.filter((obj) => obj.id !== id));
-  };
-
   const deleteHandler = (id) => {
     provisionalBackofficeDeleteHandler(
       id,
       "members",
-      deleteHelper,
-      "al miembro"
+      "al miembro",
+      setRefresh
     );
   };
 

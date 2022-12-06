@@ -7,7 +7,7 @@ import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDelete
 
 export const ActivitiesList = () => {
   const [search, setSearch] = useState("");
-  const [info, isFetching, setRoute, setInfo] = useBackofficeInfo("activities");
+  const [info, isFetching, setRoute, setRefresh] = useBackofficeInfo("activities");
 
   const handleChange = debounce((event) => {
     const { value } = event.target;
@@ -26,16 +26,13 @@ export const ActivitiesList = () => {
       : setRoute(`activities?search=${search}`);
   };
 
-  const deleteHelper = (id) => {
-    setInfo((prevInfo) => prevInfo.filter((obj) => obj.id !== id));
-  };
 
   const deleteHandler = (id) => {
     provisionalBackofficeDeleteHandler(
       id,
       "activities",
-      deleteHelper,
-      "la actividad"
+      "la actividad",
+      setRefresh
     );
   };
 

@@ -1,15 +1,14 @@
-import React, {useEffect, useRef, useState} from "react";
-import {useFormik} from "formik";
-import Swal from "sweetalert2";
-import {getBase64} from "../../../utils/getBase64";
-import {initialValues, validationSchema} from "./constants";
+import React, { useEffect, useRef, useState } from "react";
+import { useFormik } from "formik";
+import { getBase64 } from "../../../utils/getBase64";
+import { initialValues, validationSchema } from "./constants";
 import Button from "../../Button/Button";
-import {BackButton, CKEditorField, InputField, TextAreaField,} from "../../Form";
-import {defaultImage} from "../../../utils/defaultImage";
+import { BackButton, CKEditorField, InputField, TextAreaField, } from "../../Form";
+import { defaultImage } from "../../../utils/defaultImage";
 
 import styles from "./organizationForm.module.css";
-import {apiOrganization} from "../../../Services/apiService";
-import {errorAlert} from "../../Feedback/AlertService";
+import { apiOrganization } from "../../../Services/apiService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const OrganizationForm = () => {
   const imageRef = useRef();
@@ -18,21 +17,22 @@ const OrganizationForm = () => {
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-    setTimeout(() => {
-      getBase64(file)
-        .then((result) => {
-          setSubmitting(false);
-          setIsFetching(() => false);
-          setImagePreview(() => result);
-        })
-        .then(() => {
-          Swal.fire({
-            title: "Organizacion Actualizada",
-            icon: "success",
+
+    getBase64(file)
+      .then((result) => {
+        setImagePreview(() => result);
+        apiOrganization
+          .post(values)
+          .then((response) => {
+            infoAlert("OK", "Información guardada correctamente!");
+          })
+          .catch((err) => {
+            errorAlert();
           });
-        });
-    }, 2000);
-  };
+        setSubmitting(false);
+        setIsFetching(() => false);
+      })
+  }
 
   const formik = useFormik({
     initialValues,
@@ -57,17 +57,17 @@ const OrganizationForm = () => {
   useEffect(() => {
     setIsFetching(() => true);
     apiOrganization
-        .getAll()
-        .then(response => {
-          setIsFetching(() => false);
-          setImagePreview(() => response.logo);
-          setValues(() => ({ ...response, logo: "" }));
-        })
-        .catch((error) => {
-          const errorMessage = error?.response?.data?.message || error.message;
-          setIsFetching(() => false);
-          errorAlert(errorMessage);
-        });
+      .getAll()
+      .then(response => {
+        setIsFetching(() => false);
+        setImagePreview(() => response.logo);
+        setValues(() => ({ ...response, logo: "" }));
+      })
+      .catch((error) => {
+        const errorMessage = error?.response?.data?.message || error.message;
+        setIsFetching(() => false);
+        errorAlert(errorMessage);
+      });
   }, [setValues]);
 
   const isLoading = isFetching || isSubmitting;

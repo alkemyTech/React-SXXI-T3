@@ -2,12 +2,12 @@ import Swal from "sweetalert2";
 import "./Alert.css";
 
 const capitalize = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string?.charAt(0).toUpperCase() + string?.slice(1);
 };
 
-export const infoAlert = (title, description, timer, bar) => {
-  title = capitalize(title.trim());
-  description = capitalize(description.trim());
+export const infoAlert = (title = "Ok", description = "Operación exitosa!", timer, bar) => {
+  title = capitalize(title?.trim());
+  description = capitalize(description?.trim());
 
   Swal.fire({
     title: title,

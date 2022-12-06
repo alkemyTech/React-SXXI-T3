@@ -1,5 +1,5 @@
-import {apiMember} from "./apiService";
-import {errorAlert, infoAlert} from "../Components/Feedback/AlertService";
+import { apiMember } from "./apiService";
+import { errorAlert, infoAlert } from "../Components/Feedback/AlertService";
 
 
 export const onSubmitService = (id, data, resetForm, setSubmitting) => {
@@ -16,6 +16,7 @@ export const onSubmitService = (id, data, resetForm, setSubmitting) => {
     apiMember
       .post(data)
       .then((response) => {
+        setSubmitting(false)
         infoAlert();
         return resetForm();
       })

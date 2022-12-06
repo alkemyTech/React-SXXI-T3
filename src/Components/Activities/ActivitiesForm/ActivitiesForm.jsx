@@ -1,37 +1,41 @@
-import {useFormik} from "formik";
-import React, {useEffect, useRef, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useFormik } from "formik";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import {getBase64} from "../../../utils/getBase64";
-import {BackButton, CKEditorField, InputField} from "../../Form";
+import { getBase64 } from "../../../utils/getBase64";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 
 import "../../FormStyles.css";
-import {defaultImage} from "../../../utils/defaultImage";
-import {errorAlert, infoAlert} from "../../Feedback/AlertService";
-import {apiActivity} from "../../../Services/apiService";
+import { defaultImage } from "../../../utils/defaultImage";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
+import { apiActivity } from "../../../Services/apiService";
 
 const updateActivity = (activity) => {
   apiActivity
-      .put(`${activity.id}`, activity)
-      .then((response) => {
-        infoAlert();
-      })
-      .catch((err) => {
-        errorAlert();
-      });
+    .put(`${activity.id}`, activity)
+    .then((response) => {
+      infoAlert();
+    })
+    .catch((err) => {
+      errorAlert();
+    });
 };
 
 const createActivity = (activity) => {
   apiActivity
-      .post(activity)
-      .then((response) => {
-        infoAlert();
-      })
-      .catch((err) => {
-        errorAlert();
-      });
+    .post(activity)
+    .then((response) => {
+      infoAlert();
+    })
+    .catch((err) => {
+      errorAlert();
+    });
 };
 
 const ActivitiesForm = () => {
@@ -45,19 +49,30 @@ const ActivitiesForm = () => {
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-    getBase64(file)
-      .then((result) => {
-        let activityToSave = {
-          id: activity?.id || null,
-          name: values.name,
-          description: values.description,
-          image: result,
-        };
-        if (isEdit) updateActivity(activityToSave);
-        else createActivity(activityToSave);
-      })
-      .catch(() =>  errorAlert("Error en cargar la imagen"));
-    setSubmitting(false);
+    if (file) {
+      getBase64(file)
+        .then((result) => {
+          let activityToSave = {
+            id: activity?.id || null,
+            name: values.name,
+            description: values.description,
+            image: result,
+          };
+          if (isEdit) updateActivity(activityToSave);
+          else createActivity(activityToSave);
+        })
+        .catch(() => errorAlert("Error en cargar la imagen"))
+        .finally(() => setImagePreview(defaultImage));
+      setSubmitting(false);
+    } else {
+      let activityToSave = {
+        id: activity?.id,
+        name: values.name,
+        description: values.description,
+      };
+      if (isEdit) updateActivity(activityToSave);
+      setSubmitting(false);
+    }
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -79,19 +94,27 @@ const ActivitiesForm = () => {
     if (id) {
       setIsFetching(true);
       apiActivity
-          .getSingle(`${id}`)
-          .then((response) => {
-            setValues(() => ({ ...response, image: "" }));
-            setImagePreview(() => response.image);
-            setActivity(response);
-          })
-          .catch((error) => {
-            errorAlert();
-          });
+        .getSingle(`${id}`)
+        .then((response) => {
+          setValues(() => ({ ...response, image: "" }));
+          setImagePreview(() => response.image);
+          setActivity(response);
+        })
+        .catch((error) => {
+          errorAlert();
+        });
       setIsFetching(false);
       setIsEdit(true);
     }
   }, [id, setValues]);
+
+  const handleImageChange = (event) => {
+    handleChange(event);
+    const file = event.target.files[0];
+    if (file.type.includes("image")) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const isLoading = isFetching || isSubmitting;
 
@@ -129,7 +152,7 @@ const ActivitiesForm = () => {
           label={id ? "Modificar imagen" : "Cargar imagen"}
           name="image"
           value={values.image}
-          onChange={handleChange}
+          onChange={handleImageChange}
           onBlur={handleBlur}
           errors={errors.image}
           touched={touched.image}

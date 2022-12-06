@@ -1,11 +1,11 @@
 import s from "./memberCard.module.css";
 
 import altImage from "../assets/avatar_member_3.png";
-import {ReactComponent as FacebookSvg} from "../../../assets/svg/contact/facebook.svg";
-import {ReactComponent as LinkedinSvg} from "../../../assets/svg/contact/linkedin.svg";
+import { ReactComponent as FacebookSvg } from "../../../assets/svg/contact/facebook.svg";
+import { ReactComponent as LinkedinSvg } from "../../../assets/svg/contact/linkedin.svg";
 
-import {createMarkUp} from "../../../utils/createMarkUp";
-import {SocialMediaItem} from "../../Contact/SocialMediaItem";
+import { createMarkUp } from "../../../utils/createMarkUp";
+import { SocialMediaItem } from "../../Contact/SocialMediaItem";
 
 const Card = (props) => {
   const { name, image, description, linkedinUrl, facebookUrl } = props;

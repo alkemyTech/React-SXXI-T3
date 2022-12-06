@@ -1,22 +1,10 @@
-import {apiTestimonials} from "./apiService";
-import {errorAlert, infoAlert} from "../Components/Feedback/AlertService";
+import { apiTestimonials } from "./apiService";
+import { errorAlert, infoAlert } from "../Components/Feedback/AlertService";
 
-export const onSubmitService = (
-  id,
-  name,
-  description,
-  imageBase64,
-  resetForm,
-  setSubmitting
-) => {
-  const body = {
-    name: name,
-    description: description,
-    image: imageBase64,
-  };
+export const onSubmitService = (id, data, resetForm, setSubmitting) => {
   if (id) {
     apiTestimonials
-      .put(`${id}`, body)
+      .put(`${id}`, data)
       .then((response) => {
         infoAlert();
       })
@@ -28,13 +16,13 @@ export const onSubmitService = (
       });
   } else {
     apiTestimonials
-      .post(body)
+      .post(data)
       .then((response) => {
         infoAlert();
         return resetForm();
       })
       .catch((error) => {
-        errorAlert()
+        errorAlert();
       })
       .finally(() => {
         setSubmitting(false);

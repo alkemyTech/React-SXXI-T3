@@ -1,4 +1,4 @@
-import {ReactComponent as DonationSvg} from "./donation.svg";
+import { ReactComponent as DonationSvg } from "./donation.svg";
 import Button from "../Button/Button";
 
 const DonationButton = ({ handleShow }) => {

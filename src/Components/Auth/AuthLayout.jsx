@@ -1,18 +1,16 @@
-import {cloneElement, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import { cloneElement, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import {useMinWindowSize} from "../../hooks/useMinWindowSize";
+import { useMinWindowSize } from "../../hooks/useMinWindowSize";
 import img from "../../assets/images/login.jpg";
 import logo from "../../assets/images/logo.png";
-import {cleanError, selectAuth} from "../../features/auth/authSlice";
-import {errorAlert} from "../Feedback/AlertService";
-import {useDispatch, useSelector} from "react-redux";
+import { cleanError, selectAuth } from "../../features/auth/authSlice";
+import { errorAlert } from "../Feedback/AlertService";
+import { useDispatch, useSelector } from "react-redux";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../FormStyles.css";
 import "./Auth.css";
-
-
 
 
 export const AuthLayout = ({ children }) => {

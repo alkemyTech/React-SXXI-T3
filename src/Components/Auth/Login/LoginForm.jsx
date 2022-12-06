@@ -1,12 +1,15 @@
 import React from "react";
-import {useFormik} from "formik";
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import { useFormik } from "formik";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import {loginInitialValues as initialValues, loginValidationSchema as validationSchema,} from "../constants";
-import {InputField} from "../../Form";
+import {
+  loginInitialValues as initialValues,
+  loginValidationSchema as validationSchema,
+} from "../constants";
+import { InputField } from "../../Form";
 import Button from "../../Button/Button";
-import {authLogin} from "../../../features/auth/authSlice";
+import { authLogin } from "../../../features/auth/authSlice";
 
 const LoginForm = ({ desktop }) => {
   const dispatch = useDispatch();

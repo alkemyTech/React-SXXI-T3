@@ -1,25 +1,9 @@
-import {apiUser} from "./apiService";
-import {errorAlert, infoAlert} from "../Components/Feedback/AlertService";
+import { apiUser } from "./apiService";
+import { errorAlert, infoAlert } from "../Components/Feedback/AlertService";
 
-export const put = (
-  id,
-  name,
-  email,
-  password,
-  profilePhoto,
-  role,
-  resetForm,
-  setSubmitting
-) => {
-  const body = {
-    name: name,
-    email: email,
-    password: password,
-    profile_image: profilePhoto,
-    role_id: role,
-  };
+export const put = (id, data, resetForm, setSubmitting) => {
   apiUser
-    .put(`${id}`, body)
+    .put(`${id}`, data)
     .then((response) => {
       infoAlert();
     })
@@ -31,23 +15,9 @@ export const put = (
     });
 };
 
-export const post = (
-  name,
-  email,
-  password,
-  profilePhoto,
-  role,
-  resetForm,
-  setSubmitting
-) => {
+export const post = (data, resetForm, setSubmitting) => {
   apiUser
-    .post({
-      name: name,
-      email: email,
-      password: password,
-      profile_image: profilePhoto,
-      role_id: role,
-    })
+    .post(data)
     .then((response) => {
       infoAlert();
       return resetForm();

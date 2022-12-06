@@ -1,16 +1,20 @@
-import { useFormik } from 'formik';
-import { useParams } from 'react-router-dom';
-import React, { useEffect, useRef, useState } from 'react';
+import { useFormik } from "formik";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 
-import { createValidationSchema, editValidationSchema, initialValues } from "./constants";
-import { getBase64 } from '../../../utils/getBase64';
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
+import { getBase64 } from "../../../utils/getBase64";
 import { CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
 import { defaultImage } from "../../../utils/defaultImage";
 
-import '../../FormStyles.css';
-import { apiMember } from '../../../Services/apiService';
-import { errorAlert } from '../../Feedback/AlertService';
+import "../../FormStyles.css";
+import { apiMember } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 import { onSubmitService } from "../../../Services/memberService";
 
 const MembersForm = () => {
@@ -18,51 +22,61 @@ const MembersForm = () => {
   const imageRef = useRef();
   const [imagePreview, setImagePreview] = useState(defaultImage);
   const [isFetching, setIsFetching] = useState(false);
-  const validationSchema = id ? editValidationSchema : createValidationSchema
+  const validationSchema = id ? editValidationSchema : createValidationSchema;
 
   const validate = (values) => {
     const errors = {};
     const { name } = values;
-    if (name && (name.length >= 4) && Number(name)) {
-      errors.name = 'El nombre no puede contener unicamente números'
+    if (name && name.length >= 4 && Number(name)) {
+      errors.name = "El nombre no puede contener unicamente números";
     }
     return errors;
-  }
+  };
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
     if (file) {
       getBase64(file)
-        .then(result => {
+        .then((result) => {
           onSubmitService(
             id,
-            { name: values.name, description: values.description, facebookUrl: values.facebookUrl, linkedinUrl: values.linkedinUrl, image: result },
+            {
+              name: values.name,
+              description: values.description,
+              facebookUrl: values.facebookUrl,
+              linkedinUrl: values.linkedinUrl,
+              image: result,
+            },
             resetForm,
             setSubmitting
-          )
+          );
         })
         .catch(({ message }) => {
-          setSubmitting(false)
+          setSubmitting(false);
           errorAlert("Error al procesar la imagen");
         })
         .finally(() => setImagePreview(defaultImage));
     } else {
       onSubmitService(
         id,
-        { name: values.name, description: values.description, facebookUrl: values.facebookUrl, linkedinUrl: values.linkedinUrl },
+        {
+          name: values.name,
+          description: values.description,
+          facebookUrl: values.facebookUrl,
+          linkedinUrl: values.linkedinUrl,
+        },
         resetForm,
         setSubmitting
-      )
+      );
     }
-
-  }
+  };
 
   const formik = useFormik({
     initialValues,
     validate,
     validationSchema,
-    onSubmit
-  })
+    onSubmit,
+  });
 
   const {
     handleSubmit,
@@ -76,45 +90,41 @@ const MembersForm = () => {
     setFieldTouched,
     values,
     touched,
-    errors
+    errors,
   } = formik;
 
   useEffect(() => {
     if (id) {
-      setIsFetching(() => (true))
+      setIsFetching(() => true);
       apiMember
         .getSingle(`${id}`)
         .then((response) => {
-          setValues({ ...response, image: '' })
-          setImagePreview(response.image)
-          setIsFetching(false)
+          setValues({ ...response, image: "" });
+          setImagePreview(response.image);
+          setIsFetching(false);
         })
         .catch((error) => {
-          setIsFetching(() => (false));
+          setIsFetching(() => false);
           errorAlert();
         });
     }
-
-  }, [id, setValues])
+  }, [id, setValues]);
 
   const handleImageChange = (event) => {
     handleChange(event);
     const file = event.target.files[0];
-    if (file.type.includes('image')) {
+    if (file.type.includes("image")) {
       setImagePreview(URL.createObjectURL(file));
     }
-  }
+  };
 
   const isLoading = isFetching || isSubmitting;
 
   return (
-    <div className={
-      isLoading ? 'main-container pulse' : 'main-container'
-    }>
-
+    <div className={isLoading ? "main-container pulse" : "main-container"}>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1 className='form-title'> {id ? "Editar" : "Crear"}  Miembro</h1>
-        <div className='input-preview-image'>
+        <h1 className="form-title"> {id ? "Editar" : "Crear"} Miembro</h1>
+        <div className="input-preview-image">
           <InputField
             label="Nombre"
             name="name"
@@ -125,7 +135,7 @@ const MembersForm = () => {
             errors={errors.name}
             touched={touched.name}
           />
-          <img src={imagePreview} alt="preview" className='preview-container' />
+          <img src={imagePreview} alt="preview" className="preview-container" />
         </div>
         <InputField
           label="Facebook"
@@ -168,10 +178,15 @@ const MembersForm = () => {
           type="file"
           ref={imageRef}
         />
-        <Button type="submit" label="Enviar" variant="primary" className="form-button" />
+        <Button
+          type="submit"
+          label="Enviar"
+          variant="primary"
+          className="form-button"
+        />
       </form>
     </div>
   );
-}
+};
 
 export default MembersForm;

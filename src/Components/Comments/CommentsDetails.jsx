@@ -5,23 +5,25 @@ import "../Comments/Comments.css";
 import { apiONG } from "../../Services/apiONG/index";
 import { imgRegExp } from "../../utils/validation/constants";
 import imgNotFound from "../../assets/images/backoffice-logos/users.jpg";
+import Button from "../Button/Button";
 
 const CommentsDetails = ({ idNews }) => {
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState([]);
   const [userPatch, setUserPatch] = useState([]);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 5000);
+  // }, []);
+  //
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  }, []);
-
-  useEffect(() => {
-    getComments().then((comments) => {
+    getComments(idNews).then((comments) => {
       setComment(comments);
+      setLoading(false);
     });
-  }, []);
+  }, [idNews]);
 
   useEffect(() => {
     apiONG
@@ -33,23 +35,23 @@ const CommentsDetails = ({ idNews }) => {
       .catch((error) => {});
   }, []);
 
-  const commentsAux = [];
+  // const commentsAux = [];
   const userId = [];
   for (let i = 0; i < comment.length; i++) {
-    if (comment[i].new_id === Number(idNews)) {
-      if (comment[i] !== undefined) {
-        commentsAux.push(comment[i]);
-      }
-      if (userId.includes(Number(comment[i].user_id))) {
+    // if (comment[i].new_id === Number(idNews)) {
+    // if (comment[i] !== undefined) {
+    //   commentsAux.push(comment[i]);
+    // }
+    if (userId.includes(Number(comment[i].user_id))) {
+    } else {
+      let id_user = comment[i].user_id;
+      let userAux = userPatch.find((user_id) => user_id.id === id_user);
+      if (userId.includes(userAux)) {
       } else {
-        let id_user = comment[i].user_id;
-        let userAux = userPatch.find((user_id) => user_id.id === id_user);
-        if (userId.includes(userAux)) {
-        } else {
-          if (userAux !== undefined) {
-            userId.push(userAux);
-          }
+        if (userAux !== undefined) {
+          userId.push(userAux);
         }
+        // }
       }
     }
   }
@@ -62,21 +64,22 @@ const CommentsDetails = ({ idNews }) => {
             <ul className="nav">
               <li className="">
                 <h4 className="reviews">
-                  <strong>Comentarios {commentsAux.length}</strong>
+                  <strong>Comentarios {comment.length}</strong>
                 </h4>
               </li>
               <li>
-                <a href="#add-comment" role="tab" data-toggle="tab">
-                  <h4 className="reviews">
-                    <strong>Agregar comentario</strong>
-                  </h4>
-                </a>
+                {/*<a href="#add-comment" role="tab" data-toggle="tab">*/}
+                {/*  <h4 className="reviews">*/}
+                {/*    <strong>Agregar comentario</strong>*/}
+                {/*  </h4>*/}
+                {/*</a>*/}
+                <Button label="Agregar comentario" variant="tertiary" />
               </li>
             </ul>
           </div>
         </div>
-        {commentsAux.length > 0 &&
-          commentsAux.map((comentario, index) => {
+        {comment.length > 0 &&
+          comment.map((comentario, index) => {
             return (
               <Stack spacing={1} key={index}>
                 <div className="container w-100 pb-5">
@@ -139,7 +142,7 @@ const CommentsDetails = ({ idNews }) => {
             <ul className="nav">
               <li className="active">
                 <h4 className="reviews text-capitalize">
-                  <strong>Comentarios {commentsAux.length}</strong>
+                  <strong>Comentarios {comment.length}</strong>
                 </h4>
               </li>
               <li>
@@ -152,8 +155,8 @@ const CommentsDetails = ({ idNews }) => {
             </ul>
           </div>
         </div>
-        {commentsAux.length > 0 &&
-          commentsAux.map((comentario, index) => {
+        {comment.length > 0 &&
+          comment.map((comentario, index) => {
             return (
               <div className="container w-100 pb-5" key={index}>
                 <div className="row mt-5 p-3">
@@ -206,8 +209,8 @@ const CommentsDetails = ({ idNews }) => {
 
 export default CommentsDetails;
 
-export const getComments = async () => {
-  const response = await apiONG.get("/comments");
+export const getComments = async (newId) => {
+  const response = await apiONG.get("/comments?new_id=" + newId);
   return response.data.data;
 };
 export const getCommentsPatch = async (id) => {

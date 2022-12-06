@@ -1,5 +1,5 @@
-import {ReactComponent as BackSvg} from "../../assets/svg/backoffice/back-arrow.svg";
-import {Link} from "react-router-dom";
+import { ReactComponent as BackSvg } from "../../assets/svg/backoffice/back-arrow.svg";
+import { Link } from "react-router-dom";
 
 export const BackButton = () => {
   return (

@@ -3,7 +3,7 @@ import Sidebar from "../../Sidebar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLogo } from "../../../hooks/useLogo";
-import defaultLogo from "../../../assets/images/somosMasLogo.png"
+import defaultLogo from "../../../assets/images/somosMasLogo.png";
 import HeaderSession from "../HeaderSession/HeaderSession";
 
 const HeaderBackoffice = ({ theme, switchTheme }) => {

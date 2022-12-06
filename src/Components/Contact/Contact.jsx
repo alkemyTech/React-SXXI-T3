@@ -1,18 +1,18 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import Title from "../Title/Title";
 import ContactForm from "./ContactForm/ContactForm";
 // import { getOrganizationInfo } from "../../Services/organizationService/organizationService";
-import {SocialMediaItemWLabel} from "./SocialMediaItem";
-import {ReactComponent as FacebookSvg} from "../../assets/svg/contact/facebook.svg";
-import {ReactComponent as InstagramSvg} from "../../assets/svg/contact/instagram.svg";
-import {ReactComponent as TwitterSvg} from "../../assets/svg/contact/twitter.svg";
-import {ReactComponent as LinkedinSvg} from "../../assets/svg/contact/linkedin.svg";
-import {ReactComponent as PhoneSvg} from "../../assets/svg/contact/phone-solid.svg";
-import {ReactComponent as LocationSvg} from "../../assets/svg/contact/location-dot-solid.svg";
+import { SocialMediaItemWLabel } from "./SocialMediaItem";
+import { ReactComponent as FacebookSvg } from "../../assets/svg/contact/facebook.svg";
+import { ReactComponent as InstagramSvg } from "../../assets/svg/contact/instagram.svg";
+import { ReactComponent as TwitterSvg } from "../../assets/svg/contact/twitter.svg";
+import { ReactComponent as LinkedinSvg } from "../../assets/svg/contact/linkedin.svg";
+import { ReactComponent as PhoneSvg } from "../../assets/svg/contact/phone-solid.svg";
+import { ReactComponent as LocationSvg } from "../../assets/svg/contact/location-dot-solid.svg";
 
 import "./Contact.css";
-import {apiOrganization} from "../../Services/apiService";
+import { apiOrganization } from "../../Services/apiService";
 
 const Contact = () => {
   const [contactData, setContactData] = useState({

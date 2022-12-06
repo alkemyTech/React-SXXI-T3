@@ -1,5 +1,9 @@
 import * as Yup from "yup";
-import {imgRegExp, invalidImageFormatMessage, requiredMessage,} from "../../../utils/validation/constants";
+import {
+  imgRegExp,
+  invalidImageFormatMessage,
+  requiredMessage,
+} from "../../../utils/validation/constants";
 
 export const validationSchema = Yup.object().shape({
   name: Yup.string().required(requiredMessage + "el nombre"),

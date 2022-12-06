@@ -1,16 +1,22 @@
-import {useFormik} from "formik";
-import {useParams} from "react-router-dom";
-import React, {useEffect, useRef, useState} from "react";
+import { useFormik } from "formik";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 
-import {onSubmitService} from "../../../Services/slideService";
-import {apiONG} from "../../../Services/apiONG";
-import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
-import {BackButton, CKEditorField, InputField} from "../../Form";
+import { onSubmitService } from "../../../Services/slideService";
+import { apiONG } from "../../../Services/apiONG";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import {defaultImage} from "../../../utils/defaultImage";
+import { defaultImage } from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
+import { getBase64 } from "../../../utils/getBase64";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const SlidesForm = () => {
   const { id } = useParams();
@@ -21,33 +27,39 @@ const SlidesForm = () => {
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-    const fileReader = new FileReader();
-
-    fileReader.onload = function () {
-      setImagePreview(fileReader.result);
+    if (file) {
+      getBase64(file)
+        .then((result) => {
+          onSubmitService(
+            id,
+            {
+              name: values.name,
+              description: values.description,
+              order: values.order,
+              image: result,
+            },
+            resetForm,
+            setSubmitting
+          );
+        })
+        .catch(({ message }) => {
+          setSubmitting(false);
+          errorAlert("Error al procesar la imagen");
+        })
+        .finally(() => setImagePreview(defaultImage));
+    } else {
       onSubmitService(
         id,
-        values.name,
-        values.description,
-        fileReader.result,
-        values.order,
+        {
+          name: values.name,
+          description: values.description,
+          order: values.order,
+        },
         resetForm,
         setSubmitting
       );
-    };
-
-    fileReader.onerror = () => {
-      setSubmitting(false);
-      Swal.fire({
-        title: "Error al procesar la imagen",
-        icon: "error",
-        timer: 5000,
-      });
-    };
-
-    fileReader.readAsDataURL(file);
+    }
   };
-
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -90,6 +102,14 @@ const SlidesForm = () => {
         });
     }
   }, [id, setValues]);
+
+  const handleImageChange = (event) => {
+    handleChange(event);
+    const file = event.target.files[0];
+    if (file.type.includes("image")) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const isLoading = isSubmitting || isFetching;
 
@@ -137,7 +157,7 @@ const SlidesForm = () => {
           label={id ? "Modificar imagen" : "Cargar imagen"}
           name="image"
           value={values.image}
-          onChange={handleChange}
+          onChange={handleImageChange}
           onBlur={handleBlur}
           errors={errors.image}
           touched={touched.image}

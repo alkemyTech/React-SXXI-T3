@@ -1,36 +1,40 @@
-import React, {useEffect, useRef, useState} from "react";
-import {useParams} from "react-router-dom";
-import {useFormik} from "formik";
-import {BackButton, CKEditorField, InputField} from "../../Form";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useFormik } from "formik";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
-import {getBase64} from "../../../utils/getBase64";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
+import { getBase64 } from "../../../utils/getBase64";
 
 import "../../FormStyles.css";
-import {defaultImage} from "../../../utils/defaultImage";
-import {apiProject} from "../../../Services/apiService";
-import {errorAlert, infoAlert} from "../../Feedback/AlertService";
+import { defaultImage } from "../../../utils/defaultImage";
+import { apiProject } from "../../../Services/apiService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const updateProject = (project) => {
   apiProject
-      .put(`${project.id}`, project)
-      .then((response) => {
-        infoAlert("OK", "Proyecto guardado correctamente!");
-      })
-      .catch((err) => {
-        errorAlert();
-      });
+    .put(`${project.id}`, project)
+    .then((response) => {
+      infoAlert("OK", "Proyecto guardado correctamente!");
+    })
+    .catch((err) => {
+      errorAlert();
+    });
 };
 
 const createProject = (project) => {
   apiProject
-      .post(project)
-      .then((response) => {
-        infoAlert("OK", "Proyecto creado correctamente!");
-      })
-      .catch((err) => {
-        errorAlert();
-      });
+    .post(project)
+    .then((response) => {
+      infoAlert("OK", "Proyecto creado correctamente!");
+    })
+    .catch((err) => {
+      errorAlert();
+    });
 };
 
 const ProjectsForm = () => {
@@ -50,7 +54,8 @@ const ProjectsForm = () => {
 
   const onSubmit = ({ title, image, description, due_date }) => {
     const file = imageRef.current.files[0];
-    getBase64(file)
+    if (file) {
+      getBase64(file)
         .then((result) => {
           let projectToSave = {
             id: project?.id || null,
@@ -64,8 +69,17 @@ const ProjectsForm = () => {
         })
         .catch(() => {
           errorAlert("Error al procesar la imagen");
-        });
-    setSubmitting(false);
+        })
+        .finally(() => setImagePreview(defaultImage));
+      setSubmitting(false);
+    } else {
+      updateProject({
+        id: project?.id,
+        title,
+        description,
+        due_date,
+      });
+    }
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -78,6 +92,8 @@ const ProjectsForm = () => {
     setValues,
     setFieldTouched,
     setFieldValue,
+    handleChange,
+    handleBlur,
     isSubmitting,
     setSubmitting,
     getFieldProps,
@@ -88,24 +104,33 @@ const ProjectsForm = () => {
 
     if (id) {
       apiProject
-          .getSingle(`${id}`)
-          .then((response) => {
-            setValues(() => ({
-              ...response,
-              image: "",
-              due_date: ISOtoYYYYmmDD(response.due_date),
-            }));
-            setProject(response);
-            setImagePreview(response.image);
-          })
-          .catch((error) => {
-            errorAlert();
-          });
+        .getSingle(`${id}`)
+        .then((response) => {
+          setValues(() => ({
+            ...response,
+            image: "",
+            due_date: ISOtoYYYYmmDD(response.due_date),
+          }));
+          setProject(response);
+          setImagePreview(response.image);
+        })
+        .catch((error) => {
+          errorAlert();
+        });
       setIsEdit(true);
     }
 
     setIsFetching(false);
   }, [id, setValues]);
+
+  const handleImageChange = (event) => {
+    handleChange(event);
+    const file = event.target.files[0];
+    if (file.type.includes("image")) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const isLoading = isFetching || isSubmitting;
 
   return (
@@ -143,7 +168,8 @@ const ProjectsForm = () => {
           touched={touched.image}
           type="file"
           ref={imageRef}
-          {...getFieldProps("image")}
+          onChange={handleImageChange}
+          onBlur={handleBlur}
         />
         <InputField
           label="Fecha de Finalización"

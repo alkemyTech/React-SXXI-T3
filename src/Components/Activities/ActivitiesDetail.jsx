@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import DetailCard from "../Card/DetailCard/DetailCard";
-import {errorAlert} from "../Feedback/AlertService";
-import {Spinner} from "../Feedback/Spinner/Spinner";
+import { errorAlert } from "../Feedback/AlertService";
+import { Spinner } from "../Feedback/Spinner/Spinner";
 
 import Title from "../Title/Title";
-import {apiActivity} from "../../Services/apiService";
+import { apiActivity } from "../../Services/apiService";
 
 const ActivitiesDetail = () => {
   const { id } = useParams();

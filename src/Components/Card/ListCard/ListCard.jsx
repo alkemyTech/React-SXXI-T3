@@ -1,13 +1,12 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {LazyLoadImage} from 'react-lazy-load-image-component';
+import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import Button from "../../Button/Button";
-import {useMinWindowSize} from "../../../hooks/useMinWindowSize";
+import { useMinWindowSize } from "../../../hooks/useMinWindowSize";
 
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import "react-lazy-load-image-component/src/effects/blur.css";
 import "./ListCard.css";
-
 
 
 export const ListCard = ({

@@ -1,15 +1,21 @@
-import {useFormik} from "formik";
-import React, {useEffect, useRef, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useFormik } from "formik";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import {post, put} from "../../../Services/userService";
-import {BackButton, InputField, SelectField} from "../../Form";
+import { post, put } from "../../../Services/userService";
+import { BackButton, InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
-import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 
 import "../../FormStyles.css";
-import {errorAlert} from "../../Feedback/AlertService";
-import {apiUser} from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
+import { apiUser } from "../../../Services/apiService";
+import { getBase64 } from "../../../utils/getBase64";
+import { defaultImage } from "../../../utils/defaultImage";
 
 const UsersForm = () => {
   const { id } = useParams();
@@ -24,43 +30,54 @@ const UsersForm = () => {
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-    const fileReader = new FileReader();
-
-    fileReader.onload = function () {
-      setImagePreview(fileReader.result);
-
-      if (id) {
-        put(
-            id,
-            values.name,
-            values.email,
-            values.password,
-            fileReader.result,
-            values.role,
-            resetForm,
-            setSubmitting
-        );
-      } else {
-        post(
-            values.name,
-            values.email,
-            values.password,
-            fileReader.result,
-            values.role,
-            resetForm,
-            setSubmitting
-        );
-      }
-    };
-
-    fileReader.onerror = () => {
-      setSubmitting(false);
-      errorAlert('Error al procesar la imagen');
-    };
-
-    fileReader.readAsDataURL(file);
+    if (file) {
+      getBase64(file)
+        .then((result) => {
+          if (id) {
+            put(
+              id,
+              {
+                name: values.name,
+                email: values.email,
+                password: values.password,
+                profile_image: result,
+                role_id: values.role,
+              },
+              resetForm,
+              setSubmitting
+            );
+          } else {
+            post(
+              {
+                name: values.name,
+                email: values.email,
+                password: values.password,
+                profile_image: result,
+                role_id: values.role,
+              },
+              resetForm,
+              setSubmitting
+            );
+          }
+        })
+        .catch(({ message }) => {
+          setSubmitting(false);
+          errorAlert("Error al procesar la imagen");
+        })
+        .finally(() => setImagePreview(defaultImage));
+    } else {
+      post(
+        {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          role_id: values.role,
+        },
+        resetForm,
+        setSubmitting
+      );
+    }
   };
-
 
   const formik = useFormik({
     initialValues,
@@ -85,18 +102,26 @@ const UsersForm = () => {
     if (id) {
       setIsFetching(() => true);
       apiUser
-          .getSingle(`${id}`)
-          .then(response => {
-            setValues(() => ({ ...response, image: "", role: response.role_id }));
-            setImagePreview(() => response.profile_image);
-            setIsFetching(false);
-          })
-          .catch((error) => {
-            setIsFetching(false);
-            errorAlert();
-          });
+        .getSingle(`${id}`)
+        .then((response) => {
+          setValues(() => ({ ...response, image: "", role: response.role_id }));
+          setImagePreview(() => response.profile_image);
+          setIsFetching(false);
+        })
+        .catch((error) => {
+          setIsFetching(false);
+          errorAlert();
+        });
     }
   }, [id, setValues]);
+
+  const handleImageChange = (event) => {
+    handleChange(event);
+    const file = event.target.files[0];
+    if (file.type.includes("image")) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const isLoading = isSubmitting || isFetching;
 
@@ -148,7 +173,7 @@ const UsersForm = () => {
           value={values.image}
           name="image"
           ref={imageRef}
-          onChange={handleChange("image")}
+          onChange={handleImageChange}
           onBlur={handleBlur("image")}
           errors={errors.image}
           touched={touched.image}

@@ -3,7 +3,12 @@ import { useFormik } from "formik";
 import { getBase64 } from "../../../utils/getBase64";
 import { initialValues, validationSchema } from "./constants";
 import Button from "../../Button/Button";
-import { BackButton, CKEditorField, InputField, TextAreaField, } from "../../Form";
+import {
+  BackButton,
+  CKEditorField,
+  InputField,
+  TextAreaField,
+} from "../../Form";
 import { defaultImage } from "../../../utils/defaultImage";
 
 import styles from "./organizationForm.module.css";
@@ -17,12 +22,11 @@ const OrganizationForm = () => {
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-
-    getBase64(file)
-      .then((result) => {
+    if (file) {
+      getBase64(file).then((result) => {
         setImagePreview(() => result);
         apiOrganization
-          .post(values)
+          .post({ ...values, logo: result })
           .then((response) => {
             infoAlert("OK", "Información guardada correctamente!");
           })
@@ -31,8 +35,28 @@ const OrganizationForm = () => {
           });
         setSubmitting(false);
         setIsFetching(() => false);
-      })
-  }
+      });
+    } else {
+      apiOrganization
+        .post({
+          name: values.name,
+          facebook_url: values.facebook_url,
+          linkedin_url: values.linkedin_url,
+          instagram_url: values.instagram_url,
+          twitter_url: values.twitter_url,
+          short_description: values.short_description,
+          long_description: values.long_description,
+        })
+        .then((response) => {
+          infoAlert("OK", "Información guardada correctamente!");
+        })
+        .catch((err) => {
+          errorAlert();
+        });
+      setSubmitting(false);
+      setIsFetching(() => false);
+    }
+  };
 
   const formik = useFormik({
     initialValues,
@@ -58,7 +82,7 @@ const OrganizationForm = () => {
     setIsFetching(() => true);
     apiOrganization
       .getAll()
-      .then(response => {
+      .then((response) => {
         setIsFetching(() => false);
         setImagePreview(() => response.logo);
         setValues(() => ({ ...response, logo: "" }));
@@ -69,6 +93,14 @@ const OrganizationForm = () => {
         errorAlert(errorMessage);
       });
   }, [setValues]);
+
+  const handleImageChange = (event) => {
+    handleChange(event);
+    const file = event.target.files[0];
+    if (file.type.includes("image")) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const isLoading = isFetching || isSubmitting;
 
@@ -157,7 +189,7 @@ const OrganizationForm = () => {
           label="Modificar logo"
           name="logo"
           value={values.logo}
-          onChange={handleChange}
+          onChange={handleImageChange}
           onBlur={handleBlur}
           errors={errors.logo}
           touched={touched.logo}

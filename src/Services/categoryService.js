@@ -1,22 +1,10 @@
-import {apiCategory} from "./apiService";
-import {errorAlert, infoAlert} from "../Components/Feedback/AlertService";
+import { apiCategory } from "./apiService";
+import { errorAlert, infoAlert } from "../Components/Feedback/AlertService";
 
-
-export const onSubmitService = (
-  id,
-  name,
-  description,
-  image,
-  resetForm,
-  setSubmitting
-) => {
+export const onSubmitService = (id, data, resetForm, setSubmitting) => {
   if (id) {
     apiCategory
-      .put(`${id}`, {
-        name,
-        description,
-        image,
-      })
+      .put(`${id}`, data)
       .then((response) => {
         infoAlert();
       })
@@ -28,11 +16,7 @@ export const onSubmitService = (
       });
   } else {
     apiCategory
-      .post({
-        name,
-        description,
-        image,
-      })
+      .post(data)
       .then((response) => {
         infoAlert();
         return resetForm();

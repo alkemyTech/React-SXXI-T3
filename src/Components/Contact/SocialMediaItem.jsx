@@ -1,4 +1,4 @@
-import {parseUsername} from "./parseUsernames";
+import { parseUsername } from "./parseUsernames";
 
 export const SocialMediaItem = ({
   url,

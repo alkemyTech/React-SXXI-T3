@@ -1,14 +1,14 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Title from "../../Title/Title";
 import DetailCard from "../../Card/DetailCard/DetailCard";
 
 import "./NewsDetail.css";
-import {errorAlert} from "../../Feedback/AlertService";
-import {Spinner} from "../../Feedback/Spinner/Spinner";
+import { errorAlert } from "../../Feedback/AlertService";
+import { Spinner } from "../../Feedback/Spinner/Spinner";
 import CommentsDetails from "../../Comments/CommentsDetails";
-import {apiNews} from "../../../Services/apiService";
+import { apiNews } from "../../../Services/apiService";
 
 const NewsDetail = ({ title }) => {
   const { id } = useParams();

@@ -1,17 +1,21 @@
-import React, {useEffect, useRef, useState} from "react";
-import {useParams} from "react-router-dom";
-import {useFormik} from "formik";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useFormik } from "formik";
 
-import {BackButton, CKEditorField, InputField} from "../../Form";
+import { BackButton, CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import {getBase64} from "../../../utils/getBase64";
-import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
-import {defaultImage} from "../../../utils/defaultImage";
+import { getBase64 } from "../../../utils/getBase64";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
+import { defaultImage } from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
-import {onSubmitService} from "../../../Services/categoryService";
-import {errorAlert} from "../../Feedback/AlertService";
-import {apiCategory} from "../../../Services/apiService";
+import { onSubmitService } from "../../../Services/categoryService";
+import { errorAlert } from "../../Feedback/AlertService";
+import { apiCategory } from "../../../Services/apiService";
 
 const CategoriesForm = () => {
   const { id } = useParams();
@@ -22,22 +26,34 @@ const CategoriesForm = () => {
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-    getBase64(file)
+    if (file) {
+      getBase64(file)
         .then((result) => {
           setImagePreview(() => result);
           onSubmitService(
-              id,
-              formik.values.name,
-              formik.values.description,
-              result,
-              resetForm,
-              setSubmitting
+            id,
+            {
+              name: formik.values.name,
+              description: formik.values.description,
+              image: result,
+            },
+            resetForm,
+            setSubmitting
           );
         })
         .catch(({ message }) => {
           setSubmitting(false);
           errorAlert("Error al procesar la imagen");
-        });
+        })
+        .finally(() => setImagePreview(defaultImage));
+    } else {
+      onSubmitService(
+        id,
+        { name: formik.values.name, description: formik.values.description },
+        resetForm,
+        setSubmitting
+      );
+    }
   };
 
   const formik = useFormik({
@@ -65,19 +81,27 @@ const CategoriesForm = () => {
     if (id) {
       setIsFetching(() => true);
       apiCategory
-          .getSingle(`${id}`)
-          .then(response => {
-            setValues(() => ({ ...response, image: "" }));
-            setImagePreview(() => response.image);
-            setIsFetching(() => false);
-          })
-          .catch((error) => {
-            const errorMessage = error?.response?.data?.message || error.message;
-            setIsFetching(() => false);
-            errorAlert(errorMessage);
-          });
+        .getSingle(`${id}`)
+        .then((response) => {
+          setValues(() => ({ ...response, image: "" }));
+          setImagePreview(() => response.image);
+          setIsFetching(() => false);
+        })
+        .catch((error) => {
+          const errorMessage = error?.response?.data?.message || error.message;
+          setIsFetching(() => false);
+          errorAlert(errorMessage);
+        });
     }
   }, [id, setValues]);
+
+  const handleImageChange = (event) => {
+    handleChange(event);
+    const file = event.target.files[0];
+    if (file.type.includes("image")) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const isLoading = isFetching || isSubmitting;
 
@@ -115,7 +139,7 @@ const CategoriesForm = () => {
           label={id ? "Modificar imagen" : "Cargar imagen"}
           name="image"
           value={values.image}
-          onChange={handleChange}
+          onChange={handleImageChange}
           onBlur={handleBlur}
           errors={errors.image}
           touched={touched.image}

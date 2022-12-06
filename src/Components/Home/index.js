@@ -1,14 +1,14 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import Slider from "../Slides/Slider/Slider";
 import NewsList from "./NewsList/NewsList";
 
 import "./Home.css";
 
-import {Spinner} from "../Feedback/Spinner/Spinner";
-import {errorAlert} from "../Feedback/AlertService";
-import {SkeletonCard} from "../Feedback/SkeletonCard";
-import {apiNews, apiOrganization, apiSlide} from "../../Services/apiService";
+import { Spinner } from "../Feedback/Spinner/Spinner";
+import { errorAlert } from "../Feedback/AlertService";
+import { SkeletonCard } from "../Feedback/SkeletonCard";
+import { apiNews, apiOrganization, apiSlide } from "../../Services/apiService";
 
 const Home = () => {
     const [slideList, setSlideList] = useState([]);

@@ -1,10 +1,10 @@
-import {useState} from "react";
-import {useFormik} from "formik";
-import {CKEditorField} from "../../Form/CKEditorField";
+import { useState } from "react";
+import { useFormik } from "formik";
+import { CKEditorField } from "../../Form/CKEditorField";
 import Swal from "sweetalert2";
 
-import {initialValues, validationSchema} from "./constants";
-import {InputField} from "../../Form/InputField";
+import { initialValues, validationSchema } from "./constants";
+import { InputField } from "../../Form/InputField";
 import Button from "../../Button/Button";
 
 import "../../FormStyles.css";

@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import debounce from "lodash.debounce";
 
-import {ListCard} from "../Card/ListCard/ListCard";
+import { ListCard } from "../Card/ListCard/ListCard";
 import Title from "../Title/Title";
 import SearchInput from "../SearchInput";
-import {SkeletonCard} from "../Feedback/SkeletonCard";
-import {errorAlert} from "../Feedback/AlertService";
-import {apiActivity} from "../../Services/apiService";
+import { SkeletonCard } from "../Feedback/SkeletonCard";
+import { errorAlert } from "../Feedback/AlertService";
+import { apiActivity } from "../../Services/apiService";
 
 import "../CardListStyles.css";
 

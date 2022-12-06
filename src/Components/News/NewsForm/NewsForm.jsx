@@ -1,35 +1,39 @@
-import {useFormik} from "formik";
-import React, {useEffect, useRef, useState} from "react";
-import {useParams} from "react-router-dom";
-import {createValidationSchema, editValidationSchema, initialValues,} from "./constants";
+import { useFormik } from "formik";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+  createValidationSchema,
+  editValidationSchema,
+  initialValues,
+} from "./constants";
 import "../../FormStyles.css";
-import {BackButton, CKEditorField, InputField, SelectField} from "../../Form";
+import { BackButton, CKEditorField, InputField, SelectField } from "../../Form";
 import Button from "../../Button/Button";
-import {getBase64} from "../../../utils/getBase64";
-import {defaultImage} from "../../../utils/defaultImage";
-import {apiNews} from "../../../Services/apiService";
-import {errorAlert, infoAlert} from "../../Feedback/AlertService";
+import { getBase64 } from "../../../utils/getBase64";
+import { defaultImage } from "../../../utils/defaultImage";
+import { apiNews } from "../../../Services/apiService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const updateNew = (oneNew) => {
   apiNews
-      .put(`${oneNew.id}`, oneNew)
-      .then((response) => {
-        infoAlert("OK", "Novedad guardada correctamente!");
-      })
-      .catch((err) => {
-        errorAlert();
-      });
+    .put(`${oneNew.id}`, oneNew)
+    .then((response) => {
+      infoAlert("OK", "Novedad guardada correctamente!");
+    })
+    .catch((err) => {
+      errorAlert();
+    });
 };
 
 const createNew = (oneNew) => {
   apiNews
-      .post(oneNew)
-      .then((response) => {
-        infoAlert("OK", "Novedad creada correctamente!");
-      })
-      .catch((err) => {
-        errorAlert();
-      });
+    .post(oneNew)
+    .then((response) => {
+      infoAlert("OK", "Novedad creada correctamente!");
+    })
+    .catch((err) => {
+      errorAlert();
+    });
 };
 
 const NewsForm = () => {
@@ -42,9 +46,10 @@ const NewsForm = () => {
   const imageRef = useRef();
   const validationSchema = id ? editValidationSchema : createValidationSchema;
 
-  const onSubmit = ({ name, image, content, category_id }) => {
+  const onSubmit = ({ name, content, category_id }) => {
     const file = imageRef.current.files[0];
-    getBase64(file)
+    if (file) {
+      getBase64(file)
         .then((result) => {
           let oneNewToSave = {
             id: oneNew?.id || null,
@@ -59,10 +64,15 @@ const NewsForm = () => {
             createNew(oneNewToSave);
           }
         })
-        .catch(() => {
-          errorAlert('Error al cargar la imagen');
-        });
-    setSubmitting(false);
+        .finally(() => setImagePreview(defaultImage));
+    } else {
+      updateNew({
+        id: oneNew?.id,
+        name,
+        content,
+        category_id,
+      });
+    }
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -84,31 +94,36 @@ const NewsForm = () => {
   useEffect(() => {
     let options = [];
     setIsFetching(true);
-    apiNews
-        .getAll()
-        .then(response => {
-          response.map(
-              (x) =>
-                  (options = [...options, { value: parseInt(x.id), label: x.name }])
-          );
-          setCategories(options);
-          if (id) {
-            apiNews
-                .getSingle(`${id}`)
-                .then((response) => {
-                  setValues(() => ({ ...response, image: "" }));
-                  setImagePreview(response.image);
-                  setOneNew(response);
-                })
-                .catch((error) => {
-                  errorAlert();
-                });
-            setIsEdit(true);
-          }
-        });
+    apiNews.getAll().then((response) => {
+      response.map(
+        (x) =>
+          (options = [...options, { value: parseInt(x.id), label: x.name }])
+      );
+      setCategories(options);
+      if (id) {
+        apiNews
+          .getSingle(`${id}`)
+          .then((response) => {
+            setValues(() => ({ ...response, image: "" }));
+            setImagePreview(response.image);
+            setOneNew(response);
+          })
+          .catch((error) => {
+            errorAlert();
+          });
+        setIsEdit(true);
+      }
+    });
     setIsFetching(false);
   }, [id, setValues]);
 
+  const handleImageChange = (event) => {
+    handleChange(event);
+    const file = event.target.files[0];
+    if (file.type.includes("image")) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const isLoading = isFetching || isSubmitting;
 
@@ -156,7 +171,7 @@ const NewsForm = () => {
           label={id ? "Modificar imagen" : "Cargar imagen"}
           name="image"
           value={values.image}
-          onChange={handleChange}
+          onChange={handleImageChange}
           onBlur={handleBlur}
           errors={errors.image}
           touched={touched.image}

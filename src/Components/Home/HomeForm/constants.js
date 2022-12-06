@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import {requiredMessage} from "../../../utils/validation/constants";
+import { requiredMessage } from "../../../utils/validation/constants";
 
 export const validationSchema = Yup.object({
   welcomeText: Yup.string()

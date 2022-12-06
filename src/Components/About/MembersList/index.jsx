@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
-import {v4 as uuidv4} from "uuid";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import Card from "../Card";
-import {Spinner} from "../../Feedback/Spinner/Spinner";
-import {errorAlert} from '../../Feedback/AlertService';
-import {apiMember} from "../../../Services/apiService";
+import { Spinner } from "../../Feedback/Spinner/Spinner";
+import { errorAlert } from "../../Feedback/AlertService";
+import { apiMember } from "../../../Services/apiService";
 
 import s from "./listado.module.css";
 

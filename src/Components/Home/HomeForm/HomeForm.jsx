@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useFormik} from "formik";
+import React, { useEffect, useState } from "react";
+import { useFormik } from "formik";
 
 // import { getOrganizationInfo } from "../../../Services/organizationService/organizationService";
 // import { getSlides } from "../../../Services/slidesServices/slidesService";
-import {BackButton, TextAreaField} from "../../Form";
+import { BackButton, TextAreaField } from "../../Form";
 import SliderTemplate from "../../Slides/Slider/Template/SliderTemplate";
 import Carousel from "../../Carousel/Carousel";
 import Button from "../../Button/Button";
-import {ReactComponent as RemoveSvg} from "../../../assets/svg/home/xmark-solid.svg";
-import {ReactComponent as AddSvg} from "../../../assets/svg/home/plus-solid.svg";
-import {initialValues, validationSchema} from "./constants";
+import { ReactComponent as RemoveSvg } from "../../../assets/svg/home/xmark-solid.svg";
+import { ReactComponent as AddSvg } from "../../../assets/svg/home/plus-solid.svg";
+import { initialValues, validationSchema } from "./constants";
 
 import "./HomeForm.css";
-import {apiOrganization, apiSlide} from "../../../Services/apiService";
+import { apiOrganization, apiSlide } from "../../../Services/apiService";
 
 const HomeForm = () => {
   const [slides, setSlides] = useState([]);

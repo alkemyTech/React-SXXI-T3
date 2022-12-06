@@ -1,14 +1,14 @@
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import Button from "../../Button/Button";
 
-import {CKEditor} from "@ckeditor/ckeditor5-react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import styles from "./organizationScreen.module.css";
-import {apiOrganization} from "../../../Services/apiService";
-import {errorAlert} from "../../Feedback/AlertService";
+import { apiOrganization } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const OrganizationScreen = () => {
   const [organizationInfo, setOrganizationInfo] = useState(null);

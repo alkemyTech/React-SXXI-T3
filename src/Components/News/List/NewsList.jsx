@@ -1,14 +1,14 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import debounce from "lodash.debounce";
 
 import Title from "../../Title/Title";
-import {ListCard} from "../../Card/ListCard/ListCard";
+import { ListCard } from "../../Card/ListCard/ListCard";
 
 import "../../CardListStyles.css";
 import SearchInput from "../../SearchInput";
-import {SkeletonCard} from "../../Feedback/SkeletonCard";
-import {errorAlert} from "../../Feedback/AlertService";
-import {apiNews} from "../../../Services/apiService";
+import { SkeletonCard } from "../../Feedback/SkeletonCard";
+import { errorAlert } from "../../Feedback/AlertService";
+import { apiNews } from "../../../Services/apiService";
 
 const NewsList = () => {
   const [news, setNews] = useState([]);

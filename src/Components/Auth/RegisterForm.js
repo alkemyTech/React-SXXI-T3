@@ -3,10 +3,16 @@ import { useFormik } from "formik";
 import React from "react";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
+
+import { useDispatch } from "react-redux";
+import { authRegister } from "../../features/auth/authSlice";
+
 import "../FormStyles.css";
 import "./Auth.css";
 
 const RegisterForm = ({ desktop }) => {
+
+  const dispatch = useDispatch();
   const initialValues = {
     email: "",
     password: "",
@@ -37,10 +43,11 @@ const RegisterForm = ({ desktop }) => {
 
   const onSubmit = ({ email, password }) => {
     const user = {
+      name: 'User Name',
       email,
       password,
     };
-    console.log(user);
+    dispatch(authRegister(user));
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

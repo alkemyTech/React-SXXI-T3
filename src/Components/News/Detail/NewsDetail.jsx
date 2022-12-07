@@ -5,9 +5,9 @@ import Title from "../../Title/Title";
 import DetailCard from "../../Card/DetailCard/DetailCard";
 
 import "./NewsDetail.css";
-import { apiONG } from "../../../Services/apiONG";
 import { errorAlert } from "../../Feedback/AlertService";
 import { Spinner } from "../../Feedback/Spinner/Spinner";
+import { apiNews } from "../../../Services/apiService";
 
 const NewsDetail = ({ title }) => {
   const { id } = useParams();
@@ -16,13 +16,10 @@ const NewsDetail = ({ title }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    apiONG
-      .get(`news/${id}`)
+    apiNews
+      .getSingle(id)
       .then((response) => {
-        const {
-          data: { data },
-        } = response;
-        setNews(data);
+        setNews(response);
       })
       .catch((error) => {
         errorAlert();

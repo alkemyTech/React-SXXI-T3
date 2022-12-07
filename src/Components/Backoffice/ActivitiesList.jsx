@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
+import { apiActivity } from '../../Services/apiService';
+import { errorAlert } from '../Feedback/AlertService';
 
 export const ActivitiesList = () => {
 	const [search, setSearch] = useState('');
@@ -41,11 +43,15 @@ export const ActivitiesList = () => {
 			cancelButtonText: "Cancelar"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				Swal.fire(
-					'Actividad borrada!',
-					'',
-					'success'
-				)
+				apiActivity.remove(id)
+				.then(response => {
+					Swal.fire(
+						'Actividad borrada!',
+						'',
+						'success'
+					)
+				})
+				.catch(error => errorAlert())
 			}
 		})
 	}

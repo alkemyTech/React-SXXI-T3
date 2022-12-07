@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { apiActivity } from "../../Services/apiService";
 import { useNavigate, useParams } from "react-router-dom";
-import { apiONG } from "../../Services/apiONG";
 import DetailCard from "../Card/DetailCard/DetailCard";
 import { errorAlert } from "../Feedback/AlertService";
 import { Spinner } from "../Feedback/Spinner/Spinner";
@@ -14,15 +14,15 @@ const ActivitiesDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    apiONG
-      .get("/activities/" + id)
-      .then((response) => {
-        setActivity(response.data.data);
-      })
-      .catch((error) => {
-        errorAlert();
-      })
-      .finally(() => setIsLoading(false));
+    apiActivity
+    .getSingle(id)
+    .then((response) => {
+      if(response) setActivity(response);
+    })
+    .catch((error) => {
+      errorAlert();
+    })
+    .finally(() => setIsLoading(false));
   }, [id]);
 
   return (

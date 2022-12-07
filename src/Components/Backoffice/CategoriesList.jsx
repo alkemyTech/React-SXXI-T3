@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
+import { errorAlert } from '../Feedback/AlertService';
+import { apiCategory } from '../../Services/apiService';
 
 export const CategoriesList = () => {
     const [search, setSearch] = useState('');
@@ -41,12 +43,16 @@ export const CategoriesList = () => {
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Categoría borrada!',
-                    '',
-                    'success'
-                )
-            }
+				apiCategory.remove(id)
+				.then(response => {
+					Swal.fire(
+						'Categoria borrada!',
+						'',
+						'success'
+					)
+				})
+				.catch(error => errorAlert())
+			}
         })
     }
 

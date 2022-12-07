@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 
 import Title from "../Title/Title";
 import ContactForm from "./ContactForm/ContactForm";
-import {getOrganizationInfo} from "../../Services/organizationService/organizationService";
 import { SocialMediaItemWLabel } from "./SocialMediaItem";
 import { ReactComponent as FacebookSvg } from "../../assets/svg/contact/facebook.svg";
 import { ReactComponent as InstagramSvg } from "../../assets/svg/contact/instagram.svg";
@@ -12,6 +11,7 @@ import { ReactComponent as PhoneSvg } from "../../assets/svg/contact/phone-solid
 import { ReactComponent as LocationSvg } from "../../assets/svg/contact/location-dot-solid.svg";
 
 import "./Contact.css";
+import { apiOrganization } from "../../Services/apiService";
 
 const Contact = () => {
   const [contactData, setContactData] = useState({
@@ -24,7 +24,7 @@ const Contact = () => {
   });
 
   useEffect(() => {
-    getOrganizationInfo()
+    apiOrganization.getAll()
       .then((info) => {
         setContactData({
           address: info.address,

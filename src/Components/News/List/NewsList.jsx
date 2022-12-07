@@ -3,12 +3,12 @@ import debounce from "lodash.debounce";
 
 import Title from "../../Title/Title";
 import { ListCard } from "../../Card/ListCard/ListCard";
-import { getNews } from "../../../Services/newsService/newsService";
 
 import "../../CardListStyles.css";
 import SearchInput from "../../SearchInput";
 import { SkeletonCard } from "../../Feedback/SkeletonCard";
 import { errorAlert } from "../../Feedback/AlertService";
+import { apiNews } from "../../../Services/apiService";
 
 const NewsList = () => {
   const [news, setNews] = useState([]);
@@ -16,7 +16,7 @@ const NewsList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getNews()
+    apiNews.getAll()
       .then((response) => {
         setNews(response);
       })
@@ -32,7 +32,7 @@ const NewsList = () => {
     setSearch(() => value);
     if (cleanValue.length >= 3) {
       setIsLoading(true);
-      getNews(cleanValue)
+      apiNews.getAll(`search=${cleanValue}`)
         .then((response) => {
           setNews(() => response);
         })
@@ -46,7 +46,7 @@ const NewsList = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    getNews(search)
+    apiNews.getAll(`search=${search}`)
       .then((response) => {
         setNews(response);
       })

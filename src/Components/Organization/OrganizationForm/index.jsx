@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useFormik } from "formik";
-import Swal from "sweetalert2";
 
-import { apiONG } from "../../../Services/apiONG";
 import { getBase64 } from "../../../utils/getBase64";
 import { useState } from "react";
 import { initialValues, validationSchema } from "./constants";
@@ -11,6 +9,8 @@ import { CKEditorField, InputField, TextAreaField } from "../../Form";
 import { defaultImage } from "../../../utils/defaultImage";
 
 import styles from "./organizationForm.module.css";
+import { apiOrganization } from "../../../Services/apiService";
+import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
 const OrganizationForm = () => {
   const imageRef = useRef();
@@ -28,10 +28,7 @@ const OrganizationForm = () => {
           setImagePreview(() => result);
         })
         .then(() => {
-          Swal.fire({
-            title: "Organizacion Actualizada",
-            icon: "success",
-          });
+          infoAlert({title:"Organizacion Actualizada"});
         });
     }, 2000);
   };
@@ -58,21 +55,17 @@ const OrganizationForm = () => {
 
   useEffect(() => {
     setIsFetching(() => true);
-    apiONG
-      .get(`/organization`)
-      .then(({ data: { data } }) => {
+    apiOrganization
+      .getAll()
+      .then(response => {
         setIsFetching(() => false);
-        setImagePreview(() => data.logo);
-        setValues(() => ({ ...data, logo: "" }));
+        setImagePreview(() => response.logo);
+        setValues(() => ({ ...response, logo: "" }));
       })
       .catch((error) => {
         const errorMessage = error?.response?.data?.message || error.message;
         setIsFetching(() => false);
-        Swal.fire({
-          title: errorMessage,
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert(errorMessage);
       });
   }, [setValues]);
 

@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from './Hook';
+import { apiMember } from '../../Services/apiService';
+import { errorAlert } from '../Feedback/AlertService';
 
 export const MembersList = () => {
     const [search, setSearch] = useState('');
@@ -41,12 +43,16 @@ export const MembersList = () => {
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Miembro borrado!',
-                    '',
-                    'success'
-                )
-            }
+				apiMember.remove(id)
+				.then(response => {
+					Swal.fire(
+						'Miembro borrado!',
+						'',
+						'success'
+					)
+				})
+				.catch(error => errorAlert());
+			}
         })
     }
 

@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import Swal from "sweetalert2";
 
 import { onSubmitService } from "../../../Services/categoryFormServices";
 import { CKEditorField, InputField } from "../../Form";
 import Button from "../../Button/Button";
-import { apiONG } from "../../../Services/apiONG";
 import { getBase64 } from "../../../utils/getBase64";
 import { initialValues, validationSchema } from "./constants";
 import { defaultImage } from "../../../utils/defaultImage";
 
 import "../../FormStyles.css";
+import { apiCategory } from "../../../Services/apiService";
+import { errorAlert } from "../../Feedback/AlertService";
 
 const CategoriesForm = () => {
   const { id } = useParams();
@@ -35,11 +35,7 @@ const CategoriesForm = () => {
       })
       .catch(({ message }) => {
         setSubmitting(false);
-        Swal.fire({
-          title: message,
-          icon: "error",
-          timer: 5000,
-        });
+        errorAlert("Error al procesar la imagen");
       });
   };
 
@@ -67,21 +63,17 @@ const CategoriesForm = () => {
   useEffect(() => {
     if (id) {
       setIsFetching(() => true);
-      apiONG
-        .get(`/categories/${id}`)
-        .then(({ data: { data } }) => {
-          setValues(() => ({ ...data, image: "" }));
-          setImagePreview(() => data.image);
+      apiCategory
+        .getSingle(`${id}`)
+        .then(response => {
+          setValues(() => ({ ...response, image: "" }));
+          setImagePreview(() => response.image);
           setIsFetching(() => false);
         })
         .catch((error) => {
           const errorMessage = error?.response?.data?.message || error.message;
           setIsFetching(() => false);
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            timer: 5000,
-          });
+          errorAlert(errorMessage);
         });
     }
   }, [id, setValues]);

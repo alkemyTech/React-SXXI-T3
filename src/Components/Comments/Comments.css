@@ -1,0 +1,149 @@
+/*barraComentarios*/
+.contenedorList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+.contenedor {
+  width: 60%;
+}
+ul {
+  border-bottom: 2px solid black;
+}
+ul li {
+  border-right: 2px solid black;
+  padding: 10px;
+}
+ul li:last-child {
+  border-right: none;
+}
+
+/* cardComentarios*/
+#card {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0px 20px;
+  padding: 10px;
+  width: 60wv;
+  height: auto;
+  font-size: medium;
+}
+
+#card img {
+  height: 5%;
+  width: 10%;
+}
+.contenidoNombreFecha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+}
+.contenidoComentario {
+  width: 100%;
+  align-items: center;
+  padding: 10px;
+}
+#contenidoBody {
+  padding: 10px;
+  font-size: 17px;
+  width: 70%;
+  background-color: #ebebeb;
+  border: 0px;
+}
+#contenidoBody::after {
+  /* border-right: 20px solid #ebebeb; */
+  content: "";
+  border-right: 30px solid #ebebeb;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  position: absolute;
+  display: flex;
+  top: 50px;
+  bottom: 0px;
+  left: -30px;
+  right: 0px;
+  width: 0;
+  height: 0;
+}
+.btn-primary {
+  border-radius: 15px;
+}
+/*responsive*/
+@media screen and (max-width: 900px) {
+  .contenedor {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  #contenidoBody::after {
+    visibility: hidden;
+  }
+  /*barraComentarios*/
+  .contenedorList {
+    padding: 5%;
+    display: flex;
+  }
+  .contenedor {
+    display: contents;
+    width: 100% !important;
+  }
+  ul {
+    border-top: 1px solid black;
+    border-bottom: 0px;
+    font-size: auto;
+  }
+
+  ul li {
+    padding: 10px;
+    border: 0px;
+  }
+  ul li:last-child {
+    border-right: none;
+  }
+
+  /*cardComentarios*/
+  #card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 20px;
+    padding: 10px;
+    width: 100wv;
+    height: auto;
+    font-size: medium;
+    margin-top: -20%;
+  }
+
+  #card img {
+    height: 60%;
+    width: 60%;
+  }
+  .contenidoNombreFecha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+  }
+  .contenidoComentario {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+  }
+  #contenidoBody {
+    padding: 10px;
+    font-size: 17px;
+    width: 100%;
+  }
+  .btn-primary {
+    border-radius: 15px;
+  }
+}

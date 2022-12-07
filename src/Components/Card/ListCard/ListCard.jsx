@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 import Button from "../../Button/Button";
 
@@ -42,22 +43,30 @@ export const ListCard = ({
   };
 
   return (
-    <div className={`list-card ${variant}`}>
-      <div className="list-card-image">
-        <img src={image} alt={name} />
-      </div>
-      <div className="list-card-content">
-        <div className="list-card-text" dangerouslySetInnerHTML={newsText()} />
-        <div className="list-card-btn-div">
-          <Link to={linkTo ? linkTo : `${id}`} className="list-card-link">
-            <Button
-              label={buttonLabel}
-              className="list-card-btn"
-              variant={variant}
+      <div className={`list-card ${variant}`}>
+        <div className="list-card-image">
+          <div className="list-card-divimg">
+            <LazyLoadImage
+                alt={name}
+                effect="blur"
+                wrapperClassName="lazy-img"
+                src={image}
             />
-          </Link>
+            <h6 className="list-card-title">{name}</h6>
+          </div>
+        </div>
+        <div className="list-card-content">
+          <div className="list-card-text" dangerouslySetInnerHTML={newsText()} />
+          <div className="list-card-btn-div">
+            <Link to={linkTo ? linkTo : `${id}`} className="list-card-link">
+              <Button
+                  label={buttonLabel}
+                  className="list-card-btn"
+                  variant={variant}
+              />
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
   );
 };

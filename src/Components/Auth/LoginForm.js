@@ -1,12 +1,19 @@
-import React from "react";
-import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
 import * as yup from "yup";
+
+// Redux actions
+import { authLogin } from "../../features/auth/authSlice";
+
+// Styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../FormStyles.css";
 import "./Auth.css";
 
 const LoginForm = ({ desktop }) => {
+  const dispatch = useDispatch();
+
   const initialValues = {
     email: "",
     password: "",
@@ -32,7 +39,7 @@ const LoginForm = ({ desktop }) => {
       email,
       password,
     };
-    console.log(user);
+    dispatch(authLogin(user))
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

@@ -4,23 +4,28 @@ import s from './headerBackoffice.module.css'
 import Sidebar from "../Sidebar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../../features/auth/authSlice";
+import HeaderSession from "../Header/HeaderSession/HeaderSession";
 
 const HeaderBackoffice = () => {
-
-    const { user } = useSelector(selectAuth);
     const [logoONG, isFetching] = useLogo();
     const [showSidebar, setShowSidebar] = useState();
+    const [showInfo, setShowInfo] = useState(false);
+
+
     const handleClick = () => {
         setShowSidebar(() => (!showSidebar));
     }
+
+    const handleShowInfo = () => {
+        setShowInfo(!showInfo);
+    }
+
     return (
         <>
             <div className={s['header-backoffice']}>
                 <button className={s['sidebar-controler']} onClick={handleClick}>|||</button>
+                <HeaderSession showInfo={showInfo} handleShowInfo={handleShowInfo}/>
                 <div className={s['logo-header']}>
-                    <div style={{ padding: '0 20px' }}>{user.name}</div>
                     {
                         isFetching
                             ? null

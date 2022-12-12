@@ -19,7 +19,7 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import "./App.css";
 
 function App() {
-
+  console.log(process.env.REACT_APP_ROOT_URL)
   return (
     <Routes>
 

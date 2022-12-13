@@ -19,7 +19,7 @@ export const backofficeSlice = createSlice({
     name: 'backoffice',
     initialState,
     reducers: {
-        cleanInfo: (state) => ({ ...state, info: [] })
+        cleanInfo: (state) => ({ ...state, isFetching: true, info: [] })
     },
     extraReducers: (builder) => {
         builder

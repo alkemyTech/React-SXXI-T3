@@ -10,6 +10,8 @@ import { errorAlert } from '../Feedback/AlertService';
 import { apiCategory } from '../../Services/apiService';
 import { cleanInfo, getBackofficeInfo, selectBackoffice } from '../../features/backoffice/backofficeSlice';
 
+const route = 'categories';
+
 export const CategoriesList = () => {
     const dispatch = useDispatch();
 
@@ -21,9 +23,9 @@ export const CategoriesList = () => {
         const cleanValue = value.trim();
 
         setSearch(() => (cleanValue))
-        !cleanValue.length && dispatch(getBackofficeInfo('categories'))
+        !cleanValue.length && dispatch(getBackofficeInfo(route))
         cleanValue.length >= 3
-            && dispatch(getBackofficeInfo(`categories?search=${cleanValue}`))
+            && dispatch(getBackofficeInfo(`${route}?search=${cleanValue}`))
 
     }, 1000)
 
@@ -31,8 +33,8 @@ export const CategoriesList = () => {
         event.preventDefault();
 
         search.length < 3
-            ? dispatch(getBackofficeInfo('categories'))
-            : dispatch(getBackofficeInfo(`categories?search=${search}`))
+            ? dispatch(getBackofficeInfo(route))
+            : dispatch(getBackofficeInfo(`${route}?search=${search}`))
     }
 
     const deleteCategoryHandler = (id) => {
@@ -61,7 +63,7 @@ export const CategoriesList = () => {
     }
 
     useEffect(() => {
-        dispatch(getBackofficeInfo('categories'));
+        dispatch(getBackofficeInfo(route));
         return () => (dispatch(cleanInfo()));
     }, [dispatch])
 

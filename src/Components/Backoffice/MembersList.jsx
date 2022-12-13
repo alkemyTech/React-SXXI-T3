@@ -10,6 +10,8 @@ import { apiMember } from '../../Services/apiService';
 import { errorAlert } from '../Feedback/AlertService';
 import { cleanInfo, getBackofficeInfo, selectBackoffice } from '../../features/backoffice/backofficeSlice';
 
+const route = 'members';
+
 export const MembersList = () => {
     const dispatch = useDispatch();
 
@@ -21,9 +23,9 @@ export const MembersList = () => {
         const cleanValue = value.trim();
 
         setSearch(() => (cleanValue))
-        !cleanValue.length && dispatch(getBackofficeInfo('members'))
+        !cleanValue.length && dispatch(getBackofficeInfo(route))
         cleanValue.length >= 3
-            && dispatch(getBackofficeInfo(`members?search=${cleanValue}`))
+            && dispatch(getBackofficeInfo(`${route}?search=${cleanValue}`))
 
     }, 1000)
 
@@ -31,8 +33,8 @@ export const MembersList = () => {
         event.preventDefault();
 
         search.length < 3
-            ? dispatch(getBackofficeInfo('members'))
-            : dispatch(getBackofficeInfo(`members?search=${search}`))
+            ? dispatch(getBackofficeInfo(route))
+            : dispatch(getBackofficeInfo(`${route}?search=${search}`))
     }
 
     const deleteMemberHandler = (id) => {
@@ -61,7 +63,7 @@ export const MembersList = () => {
     }
 
     useEffect(() => {
-        dispatch(getBackofficeInfo('members'));
+        dispatch(getBackofficeInfo(route));
         return () => (dispatch(cleanInfo()));
     }, [dispatch])
 

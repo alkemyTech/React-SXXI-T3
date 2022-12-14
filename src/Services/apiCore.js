@@ -32,7 +32,7 @@ export class ApiCore {
       };
     }
 
-    if (options.remove) {
+    if (options.delete) {
       this.remove = (id) => {
         return apiProvider.remove(options.url, id);
       };

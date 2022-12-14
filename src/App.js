@@ -19,7 +19,6 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import "./App.css";
 
 function App() {
-
   return (
     <Routes>
 

@@ -8,6 +8,8 @@ node_modules/
 dist/
 package-lock.json
 .env
+.env.production
+.env.development
 
 # Compiled Java class files
 *.class

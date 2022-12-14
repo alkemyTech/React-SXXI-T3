@@ -54,6 +54,7 @@ export const backofficeSlice = createSlice({
     }
 })
 
+
 export const selectBackoffice = (state) => state.backoffice
 
 export const { cleanInfo } = backofficeSlice.actions;

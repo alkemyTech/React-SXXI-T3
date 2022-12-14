@@ -9,7 +9,7 @@ import BackofficeList from "./BackofficeList/BackofficeList";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-	getBackofficeInfo, selectBackoffice
+	getBackofficeInfo, selectBackoffice, cleanInfo
 } from "../../features/backoffice/backofficeSlice";
 
 export const NewsList = () => {
@@ -20,8 +20,11 @@ export const NewsList = () => {
 
   useEffect(() => {
     dispatch(getBackofficeInfo("news"));
+    return () => {
+      dispatch(cleanInfo());
+    }
   }, [dispatch]);
-
+  
   const handleChange = debounce((event) => {
     const { value } = event.target;
     const cleanValue = value.trim();

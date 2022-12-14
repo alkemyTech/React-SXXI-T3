@@ -56,10 +56,6 @@ export const backofficeSlice = createSlice({
 
 export const selectBackoffice = (state) => state.backoffice;
 
-export const selectInfo = (state)=>state.backoffice.info;
-export const selectIsFetching = (state)=>state.backoffice.isFetching;
-
-
 export const { cleanInfo } = backofficeSlice.actions;
 
 export default backofficeSlice.reducer;

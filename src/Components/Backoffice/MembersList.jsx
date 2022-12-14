@@ -1,25 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import debounce from 'lodash.debounce';
 
 import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
-import { useBackofficeInfo } from './Hook';
 import { apiMember } from '../../Services/apiService';
 import { errorAlert } from '../Feedback/AlertService';
+import { cleanInfo, getBackofficeInfo, selectBackoffice } from '../../features/backoffice/backofficeSlice';
+
+const route = 'members';
 
 export const MembersList = () => {
+    const dispatch = useDispatch();
+
     const [search, setSearch] = useState('');
-    const [info, isFetching, setRoute] = useBackofficeInfo('members');
+    const { isFetching, info } = useSelector(selectBackoffice);
 
     const handleChange = debounce((event) => {
         const { value } = event.target;
         const cleanValue = value.trim();
 
         setSearch(() => (cleanValue))
-
+        !cleanValue.length && dispatch(getBackofficeInfo(route))
         cleanValue.length >= 3
-            && setRoute(`members?search=${cleanValue}`)
+            && dispatch(getBackofficeInfo(`${route}?search=${cleanValue}`))
 
     }, 1000)
 
@@ -27,8 +33,8 @@ export const MembersList = () => {
         event.preventDefault();
 
         search.length < 3
-            ? setRoute(() => ('members'))
-            : setRoute(`members?search=${search}`)
+            ? dispatch(getBackofficeInfo(route))
+            : dispatch(getBackofficeInfo(`${route}?search=${search}`))
     }
 
     const deleteMemberHandler = (id) => {
@@ -43,18 +49,23 @@ export const MembersList = () => {
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-				apiMember.remove(id)
-				.then(response => {
-					Swal.fire(
-						'Miembro borrado!',
-						'',
-						'success'
-					)
-				})
-				.catch(error => errorAlert());
-			}
+                apiMember.remove(id)
+                    .then(response => {
+                        Swal.fire(
+                            'Miembro borrado!',
+                            '',
+                            'success'
+                        )
+                    })
+                    .catch(error => errorAlert());
+            }
         })
     }
+
+    useEffect(() => {
+        dispatch(getBackofficeInfo(route));
+        return () => (dispatch(cleanInfo()));
+    }, [dispatch])
 
     return (
         <>

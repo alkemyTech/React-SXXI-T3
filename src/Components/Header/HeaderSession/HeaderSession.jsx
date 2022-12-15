@@ -27,21 +27,22 @@ const HeaderSession = ({ showInfo, handleShowInfo }) => {
 
   return (
     <div className="hs-dropdown">
-      <button className="hs-dropdown-container" onClick={handleShowInfo}>
+      <button className="hs-dropdown-container" onClick={handleShowInfo}
+              data-testid="dropdownInfoButton">
         <img
           alt={user.name}
           src={user.image_profile || defaultImage}
           className="hs-img"
         />
-        <div className="hs-text username-head">{user.name || "Usuario"}</div>
+        <div className="hs-text username-head" data-testid="dropdownName">{user.name || "Usuario"}</div>
         <span className="hs-text" />
       </button>
       {showInfo && (
         <div className="hs-dropdown-content">
-          <div className="hs-text username-content">
+          <div className="hs-text username-content" data-testid="dropdownName">
             {user.name || "Usuario"}
           </div>
-          <small className="hs-dropdown-item role">
+          <small className="hs-dropdown-item role" data-testid="dropdownRole">
             Usuario {isAdmin ? "Administrador" : "Regular"}
           </small>
           <hr className="hs-dropdown-item" />
@@ -51,6 +52,7 @@ const HeaderSession = ({ showInfo, handleShowInfo }) => {
               onClick={handleRedirect}
               className="header-button hs-dropdown-item"
               variant="tertiary"
+              data-testid="dropdownAdminButton"
             />
           )}
           <Button
@@ -58,6 +60,7 @@ const HeaderSession = ({ showInfo, handleShowInfo }) => {
             onClick={handleLogOut}
             className="header-button hs-dropdown-item"
             variant="primary"
+            data-testid="dropdownLogoutButton"
           />
         </div>
       )}

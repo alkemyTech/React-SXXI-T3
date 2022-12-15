@@ -8,18 +8,11 @@ import './Header.css';
 import { selectAuth, } from "../../features/auth/authSlice";
 import {useState} from "react";
 import HeaderSession from "./HeaderSession/HeaderSession";
+import {linksArray} from "../../utils/linksArray";
 
 export const Header = () => {
     const { token } = useSelector(selectAuth);
     const [showInfo, setShowInfo] = useState(false);
-    const dataArray = [
-        { text: 'Inicio', link: '/' },
-        { text: 'Nosotros', link: '/nosotros' },
-        { text: 'Novedades', link: '/novedades' },
-        { text: 'Testimonios', link: '/testimonios' },
-        { text: 'Contacto', link: '/contacto' },
-        { text: 'Contribuye', link: '/donar' }
-    ]
 
     const handleShowInfo = () => {
         setShowInfo(!showInfo);
@@ -40,24 +33,24 @@ export const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav className="nav">
-                        {dataArray.map((element, index) =>
+                        {linksArray.map((element, index) =>
                             <Link key={uuidv4()} to={element.link}>{element.text}</Link>)}
                     </Nav>
                     <Nav className="nav">
                         {
                             token
                                 ?
-                            <Nav className="nav header-dropdown">
+                            <Nav className="nav header-dropdown"  data-testid="headerDropdown">
                                 <HeaderSession
                                     showInfo={showInfo}
                                     handleShowInfo={handleShowInfo}
                                 />
                             </Nav>
                                 : <>
-                                    <Link to='/login'>
+                                    <Link to='/login' data-testid="loginButton">
                                         <Button className="loginButton">Iniciar sesión</Button>
                                     </Link>
-                                    <Link to='/register'>
+                                    <Link to='/register' data-testid="registerButton">
                                         <Button className="registerButton">Registrarse</Button>
                                     </Link>
                                 </>

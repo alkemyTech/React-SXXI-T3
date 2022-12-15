@@ -40,6 +40,7 @@ it('Usuario admin logueado puede ver links + dropdown con info + admin links + b
     expect(screen.getByTestId("headerDropdown")).toBeInTheDocument();
     expect(screen.getByTestId("dropdownLogoutButton")).toBeInTheDocument();
     expect(screen.getByTestId("dropdownAdminButton")).toBeInTheDocument();
+    expect(screen.getByTestId("dropdownAdminButton")).toHaveTextContent("Backoffice")
 });
 
 

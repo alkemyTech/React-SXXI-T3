@@ -17,7 +17,7 @@ export const Field = ({
       </label>
       {children}
       {errors && touched && (
-        <div className={`${styles.errorContainer} ${errorsClassName}`}>
+        <div className={`${styles.errorContainer} ${errorsClassName}`} data-testid="errorsContainer">
           {errors}
         </div>
       )}

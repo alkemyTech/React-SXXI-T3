@@ -1,34 +1,34 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import debounce from 'lodash.debounce';
 
 import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
-import { useBackofficeInfo } from './Hook';
 import { apiActivity } from '../../Services/apiService';
 import { errorAlert } from '../Feedback/AlertService';
+import {cleanInfo, getBackofficeInfo, selectBackoffice} from "../../features/backoffice/backofficeSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 export const ActivitiesList = () => {
+	const route = 'activities';
+	const dispatch = useDispatch();
 	const [search, setSearch] = useState('');
-	const [info, isFetching, setRoute] = useBackofficeInfo('activities');
+	const { isFetching, info } = useSelector(selectBackoffice);
 
 	const handleChange = debounce((event) => {
 		const { value } = event.target;
 		const cleanValue = value.trim();
-
 		setSearch(() => (cleanValue))
-
+		!cleanValue.length && dispatch(getBackofficeInfo(route))
 		cleanValue.length >= 3
-			&& setRoute(`activities?search=${cleanValue}`)
-
+		&& dispatch(getBackofficeInfo(`${route}?search=${cleanValue}`))
 	}, 1000)
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
 		search.length < 3
-			? setRoute(() => ('activities'))
-			: setRoute(`activities?search=${search}`)
+		? dispatch(getBackofficeInfo(route))
+		: dispatch(getBackofficeInfo(`${route}?search=${search}`))
 	}
 
 	const deleteActivityHandler = (id) => {
@@ -55,6 +55,11 @@ export const ActivitiesList = () => {
 			}
 		})
 	}
+
+	useEffect(() => {
+		dispatch(getBackofficeInfo(route));
+		return () => (dispatch(cleanInfo()));
+	}, [dispatch])
 
 	return (
 		<>

@@ -3,13 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { getBase64 } from "../../../utils/getBase64";
-import { CKEditorField, InputField } from "../../Form";
+import {CKEditorField, InputField, TextAreaField} from "../../Form";
 import Button from "../../Button/Button";
-import { initialValues, validationSchema } from "./constants";
+import { initialValues, validationSchemaCreate, validationSchemaEdit } from "./constants";
 
 import "../../FormStyles.css";
 import { apiActivity } from "../../../Services/apiService";
 import { errorAlert, infoAlert } from "../../Feedback/AlertService";
+import styles from "../../Organization/OrganizationForm/organizationForm.module.css";
 
 const updateActivity = (activity) => {
   apiActivity
@@ -39,24 +40,33 @@ const ActivitiesForm = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const imageRef = useRef();
+  const validationSchema = id ? validationSchemaEdit : validationSchemaCreate;
 
   const onSubmit = () => {
     const file = imageRef.current.files[0];
-    getBase64(file)
-      .then((result) => {
-        let activityToSave = {
-          id: activity?.id || null,
-          name: values.name,
-          description: values.description,
-          image: result,
-        };
-        if (isEdit) updateActivity(activityToSave);
-        else createActivity(activityToSave);
-      })
-      .catch(() => {
-        errorAlert("Error en cargar la imagen");
-      });
-    setSubmitting(false);
+    if (file) {
+      getBase64(file)
+          .then((result) => {
+            let activityToSave = {
+              id: id || null,
+              name: values.name,
+              description: values.description,
+              image: result,
+            };
+            if (isEdit) updateActivity(activityToSave);
+            else createActivity(activityToSave);
+          })
+          .catch(() => errorAlert("Error en cargar la imagen"))
+      setSubmitting(false);
+    } else {
+      let activityToSave = {
+        id: id,
+        name: values.name,
+        description: values.description,
+      };
+      if (isEdit) updateActivity(activityToSave);
+      setSubmitting(false);
+    }
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -73,6 +83,7 @@ const ActivitiesForm = () => {
     setFieldValue,
     isSubmitting,
     setSubmitting,
+      isValid
   } = formik;
 
   useEffect(() => {
@@ -96,7 +107,7 @@ const ActivitiesForm = () => {
 
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit} data-testid="form">
         <h1 className="form-title">{id ? "Editar" : "Crear"} Actividad</h1>
         <InputField
           label="Nombre"
@@ -107,16 +118,19 @@ const ActivitiesForm = () => {
           placeholder="Ingrese el nombre de la actividad"
           errors={errors.name}
           touched={touched.name}
+          data-testid="nameInput"
         />
-        <CKEditorField
-          placeholder="Ingrese la descripción de la actividad"
-          value={values.description}
-          errors={errors.description}
-          touched={touched.description}
-          setFieldValue={setFieldValue}
-          setFieldTouched={setFieldTouched}
-          name="description"
-          label="Descripción"
+        <TextAreaField
+            placeholder="Ingrese la descripción de la actividad"
+            name="description"
+            value={values.description}
+            touched={touched.description}
+            onBlur={handleBlur("description")}
+            onChange={handleChange("description")}
+            errors={errors.description}
+            label="Descripción"
+            inputClassName={styles.input_textArea}
+            data-testid="descInput"
         />
         <InputField
           label={id ? "Modificar imagen" : "Cargar imagen"}
@@ -128,12 +142,15 @@ const ActivitiesForm = () => {
           touched={touched.image}
           type="file"
           ref={imageRef}
+          data-testid="imgInput"
         />
         <Button
           type="submit"
           label="Enviar"
           variant="primary"
           className="form-button"
+          data-testid="submitButton"
+          disabled={!isValid}
         />
       </form>
     </div>

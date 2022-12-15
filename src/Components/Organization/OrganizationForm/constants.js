@@ -11,8 +11,7 @@ export const validationSchema = Yup.object().shape({
     .matches(imgRegExp, {
       message: invalidImageFormatMessage,
       excludeEmptyString: true,
-    })
-    .required(requiredMessage + "el logo"),
+    }),
   facebook_url: Yup.string()
     .url("Url de Facebook inválida")
     .required(requiredMessage + "la url de Facebook"),

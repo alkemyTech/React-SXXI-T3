@@ -51,6 +51,7 @@ const OrganizationForm = () => {
     values,
     errors,
     touched,
+      isValid
   } = formik;
 
   useEffect(() => {
@@ -73,7 +74,7 @@ const OrganizationForm = () => {
 
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit} data-testid="form">
         <h1 className="form-title">Editar datos de la Organización</h1>
         <div className="input-preview-image">
           <InputField
@@ -85,18 +86,20 @@ const OrganizationForm = () => {
             placeholder="Ingrese el nombre de la organización"
             errors={errors.name}
             touched={touched.name}
+            data-testid="nameInput"
           />
           <img src={imagePreview} alt="preview" className="preview-container" />
         </div>
         <InputField
           label="Facebook"
-          name="linkedin_url"
+          name="facebook_url"
           value={values.facebook_url}
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder="https://www.facebook.com/..."
           errors={errors.facebook_url}
           touched={touched.facebook_url}
+          data-testid="facebookInput"
         />
         <InputField
           label="Linkedin"
@@ -107,6 +110,7 @@ const OrganizationForm = () => {
           placeholder="https://www.linkedin.com/..."
           errors={errors.linkedin_url}
           touched={touched.linkedin_url}
+          data-testid="linkedinInput"
         />
         <InputField
           label="Instagram"
@@ -117,6 +121,7 @@ const OrganizationForm = () => {
           placeholder="https://www.instagram.com/..."
           errors={errors.instagram_url}
           touched={touched.instagram_url}
+          data-testid="instagramInput"
         />
         <InputField
           label="Twitter"
@@ -127,27 +132,29 @@ const OrganizationForm = () => {
           placeholder="https://www.twitter.com/..."
           errors={errors.twitter_url}
           touched={touched.twitter_url}
+          data-testid="twitterInput"
         />
-        <CKEditorField
-          placeholder="Describa brevemente la organización"
-          value={values.short_description}
-          errors={errors.short_description}
-          touched={touched.short_description}
-          setFieldValue={setFieldValue}
-          setFieldTouched={setFieldTouched}
-          name="short_description"
-          label="Descripción resumida"
-          className={styles.editorStyles}
+        <TextAreaField
+            name="short_description"
+            value={values.short_description}
+            touched={touched.short_description}
+            onBlur={handleBlur("short_description")}
+            onChange={handleChange("short_description")}
+            errors={errors.long_description}
+            label="Descripción resumida"
+            inputClassName={styles.input_textArea}
+            data-testid="shortDescInput"
         />
         <TextAreaField
           name="long_description"
           value={values.long_description}
           touched={touched.long_description}
-          onBlur={handleBlur}
-          onChange={handleChange}
+          onBlur={handleBlur("long_description")}
+          onChange={handleChange("long_description")}
           errors={errors.long_description}
           label="Descripción completa"
           inputClassName={styles.input_textArea}
+          data-testid="longDescInput"
         />
         <InputField
           label="Modificar logo"
@@ -159,12 +166,14 @@ const OrganizationForm = () => {
           touched={touched.logo}
           type="file"
           ref={imageRef}
+          data-testid="imgInput"
         />
         <Button
-          disabled={isSubmitting}
+          disabled={!isValid}
           type={"submit"}
           label="Enviar"
           variant="primary"
+          data-testid="submitButton"
         />
       </form>
     </div>

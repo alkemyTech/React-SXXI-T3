@@ -5,13 +5,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import {createValidationSchema, editValidationSchema, initialValues} from "./constants";
 import { onSubmitService } from '../../../Services/membersFromServices';
 import { getBase64 } from '../../../utils/getBase64';
-import {CKEditorField, InputField} from "../../Form";
+import {CKEditorField, InputField, TextAreaField} from "../../Form";
 import Button from "../../Button/Button";
 import {defaultImage} from "../../../utils/defaultImage";
 
 import '../../FormStyles.css';
 import { apiMember } from '../../../Services/apiService';
 import { errorAlert } from '../../Feedback/AlertService';
+import styles from "../../Organization/OrganizationForm/organizationForm.module.css";
 
 const MembersForm = () => {
   const { id } = useParams();
@@ -74,6 +75,7 @@ const MembersForm = () => {
     setFieldValue,
     setFieldTouched,
     values,
+    isValid,
     touched,
     errors
   } = formik;
@@ -82,7 +84,7 @@ const MembersForm = () => {
     if (id) {
       setIsFetching(() => (true))
       apiMember
-        .get(`${id}`)
+        .getSingle(`${id}`)
         .then((response) => {
           setValues({ ...response, image: '' })
           setImagePreview(response.image)
@@ -110,8 +112,7 @@ const MembersForm = () => {
     <div className={
       isLoading ? 'main-container pulse' : 'main-container'
     }>
-
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit} data-testid="form">
         <h1 className='form-title'> {id ? "Editar" : "Crear"}  Miembro</h1>
         <div className='input-preview-image'>
           <InputField
@@ -123,6 +124,7 @@ const MembersForm = () => {
               placeholder="Ingrese el nombre del miembro"
               errors={errors.name}
               touched={touched.name}
+              data-testid="nameInput"
           />
             <img src={imagePreview} alt="preview" className='preview-container'/>
         </div>
@@ -135,6 +137,7 @@ const MembersForm = () => {
             placeholder="Ingrese el Facebook del miembro"
             errors={errors.facebookUrl}
             touched={touched.facebookUrl}
+            data-testid="facebookInput"
         />
         <InputField
             label="Linkedin"
@@ -145,16 +148,19 @@ const MembersForm = () => {
             placeholder="Ingrese el Linkedin del miembro"
             errors={errors.linkedinUrl}
             touched={touched.linkedinUrl}
+            data-testid="linkedinInput"
         />
-        <CKEditorField
+        <TextAreaField
             placeholder="Ingrese la descripción del miembro"
-            value={values.description}
-            errors={errors.description}
-            touched={touched.description}
-            setFieldValue={setFieldValue}
-            setFieldTouched={setFieldTouched}
             name="description"
+            value={values.description}
+            touched={touched.description}
+            onBlur={handleBlur("description")}
+            onChange={handleChange("description")}
+            errors={errors.description}
             label="Descripción"
+            inputClassName={styles.input_textArea}
+            data-testid="descInput"
         />
         <InputField
             label= {id ? "Modificar imagen" : "Cargar imagen"}
@@ -166,8 +172,10 @@ const MembersForm = () => {
             touched={touched.image}
             type="file"
             ref={imageRef}
+            data-testid="imgInput"
         />
-          <Button type="submit" label="Enviar" variant="primary" className="form-button"/>
+          <Button type="submit" label="Enviar" variant="primary" className="form-button" data-testid="submitButton"
+                  disabled={!isValid}/>
       </form>
     </div>
   );

@@ -16,7 +16,7 @@ const OrganizationScreen = () => {
 
   useEffect(() => {
     apiOrganization
-      .get()
+      .getSingle(1)
       .then((response) => {
         setIsLoading(() => false);
         setOrganizationInfo(() => response);

@@ -1,12 +1,13 @@
 import { useFormik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { initialValues, validationSchema } from "./constants";
+import { initialValues, validationSchemaEdit, validationSchemaCreate } from "./constants";
 import "../../FormStyles.css";
-import { CKEditorField, InputField, SelectField } from "../../Form";
+import {CKEditorField, InputField, SelectField, TextAreaField} from "../../Form";
 import Button from "../../Button/Button";
 import { apiNews } from "../../../Services/apiService";
 import { errorAlert, infoAlert } from "../../Feedback/AlertService";
+import styles from "../../Organization/OrganizationForm/organizationForm.module.css";
 
 const updateNew = (oneNew) => {
   apiNews
@@ -53,27 +54,34 @@ const NewsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const imageRef = useRef();
+  const validationSchema = id ? validationSchemaEdit : validationSchemaCreate;
 
   const onSubmit = ({ name, image, content, category_id }) => {
     const file = imageRef.current.files[0];
-    getBase64(file)
-      .then((result) => {
-        let oneNewToSave = {
-          id: oneNew?.id || null,
-          name,
-          content,
-          image: result,
-          category_id,
-        };
-        if (isEdit) {
-          updateNew(oneNewToSave);
-        } else {
-          createNew(oneNewToSave);
-        }
-      })
-      .catch(() => {
-        errorAlert('Error al cargar la imagen');
+    if (file) {
+      getBase64(file)
+          .then((result) => {
+            let oneNewToSave = {
+              id: id || null,
+              name,
+              content,
+              image: result,
+              category_id,
+            };
+            if (isEdit) {
+              updateNew(oneNewToSave);
+            } else {
+              createNew(oneNewToSave);
+            }
+          })
+    } else {
+      updateNew({
+        id: id,
+        name,
+        content,
+        category_id,
       });
+    }
     setSubmitting(false);
   };
 
@@ -91,6 +99,7 @@ const NewsForm = () => {
     setFieldValue,
     isSubmitting,
     setSubmitting,
+    isValid
   } = formik;
 
   useEffect(() => {
@@ -124,7 +133,7 @@ const NewsForm = () => {
 
   return (
     <div className={isLoading ? "main-container pulse" : "main-container"}>
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit} data-testid="form">
         <h1 className="form-title">{id ? "Editar" : "Crear"} Novedad</h1>
         <InputField
           label="Título"
@@ -135,6 +144,7 @@ const NewsForm = () => {
           placeholder="Ingrese el título de la novedad"
           errors={errors.name}
           touched={touched.name}
+          data-testid="nameInput"
         />
         <SelectField
           label="Categoría"
@@ -145,16 +155,19 @@ const NewsForm = () => {
           errors={errors.category_id}
           touched={touched.category_id}
           optionsList={categories}
+          data-testid="selectInput"
         />
-        <CKEditorField
-          placeholder="Ingrese el contenido de la novedad"
-          value={values.content}
-          errors={errors.content}
-          touched={touched.content}
-          setFieldValue={setFieldValue}
-          setFieldTouched={setFieldTouched}
-          name="content"
-          label="Contenido"
+        <TextAreaField
+            placeholder="Ingrese el contenido de la novedad"
+            name="content"
+            value={values.content}
+            touched={touched.content}
+            onBlur={handleBlur("content")}
+            onChange={handleChange("content")}
+            errors={errors.content}
+            label="Contenido"
+            inputClassName={styles.input_textArea}
+            data-testid="contenidoInput"
         />
         <InputField
           label={id ? "Modificar imagen" : "Cargar imagen"}
@@ -166,12 +179,15 @@ const NewsForm = () => {
           touched={touched.image}
           type="file"
           ref={imageRef}
+          data-testid="nameInput"
         />
         <Button
           type="submit"
           label="Enviar"
           variant="primary"
           className="form-button"
+          data-testid="submitButton"
+          disabled={!isValid}
         />
       </form>
     </div>

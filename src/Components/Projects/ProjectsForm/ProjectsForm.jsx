@@ -15,7 +15,7 @@ import { defaultImage } from "../../../utils/defaultImage";
 import { apiProject } from "../../../Services/apiService";
 import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
-const updateProject = (project) => {
+const updateProject = (project, setSubmitting) => {
   apiProject
     .put(`${project.id}`, project)
     .then((response) => {
@@ -23,10 +23,11 @@ const updateProject = (project) => {
     })
     .catch((err) => {
       errorAlert();
-    });
+    })
+    .finally(() => setSubmitting(false));
 };
 
-const createProject = (project) => {
+const createProject = (project, setSubmitting) => {
   apiProject
     .post(project)
     .then((response) => {
@@ -34,7 +35,8 @@ const createProject = (project) => {
     })
     .catch((err) => {
       errorAlert();
-    });
+    })
+    .finally(() => setSubmitting(false));
 };
 
 const ProjectsForm = () => {
@@ -64,21 +66,20 @@ const ProjectsForm = () => {
             image,
             due_date,
           };
-          if (isEdit) updateProject(projectToSave);
-          else createProject(projectToSave);
+          if (isEdit) updateProject(projectToSave, setSubmitting);
+          else createProject(projectToSave, setSubmitting);
         })
         .catch(() => {
           errorAlert("Error al procesar la imagen");
         })
         .finally(() => setImagePreview(defaultImage));
-      setSubmitting(false);
     } else {
       updateProject({
         id: project?.id,
         title,
         description,
         due_date,
-      });
+      }, setSubmitting);
     }
   };
 

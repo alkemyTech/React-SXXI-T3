@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
 import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDeleteHandler";
+import { BackofficeRender } from "./BackofficeRender";
 
 export const UsersList = () => {
   const [search, setSearch] = useState("");
@@ -51,40 +52,33 @@ export const UsersList = () => {
   };
 
   const deleteHandler = (id) => {
-    provisionalBackofficeDeleteHandler(
-      id,
-      "users",
-      "al usuario",
-      setRefresh
-    );
+    provisionalBackofficeDeleteHandler(id, "users", "al usuario", setRefresh);
   };
 
   return (
-    <>
-      {isFetching ? null : (
-        <BackofficeList
-          deleteFunction={deleteHandler}
-          title="Usuarios"
-          createButonLabel="usuario"
-          tableData={info}
-          tableHeader={["name", "email"]}
-          tableNames={["Nombre", "Email"]}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          handleSelectChange={handleSelectChange}
-          hasOptions={true}
-          placeholder={"Nombre del usuario"}
-          source={{
-            route: null,
-            externalResource: false,
-            resource: [
-              { name: "Todos los usuarios", role: "0" },
-              { name: "Usuario Admin", role: 1 },
-              { name: "Usuario Regular", role: 2 },
-            ],
-          }}
-        />
-      )}
-    </>
+    <BackofficeRender isFetching={isFetching}>
+      <BackofficeList
+        deleteFunction={deleteHandler}
+        title="Usuarios"
+        createButonLabel="usuario"
+        tableData={info}
+        tableHeader={["name", "email"]}
+        tableNames={["Nombre", "Email"]}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleSelectChange={handleSelectChange}
+        hasOptions={true}
+        placeholder={"Nombre del usuario"}
+        source={{
+          route: null,
+          externalResource: false,
+          resource: [
+            { name: "Todos los usuarios", role: "0" },
+            { name: "Usuario Admin", role: 1 },
+            { name: "Usuario Regular", role: 2 },
+          ],
+        }}
+      />
+    </BackofficeRender>
   );
 };

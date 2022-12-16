@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SearchInput from "../../SearchInput";
 
 import Table from "../../Table/Table";
@@ -22,6 +22,7 @@ const BackofficeList = ({
   placeholder,
   source,
 }) => {
+  const location = useLocation();
   return (
     <>
       <div className="container backoffice-header">
@@ -30,14 +31,16 @@ const BackofficeList = ({
           to={"crear"}
           className={`button ${createButonVariant}`}
         >{`Crear ${createButonLabel.toLowerCase()}`}</Link>
-        <SearchInput
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          handleSelectChange={handleSelectChange}
-          hasOptions={hasOptions}
-          placeholder={placeholder}
-          source={source}
-        />
+        {location.pathname !== "/backoffice/testimonios" && (
+          <SearchInput
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleSelectChange={handleSelectChange}
+            hasOptions={hasOptions}
+            placeholder={placeholder}
+            source={source}
+          />
+        )}
       </div>
       <div className="backoffice-table-container">
         <Table

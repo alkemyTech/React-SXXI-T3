@@ -1,5 +1,10 @@
 .hs-dropdown {
 	position: relative;
+	border-radius: var(--border);
+}
+
+.hs-dropdown.active{
+	border: 1px solid var(--color-outline-border);
 }
 
 .hs-dropdown-container {

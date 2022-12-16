@@ -16,7 +16,7 @@ import { defaultImage } from "../../../utils/defaultImage";
 import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 import { apiActivity } from "../../../Services/apiService";
 
-const updateActivity = (activity) => {
+const updateActivity = (activity, setSubmitting) => {
   apiActivity
     .put(`${activity.id}`, activity)
     .then((response) => {
@@ -24,10 +24,11 @@ const updateActivity = (activity) => {
     })
     .catch((err) => {
       errorAlert();
-    });
+    })
+    .finally(() => setSubmitting(false));
 };
 
-const createActivity = (activity) => {
+const createActivity = (activity, setSubmitting) => {
   apiActivity
     .post(activity)
     .then((response) => {
@@ -35,7 +36,8 @@ const createActivity = (activity) => {
     })
     .catch((err) => {
       errorAlert();
-    });
+    })
+    .finally(() => setSubmitting(false));
 };
 
 const ActivitiesForm = () => {
@@ -58,20 +60,18 @@ const ActivitiesForm = () => {
             description: values.description,
             image: result,
           };
-          if (isEdit) updateActivity(activityToSave);
-          else createActivity(activityToSave);
+          if (isEdit) updateActivity(activityToSave, setSubmitting);
+          else createActivity(activityToSave, setSubmitting);
         })
         .catch(() => errorAlert("Error en cargar la imagen"))
         .finally(() => setImagePreview(defaultImage));
-      setSubmitting(false);
     } else {
       let activityToSave = {
         id: activity?.id,
         name: values.name,
         description: values.description,
       };
-      if (isEdit) updateActivity(activityToSave);
-      setSubmitting(false);
+      if (isEdit) updateActivity(activityToSave, setSubmitting);
     }
   };
 

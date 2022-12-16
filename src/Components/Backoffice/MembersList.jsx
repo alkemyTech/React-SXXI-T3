@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
 import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDeleteHandler";
+import { BackofficeRender } from "./BackofficeRender";
 
 export const MembersList = () => {
   const [search, setSearch] = useState("");
@@ -27,29 +28,22 @@ export const MembersList = () => {
   };
 
   const deleteHandler = (id) => {
-    provisionalBackofficeDeleteHandler(
-      id,
-      "members",
-      "al miembro",
-      setRefresh
-    );
+    provisionalBackofficeDeleteHandler(id, "members", "al miembro", setRefresh);
   };
 
   return (
-    <>
-      {isFetching ? null : (
-        <BackofficeList
-          deleteFunction={deleteHandler}
-          title="Miembros de la Organización"
-          createButonLabel="miembro"
-          tableData={info}
-          tableHeader={["name", "image"]}
-          tableNames={["Nombre", "Foto"]}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          placeholder={"Nombre del miembro"}
-        />
-      )}
-    </>
+    <BackofficeRender isFetching={isFetching}>
+      <BackofficeList
+        deleteFunction={deleteHandler}
+        title="Miembros de la Organización"
+        createButonLabel="miembro"
+        tableData={info}
+        tableHeader={["name", "image"]}
+        tableNames={["Nombre", "Foto"]}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        placeholder={"Nombre del miembro"}
+      />
+    </BackofficeRender>
   );
 };

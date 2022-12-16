@@ -4,6 +4,8 @@ import debounce from "lodash.debounce";
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
 import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDeleteHandler";
+import {BackofficeRender} from "./BackofficeRender";
+
 
 export const ActivitiesList = () => {
   const [search, setSearch] = useState("");
@@ -37,9 +39,8 @@ export const ActivitiesList = () => {
   };
 
   return (
-    <>
-      {isFetching ? null : (
-        <BackofficeList
+    <BackofficeRender isFetching={isFetching}>
+      <BackofficeList
           deleteFunction={deleteHandler}
           title="Actividades"
           createButonLabel="actividad"
@@ -49,8 +50,7 @@ export const ActivitiesList = () => {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           placeholder={"Título de la actividad"}
-        />
-      )}
-    </>
+      />
+    </BackofficeRender>
   );
 };

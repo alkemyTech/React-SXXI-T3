@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
 import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDeleteHandler";
+import { BackofficeRender } from "./BackofficeRender";
 
 export const NewsList = () => {
   const [search, setSearch] = useState("");
@@ -51,35 +52,29 @@ export const NewsList = () => {
   };
 
   const deleteHandler = (id) => {
-    provisionalBackofficeDeleteHandler(
-      id,
-      "news",
-      "la novedad", setRefresh
-    );
+    provisionalBackofficeDeleteHandler(id, "news", "la novedad", setRefresh);
   };
 
   return (
-    <>
-      {isFetching ? null : (
-        <BackofficeList
-          deleteFunction={deleteHandler}
-          title="Novedades"
-          createButonLabel="novedad"
-          tableData={info}
-          tableHeader={["name", "image", "created_at"]}
-          tableNames={["Título", "Imagen", "Creado en"]}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          handleSelectChange={handleSelectChange}
-          hasOptions={true}
-          placeholder={"Título de la novedad"}
-          source={{
-            route: "categories",
-            externalResource: true,
-            resource: null,
-          }}
-        />
-      )}
-    </>
+    <BackofficeRender isFetching={isFetching}>
+      <BackofficeList
+        deleteFunction={deleteHandler}
+        title="Novedades"
+        createButonLabel="novedad"
+        tableData={info}
+        tableHeader={["name", "image", "created_at"]}
+        tableNames={["Título", "Imagen", "Creado en"]}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleSelectChange={handleSelectChange}
+        hasOptions={true}
+        placeholder={"Título de la novedad"}
+        source={{
+          route: "categories",
+          externalResource: true,
+          resource: null,
+        }}
+      />
+    </BackofficeRender>
   );
 };

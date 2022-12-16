@@ -14,7 +14,7 @@ import { defaultImage } from "../../../utils/defaultImage";
 import { apiNews } from "../../../Services/apiService";
 import { errorAlert, infoAlert } from "../../Feedback/AlertService";
 
-const updateNew = (oneNew) => {
+const updateNew = (oneNew, setSubmitting) => {
   apiNews
     .put(`${oneNew.id}`, oneNew)
     .then((response) => {
@@ -22,10 +22,11 @@ const updateNew = (oneNew) => {
     })
     .catch((err) => {
       errorAlert();
-    });
+    })
+    .finally(() => setSubmitting(false));
 };
 
-const createNew = (oneNew) => {
+const createNew = (oneNew, setSubmitting) => {
   apiNews
     .post(oneNew)
     .then((response) => {
@@ -33,7 +34,8 @@ const createNew = (oneNew) => {
     })
     .catch((err) => {
       errorAlert();
-    });
+    })
+    .finally(() => setSubmitting(false));
 };
 
 const NewsForm = () => {
@@ -59,9 +61,9 @@ const NewsForm = () => {
             category_id,
           };
           if (isEdit) {
-            updateNew(oneNewToSave);
+            updateNew(oneNewToSave, setSubmitting);
           } else {
-            createNew(oneNewToSave);
+            createNew(oneNewToSave, setSubmitting);
           }
         })
         .finally(() => setImagePreview(defaultImage));
@@ -71,9 +73,8 @@ const NewsForm = () => {
         name,
         content,
         category_id,
-      });
+      }, setSubmitting);
     }
-    setSubmitting(false);
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });

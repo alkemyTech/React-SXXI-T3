@@ -58,7 +58,7 @@ const LoginForm = ({ desktop }) => {
         <Button type="submit" label="Iniciar sesión" variant="primary" className="form-button"/>
         <div className="auth-suggestion">
           No tienes una cuenta?
-          <Link className="auth-link" to={"/register"}>
+          <Link className="auth-link" to={"/registro"}>
             Regístrate
           </Link>
         </div>

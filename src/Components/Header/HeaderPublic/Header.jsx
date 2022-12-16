@@ -44,6 +44,10 @@ export const Header = ({
     setShowInfo(!showInfo);
   };
 
+  const hideShowInfo = () => {
+    setShowInfo(false);
+  }
+
   return (
       <Navbar expand="lg" sticky="top" expanded={expanded} onClick={() => {
           if(isExpandable) {setExpanded(expanded ? false : "expanded")}
@@ -72,6 +76,7 @@ export const Header = ({
             switchTheme={switchTheme}
             theme={theme}
             isLogged={!!token}
+            hideShowInfo={hideShowInfo}
           />
 
           <Navbar.Collapse
@@ -113,6 +118,7 @@ export const Header = ({
             switchTheme={switchTheme}
             theme={theme}
             isLogged={!!token}
+            hideShowInfo={hideShowInfo}
           />
         </Container>
       </Navbar>
@@ -126,6 +132,7 @@ const HeaderDropdown = ({
   theme,
   className,
   isLogged,
+  hideShowInfo
 }) => {
   return (
     <Nav className={`nav header-dropdown ${className}`}>
@@ -135,6 +142,7 @@ const HeaderDropdown = ({
           handleShowInfo={handleShowInfo}
           switchTheme={switchTheme}
           theme={theme}
+          hideShowInfo={hideShowInfo}
         />
       ) : (
         <ThemeSwitcher switchTheme={switchTheme} theme={theme} />

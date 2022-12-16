@@ -19,11 +19,15 @@ const HeaderBackoffice = ({ theme, switchTheme }) => {
         setShowInfo(!showInfo);
     }
 
+    const hideShowInfo = () => {
+        setShowInfo(false);
+    }
+
     return (
         <>
             <div className={s['header-backoffice']}>
                 <button className={s['sidebar-controler']} onClick={handleClick}>|||</button>
-                <HeaderSession showInfo={showInfo} handleShowInfo={handleShowInfo} theme={theme} switchTheme={switchTheme} />
+                <HeaderSession showInfo={showInfo} handleShowInfo={handleShowInfo} theme={theme} switchTheme={switchTheme} hideShowInfo={hideShowInfo}/>
                 <Link className={s['logo-header']} to='/'>
                     {
                         isFetching

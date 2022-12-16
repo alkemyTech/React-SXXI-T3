@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { useBackofficeInfo } from "../../hooks/useBackofficeInfo";
 import { provisionalBackofficeDeleteHandler } from "../../utils/backofficeDeleteHandler";
+import { BackofficeRender } from "./BackofficeRender";
 
 export const SlidesList = () => {
   const [search, setSearch] = useState("");
@@ -36,20 +37,18 @@ export const SlidesList = () => {
   };
 
   return (
-    <>
-      {isFetching ? null : (
-        <BackofficeList
-          deleteFunction={deleteHandler}
-          title="Diapositiva"
-          createButonLabel="diapositiva"
-          tableData={info}
-          tableHeader={["name", "image", "order"]}
-          tableNames={["Titulo", "Imagen", "Orden"]}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          placeholder={"Título de la diapositiva"}
-        />
-      )}
-    </>
+    <BackofficeRender isFetching={isFetching}>
+      <BackofficeList
+        deleteFunction={deleteHandler}
+        title="Diapositiva"
+        createButonLabel="diapositiva"
+        tableData={info}
+        tableHeader={["name", "image", "order"]}
+        tableNames={["Titulo", "Imagen", "Orden"]}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        placeholder={"Título de la diapositiva"}
+      />
+    </BackofficeRender>
   );
 };

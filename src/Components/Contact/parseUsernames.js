@@ -5,7 +5,7 @@ export const parseUsername = (url) => {
     matches = url.match(
       /(?:https?:\/\/)?(?:www.)?(?:twitter|linkedin|facebook|instagram)(?:.com\/)?([@a-zA-Z0-9-_]+)/im
     );
-    output = matches.length ? matches[1] : output;
+    output = matches?.length ? matches[1] : output;
   }
   return output;
 };

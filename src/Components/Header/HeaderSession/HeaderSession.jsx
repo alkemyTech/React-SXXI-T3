@@ -7,8 +7,6 @@ import Button from "../../Button/Button";
 import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectAuth } from "../../../features/auth/authSlice";
-import {useOutsideClick} from "../../../hooks/useOutsideClick";
-import {useRef} from "react";
 
 const HeaderSession = ({ showInfo, handleShowInfo, switchTheme, theme, hideShowInfo }) => {
   const {user} = useSelector(selectAuth);
@@ -18,8 +16,7 @@ const HeaderSession = ({ showInfo, handleShowInfo, switchTheme, theme, hideShowI
   const isAdmin = user.role_id === 1;
   const isBackoffice = location.pathname.includes("backoffice");
   const linkTo = isBackoffice ? "/" : "/backoffice";
-  const ref = useRef(null);
-  useOutsideClick(ref, hideShowInfo);
+
   const handleLogOut = () => {
     dispatch(logout());
     navigate("/login");
@@ -30,7 +27,7 @@ const HeaderSession = ({ showInfo, handleShowInfo, switchTheme, theme, hideShowI
   };
 
   return (
-    <div className={`hs-dropdown ${showInfo ? "active" : ''}`}  ref={ref}>
+    <div className={`hs-dropdown ${showInfo ? "active" : ''}`}>
       <button className="hs-dropdown-container" onClick={handleShowInfo}>
         <img
           alt={user.name}

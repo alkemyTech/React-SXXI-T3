@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { authLogin } from "../../features/auth/authSlice";
 
 // Styles
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../FormStyles.css";
 import "./Auth.css";
 
@@ -57,6 +56,7 @@ const LoginForm = ({ desktop }) => {
           </div>
         )}
         <input
+          data-testid="email"
           className="input-field auth-input"
           type="email"
           name="email"
@@ -67,9 +67,10 @@ const LoginForm = ({ desktop }) => {
           autoComplete="off"
         ></input>
         {errors.email && touched.email && (
-          <div className="form-error auth-error">{errors.email}</div>
+          <div data-testid="errorContainer" className="form-error auth-error">{errors.email}</div>
         )}
         <input
+          data-testid="password"
           className="input-field auth-input"
           type="password"
           name="password"
@@ -80,7 +81,7 @@ const LoginForm = ({ desktop }) => {
           autoComplete="off"
         ></input>
         {errors.password && touched.password && (
-          <div className="form-error auth-error">{errors.password}</div>
+          <div data-testid="errorContainer" className="form-error auth-error">{errors.password}</div>
         )}
         <button className="submit-btn auth-btn" type="submit">
           Inicia sesión

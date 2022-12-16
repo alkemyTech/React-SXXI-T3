@@ -14,7 +14,7 @@ import logo from "../../assets/images/logo.png";
 import img from "../../assets/images/login.jpg";
 
 // Styles
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "../FormStyles.css";
 import "./Auth.css";
 

@@ -4,27 +4,30 @@ import debounce from 'lodash.debounce';
 import Swal from 'sweetalert2';
 
 import BackofficeList from "./BackofficeList/BackofficeList";
-import { useBackofficeInfo } from './Hook';
 import { apiUser } from '../../Services/apiService';
 import { errorAlert } from '../Feedback/AlertService';
+import { getBackofficeInfo, selectBackoffice } from '../../features/backoffice/backofficeSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export const UsersList = () => {
 
+	const route = 'users';	
 	const [search, setSearch] = useState('');
 	const [selectedRole, setSelectedRole] = useState('');
-	const [info, isFetching, setRoute] = useBackofficeInfo('users');
+	const [info, isFetching] = useSelector(selectBackoffice);
+	const dispatch = useDispatch();
 
 	const handleChange = debounce((event) => {
 		const { value } = event.target;
 		const cleanValue = value.trim();
 
 		setSearch(() => (cleanValue))
-
+		!cleanValue.length && dispatch(getBackofficeInfo(route));
 		if (cleanValue.length >= 3) {
 			selectedRole !== `role=0`
-				? setRoute(`users?search=${cleanValue}&${selectedRole}`)
-				: setRoute(`users?search=${cleanValue}`)
+				? dispatch(getBackofficeInfo(`${route}?search=${cleanValue}&${selectedRole}`))
+				: dispatch(getBackofficeInfo(`${route}?search=${cleanValue}`))
 		}
 
 	}, 1000)
@@ -34,12 +37,12 @@ export const UsersList = () => {
 		setSelectedRole(() => (`role=${value}`))
 		if (search.length) {
 			value !== '0'
-				? setRoute(() => (`users?search=${search}&role=${value}`))
-				: setRoute(() => (`users?search=${search}`))
+				? dispatch(getBackofficeInfo(() => `${route}?search=${search}&role=${value}`))
+				: dispatch(getBackofficeInfo(() => `${route}?search=${search}`))
 		} else {
 			value !== '0'
-				? setRoute(() => (`users?role=${value}`))
-				: setRoute(() => (`users`))
+				? dispatch(getBackofficeInfo(() => `${route}?role=${value}`))
+				: dispatch(getBackofficeInfo(() => route))
 		}
 	}
 
@@ -48,12 +51,12 @@ export const UsersList = () => {
 		console.log({ search, selectedRole })
 		if (search.length) {
 			selectedRole !== `role=0`
-				? setRoute(() => (`users?search=${search}&${selectedRole}`))
-				: setRoute(() => (`users?search=${search}`))
+				? dispatch(getBackofficeInfo(() => `${route}?search=${search}&${selectedRole}`))
+            	: dispatch(getBackofficeInfo(() => `${route}?search=${search}`))
 		} else {
 			selectedRole !== `role=0`
-				? setRoute(() => (`users?${selectedRole}`))
-				: setRoute(() => (`users`))
+				? dispatch(getBackofficeInfo(() => `${route}?${selectedRole}`))
+				: dispatch(getBackofficeInfo(() => route))
 		}
 
 	}
@@ -82,6 +85,8 @@ export const UsersList = () => {
 			}
 		})
 	}
+
+
 
 	return (
 		<>

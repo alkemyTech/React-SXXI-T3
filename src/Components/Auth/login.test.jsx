@@ -48,44 +48,42 @@ const server = setupServer(
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
+beforeEach(() => {
+    render(
+        <Provider store={store}>
+            <MemoryRouter initialEntries={['/login']}>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<div>Test Success</div>} />
+                </Routes>
+            </MemoryRouter>
+        </Provider>
+    )
+})
 
-describe('Formulario de Login', () => {
-    it('Debe mostrar errores en los campos intentar eviar el formulario vacío', async () => {
-        render(
-            <Provider store={store}>
-                <MemoryRouter initialEntries={['/login']}>
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/" element={<div>Test Success</div>} />
-                    </Routes>
-                </MemoryRouter>
-            </Provider>
-        )
+const emptyFieldsTest = 'It should show errors in the fields if user try to submit the from without credentials';
 
+const invalidCredentialesTest = "It Should render an alert with the message 'Email o contraseña invalidos' in case of submit invalid credentials";
+
+const networkErrorTest = "It Should handle Network errors, rendering an alert with the message 'Hay problemas con la red, revisa tu conexion a internet' ";
+
+const redirectToHomeTest = 'It Should redirect to Home page in case of valid credentials were submitted';
+
+describe('Login Form', () => {
+
+    it(emptyFieldsTest, async () => {
         userEvent.click(screen.getByRole("button", { name: "Inicia sesión" }));
-
         const errors = await screen.findAllByTestId("errorContainer");
         expect(errors.length).toBe(2);
-
     })
 
-    it("Debería mostrar un mensaje en caso de enviar credenciales inválidas", async () => {
+    it(invalidCredentialesTest, async () => {
         server.use(
             rest.post(apiLogin, (req, res, ctx) => {
                 return res(ctx.status(200), ctx.json({
                     "error": "No token"
                 }))
             }),
-        )
-        render(
-            <Provider store={store}>
-                <MemoryRouter initialEntries={['/login']}>
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/" element={<div>Test Success</div>} />
-                    </Routes>
-                </MemoryRouter>
-            </Provider>
         )
 
         userEvent.type(
@@ -103,17 +101,8 @@ describe('Formulario de Login', () => {
         expect(alert).toBeInTheDocument();
     })
 
-    it("Manejo correcto de errores de red", async () => {
-        render(
-            <Provider store={store}>
-                <MemoryRouter initialEntries={['/login']}>
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/" element={<div>Test Success</div>} />
-                    </Routes>
-                </MemoryRouter>
-            </Provider>
-        )
+    it(networkErrorTest, async () => {
+
         server.use(
             rest.post(apiLogin, (req, res, ctx) => {
                 return res(ctx.status(500), ctx.json({
@@ -140,17 +129,7 @@ describe('Formulario de Login', () => {
         expect(alert).toBeInTheDocument();
     })
 
-    it('Debe redirigir al home al enviar el formulario con credenciales válidas', async () => {
-        render(
-            <Provider store={store}>
-                <MemoryRouter initialEntries={['/login']}>
-                    <Routes>
-                        <Route path="/login" exact element={<Login />} />
-                        <Route path="/" element={<div>Test Success</div>} />
-                    </Routes>
-                </MemoryRouter>
-            </Provider>
-        )
+    it(redirectToHomeTest, async () => {
 
         userEvent.type(
             screen.getByTestId("email"),

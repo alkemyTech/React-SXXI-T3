@@ -6,8 +6,9 @@ import Swal from 'sweetalert2';
 import BackofficeList from "./BackofficeList/BackofficeList";
 import { apiUser } from '../../Services/apiService';
 import { errorAlert } from '../Feedback/AlertService';
-import { getBackofficeInfo, selectBackoffice } from '../../features/backoffice/backofficeSlice';
+import { cleanInfo, getBackofficeInfo, selectBackoffice } from '../../features/backoffice/backofficeSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 export const UsersList = () => {
@@ -15,7 +16,7 @@ export const UsersList = () => {
 	const route = 'users';	
 	const [search, setSearch] = useState('');
 	const [selectedRole, setSelectedRole] = useState('');
-	const [info, isFetching] = useSelector(selectBackoffice);
+	const {info, isFetching} = useSelector(selectBackoffice);
 	const dispatch = useDispatch();
 
 	const handleChange = debounce((event) => {
@@ -86,7 +87,10 @@ export const UsersList = () => {
 		})
 	}
 
-
+	useEffect(() => {
+        dispatch(getBackofficeInfo(route));
+        return () => (dispatch(cleanInfo()));
+    }, [dispatch])
 
 	return (
 		<>

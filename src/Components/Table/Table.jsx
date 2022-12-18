@@ -41,8 +41,8 @@ const Table = ({
     if (name === "image") {
       return (
         <>
-          <Button variant="link" onClick={() => handleShowModal(item[name])}>
-            {item[name]}
+          <Button style={{ textDecoration: 'none' }} variant="link" onClick={() => handleShowModal(item[name])}>
+            Ver
           </Button>
         </>
       );

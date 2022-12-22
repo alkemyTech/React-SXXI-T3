@@ -1,8 +1,8 @@
 ## Para iniciar necesitamos node y yarn
 ### Primero instalar las dependencias ejecutando: 
-`yarn install`
+`yarn install` o `npm install` (en caso de no tener yarn)
 ### Luego inicializar el proyecto con el comando: 
-`yarn start`
+`yarn start` o `npm start` (en caso de no tener yarn)
 
 ## Información general sobre la ONG
 ### Nombre de la institución: Somos Más

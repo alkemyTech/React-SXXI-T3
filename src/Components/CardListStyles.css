@@ -1,17 +1,25 @@
-.list-container{
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
+.row.list-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
-.card-info{
-    list-style: none;
-    padding: 10px 30px;
-    background-color: #A1D4F6;
-    border-radius: 5px;
+.card-info {
+  list-style: none;
+  padding: 10px 30px;
+  background-color: #a1d4f6;
+  border-radius: 5px;
 }
 
-.card-info:hover{
-    cursor: pointer;
-    background-color: #61BBF8;
+.card-info:hover {
+  cursor: pointer;
+  background-color: #61bbf8;
+}
+
+@media (max-width: 576px) {
+  .row.list-container{
+    margin: auto;
+  }
 }

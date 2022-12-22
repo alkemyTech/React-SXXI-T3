@@ -1,0 +1,37 @@
+.link-container {
+    border: 2px solid rgba(0, 0, 255, 0.1);
+    border-radius: 999px;
+    box-sizing: border-box;
+    margin: 20px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease-out;
+}
+
+.link-container:hover {
+    background-color: var(--color-card-tertiary);
+    transform: scale(105%);
+}
+
+.logo-container {
+    display: flex;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: contain;
+    mix-blend-mode: multiply;
+}
+
+[theme="dark"] .logo-container {
+    filter: invert(100%);
+    mix-blend-mode: screen;
+}
+
+@media screen and (min-width: 450px) {
+    .link-container:hover {
+        transform: scale(102%);
+    }
+}

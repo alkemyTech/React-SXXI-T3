@@ -1,0 +1,161 @@
+/* ¿Queres contribuir? */
+.donation_title {
+  position: absolute;
+  width: 458px;
+  height: 72px;
+  left: 142px;
+  top: 138px;
+
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 72px;
+
+  /* identical to box height */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.015em;
+
+  color: #000000;
+}
+
+.donation_button {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px 25px;
+  gap: 10px;
+
+  position: absolute;
+  width: 211px;
+  height: 68px;
+  left: 142px;
+  top: 242px;
+
+  background: #ff0000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.donation_button_text {
+  /* Contribuir */
+
+  width: 161px;
+  height: 48px;
+
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.015em;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.donation_button:hover,
+.donation_button:focus {
+  background-color: #f082ac;
+}
+
+/*DEJAR 🔽*/
+.donation_overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1200;
+  cursor: pointer;
+}
+
+.donation_overlay.hide{
+  display: none;
+}
+
+.scroll-lock{
+  overflow: hidden;
+}
+
+.donation_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+button.donation{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 3vh;
+  right: 3vw;
+  z-index: 1000;
+  border-radius: 100px;
+  text-align: center;
+  transition: width .5s;
+}
+
+.donation-svg{
+  height: 30px;
+  width: 30px;
+  filter: invert(82%) sepia(3%) saturate(2467%) hue-rotate(314deg) brightness(108%) contrast(103%);
+}
+
+[theme="dark"] .donation-svg{
+  filter: invert(7%) sepia(34%) saturate(5023%) hue-rotate(334deg) brightness(106%) contrast(113%);
+}
+
+span.donation-text{
+  display: none;
+  color: var(--text-color-on-background-inverted);
+}
+
+button > a{
+  text-decoration: unset;
+}
+
+@media (min-width: 768px) {
+  span.donation-text{
+    display: inline;
+    font-size: 18px;
+  }
+  
+  button.donation{
+    width: 160px
+  }
+  
+  .donation-svg{
+    margin-right: 5px;
+  }
+  
+  button > a {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+}
+

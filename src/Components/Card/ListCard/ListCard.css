@@ -1,0 +1,136 @@
+.list-container .list-card{
+  max-width: 448px;
+}
+
+.list-card {
+  box-sizing: border-box;
+  display: flex;
+  max-width: 448px;
+  width: 100%;
+  height: 230px;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.list-card.primary {
+  background-color: var(--color-card-primary);
+  border-color: var(--color-card-primary-strong);
+  color: var(--color-on-primary-card)
+}
+
+.list-card.secondary {
+  background-color: var(--color-card-secondary);
+  border-color: var(--color-card-secondary-strong);
+  color: var(--color-on-secondary-card)
+}
+
+.list-card.tertiary {
+  background-color: var(--color-card-tertiary);
+  border-color: var(--color-card-tertiary-strong);
+  color: var(--color-on-tertiary-card)
+}
+
+.list-card-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.lazy-img,  .lazy-img img{
+  min-height: 150px;
+  border-radius: var(--container-border);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.list-card-divimg{
+  width: 85%;
+  min-height: 200px;
+  position: relative;
+}
+
+.list-card-title{
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.581);
+  font-weight: 400;
+  width: 100%;
+  border-bottom-right-radius: var(--container-border);
+  border-bottom-left-radius: var(--container-border);
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.primary .list-card-title{
+  color: var(--color-on-primary-card-light)
+}
+.secondary .list-card-title{
+  color: var(--color-on-secondary-card-light)
+}
+.tertiary .list-card-title{
+  color: var(--color-on-tertiary-card-light)
+}
+
+.list-card-content {
+  width: 50%;
+}
+
+.list-card-text {
+  padding: 15px;
+  height: 70%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.list-card-btn {
+  height: 38px;
+  font-size: 13px;
+  margin: 0;
+}
+
+.list-card-link {
+  width: 80%;
+  align-self: center;
+}
+
+.list-card-btn-div {
+  display: flex;
+  height: 20%;
+  justify-content: center;
+}
+
+@media (max-width: 576px) {
+  .list-card {
+    font-size: 12px;
+    height: 170px;
+  }
+  
+  .list-card-title{
+    font-size: .85rem;
+  }
+  
+  .list-card-image img {
+    max-height: 150px;
+    min-height: 100px;
+  }
+  
+  .list-card-text {
+    padding: 10px;
+    margin-bottom: 0;
+  }
+  
+  .list-card-btn {
+    font-size: 12px;
+  }
+  
+  .list-card-divimg{
+    min-height: 145px;
+  }
+}

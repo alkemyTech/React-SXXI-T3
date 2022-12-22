@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+}
+
+.input {
+  padding: 10px 15px;
+  border: 1px solid var(--color-outline-border);
+  border-radius: var(--border);
+  background-color: var(--color-surface-variant);
+}
+
+.ck {
+  border-radius: var(--border);
+  height: 110px;
+}
+
+.error {
+  border-color: var(--color-primary);
+  border-width: 2px;
+}
+
+.error:focus {
+  outline-color: var(--color-primary);
+}
+
+.errorContainer {
+  color: var(--color-primary);
+}
+
+form .button {
+  margin: 1rem auto auto;
+  width: 80%;
+}
+
+textarea {
+  font-family: Poppins, sans-serif;
+  height: 110px;
+}
+
+@media (min-width: 576px) {
+  .ck {
+    height: 150px;
+  }
+
+  textarea {
+    font-family: Poppins, sans-serif;
+    height: 150px;
+  }
+}
